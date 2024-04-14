@@ -1,8 +1,9 @@
 import express from "express";
-import { getAllPropmts } from "./prompt.controller";
+import { getAll, create } from "./prompt.controller";
 
 const router = express.Router();
 
-router.get("/", getAllPropmts);
+router.get("/", getAll);
+router.post("/", create);
 
 export default router;

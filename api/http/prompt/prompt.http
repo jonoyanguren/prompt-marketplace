@@ -1,0 +1,18 @@
+@host = http://localhost:3001
+
+### Crear Prompt
+POST {{host}}/prompt
+Content-Type: application/json
+
+{
+  "title": "Para Marketing",
+  "description": "Descripción detallada del uso del prompt.",
+  "prompt": "Prompt de ejemplo",
+//   "createdBy": "62dafcb2f74d12d2f4d8c121", 
+  "platforms": ["ChatGPT", "Leonardo"],
+  "tags": ["ejemplo", "IA"]
+}
+
+### Listar Prompts
+GET {{host}}/prompt
+Content-Type: application/json
