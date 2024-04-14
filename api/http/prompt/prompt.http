@@ -1,6 +1,6 @@
-@host = http://localhost:3001
+@host = http://localhost:3202
 
-### Crear Prompt
+### Create Prompt
 POST {{host}}/prompt
 Content-Type: application/json
 
@@ -13,6 +13,14 @@ Content-Type: application/json
   "tags": ["ejemplo", "IA"]
 }
 
-### Listar Prompts
+### All prompts
+GET {{host}}/prompt
+Content-Type: application/json
+
+### Prompt by Id 
+GET {{host}}/prompt/661ba7c352bef1ecce12c143
+Content-Type: application/json
+
+### 
 GET {{host}}/prompt
 Content-Type: application/json

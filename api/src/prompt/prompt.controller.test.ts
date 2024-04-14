@@ -1,5 +1,6 @@
 import request from "supertest";
-import app from "../index";
+import mongoose from "mongoose";
+import { app } from "../app";
 
 const newPrompt = {
   title: "title",
@@ -10,7 +11,7 @@ const newPrompt = {
 };
 
 describe("PROMPT CONTROLLER", () => {
-  afterAll(() => {});
+  afterAll((done) => {});
 
   it("should get all prompts", async () => {
     const response = await request(app).get("/prompt");
@@ -27,7 +28,6 @@ describe("PROMPT CONTROLLER", () => {
 
   it("should create a new prompt", async () => {
     const response = await request(app).post("/prompt").send(newPrompt);
-    console.log(response.body);
     expect(response.status).toBe(201);
   });
 });
