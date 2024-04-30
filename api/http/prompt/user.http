@@ -1,0 +1,12 @@
+@host = http://localhost:3202
+
+### Create User
+POST {{host}}/user/register
+Content-Type: application/json
+
+{
+  "name": "Jon",
+  "email": "jon@jon.com",
+  "password": "password",
+  "username": "jon"
+}

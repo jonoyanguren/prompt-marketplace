@@ -35,11 +35,41 @@ export const create = async (req: Request, res: Response) => {
 };
 
 export const getOneById = async (req: Request, res: Response) => {
-  logger.info("HELLo");
   try {
     const { id } = req.params;
     const prompt = await Prompt.findById(id);
     res.status(200).json(prompt);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const upvotePrompt = async (req: Request, res: Response) => {
+  logger.info("UPVOTE");
+  try {
+    const { id } = req.params;
+    const prompt = await Prompt.findById(id);
+    if (!prompt) {
+      return res.status(404).json({ message: "Prompt not found" });
+    }
+    prompt.upvotes++;
+    const savedPrompt = await prompt.save();
+    res.status(200).json(savedPrompt);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const downvotePrompt = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const prompt = await Prompt.findById(id);
+    if (!prompt) {
+      return res.status(404).json({ message: "Prompt not found" });
+    }
+    prompt.downvotes++;
+    const savedPrompt = await prompt.save();
+    res.status(200).json(savedPrompt);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

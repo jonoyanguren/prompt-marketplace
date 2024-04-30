@@ -9,6 +9,8 @@ const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const logger_1 = require("./logger");
 const database_1 = __importDefault(require("./database"));
+const auth_routes_1 = __importDefault(require("./auth/auth.routes"));
+const user_routes_1 = __importDefault(require("./user/user.routes"));
 const prompt_routes_1 = __importDefault(require("./prompt/prompt.routes"));
 const app = (0, express_1.default)();
 exports.app = app;
@@ -19,6 +21,8 @@ app.use((req, res, next) => {
 });
 logger_1.logger.info("Testing logger");
 // Routes
+app.use("/auth", auth_routes_1.default);
+app.use("/user", user_routes_1.default);
 app.use("/prompt", prompt_routes_1.default);
 app.use("*", (req, res) => {
     res.status(404).json({ message: "Not Found" });

@@ -1,0 +1,17 @@
+@host = http://localhost:3202
+
+### Create Prompt
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+    "username": "jon",
+    "password": "password"
+}
+
+
+{{
+    // set access token and host for next requests
+    process.env.HTTPYAC_HOST = host
+    process.env.HTTPYAC_ACCESS_TOKEN = login.token
+}}

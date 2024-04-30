@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOneById = exports.create = exports.getAll = void 0;
+exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getAll = void 0;
 const prompt_model_1 = __importDefault(require("./prompt.model"));
 const logger_1 = require("../logger");
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -47,7 +47,6 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.create = create;
 const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    logger_1.logger.info("HELLo");
     try {
         const { id } = req.params;
         const prompt = yield prompt_model_1.default.findById(id);
@@ -58,3 +57,36 @@ const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.getOneById = getOneById;
+const upvotePrompt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    logger_1.logger.info("UPVOTE");
+    try {
+        const { id } = req.params;
+        const prompt = yield prompt_model_1.default.findById(id);
+        if (!prompt) {
+            return res.status(404).json({ message: "Prompt not found" });
+        }
+        prompt.upvotes++;
+        const savedPrompt = yield prompt.save();
+        res.status(200).json(savedPrompt);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.upvotePrompt = upvotePrompt;
+const downvotePrompt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const prompt = yield prompt_model_1.default.findById(id);
+        if (!prompt) {
+            return res.status(404).json({ message: "Prompt not found" });
+        }
+        prompt.downvotes++;
+        const savedPrompt = yield prompt.save();
+        res.status(200).json(savedPrompt);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.downvotePrompt = downvotePrompt;

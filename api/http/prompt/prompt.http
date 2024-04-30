@@ -3,6 +3,7 @@
 ### Create Prompt
 POST {{host}}/prompt
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzE0MjA4Zjg1YmVhN2M4NDNhYzhiZCIsInVzZXJuYW1lIjoiam9uIiwiZW1haWwiOiJqb25Aam9uLmNvbSIsImlhdCI6MTcxNDUwNTczN30.i50gvMkxgTY4tkYdf10m6NZUAQ4f-v9ETE7wz9MhlKo
 
 {
   "title": "Para Marketing",
@@ -24,3 +25,9 @@ Content-Type: application/json
 ### 
 GET {{host}}/prompt
 Content-Type: application/json
+
+###
+POST {{host}}/prompt/661ba7c352bef1ecce12c143/upvote
+
+###
+POST {{host}}/prompt/661ba7c352bef1ecce12c143/downvote
