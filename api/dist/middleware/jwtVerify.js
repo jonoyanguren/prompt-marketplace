@@ -8,11 +8,12 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const jwtVerify = (req, res, next) => {
     var _a;
     try {
-        console.log(req.headers.authorization);
         const token = (_a = req.headers.authorization) === null || _a === void 0 ? void 0 : _a.split(" ")[1];
         if (typeof token !== "string")
             return res.status(401).json({ message: "Unauthorized" });
         const decoded = jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET);
+        // @ts-ignore
+        req.user = decoded;
         next();
     }
     catch (error) {

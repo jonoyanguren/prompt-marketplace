@@ -1,17 +1,18 @@
 import { Request, Response } from "express";
 import Prompt from "./prompt.model";
 import { logger } from "../logger";
+import { ExtendedRequest } from "../types/extendedRequest";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const allPrompts = await Prompt.find();
+    const allPrompts = await Prompt.find().populate("createdBy");
     res.status(200).json(allPrompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const create = async (req: Request, res: Response) => {
+export const create = async (req: ExtendedRequest, res: Response) => {
   const { title, description, prompt, platforms, tags } = req.body;
 
   if (!title || !description || !prompt || !platforms) {
@@ -24,6 +25,7 @@ export const create = async (req: Request, res: Response) => {
       description,
       prompt,
       platforms,
+      createdBy: req.user?.id,
       tags: tags || [],
     });
 
@@ -37,7 +39,7 @@ export const create = async (req: Request, res: Response) => {
 export const getOneById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const prompt = await Prompt.findById(id);
+    const prompt = await Prompt.findById(id).populate("createdBy");
     res.status(200).json(prompt);
   } catch (error: any) {
     res.status(500).json({ message: error.message });

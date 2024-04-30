@@ -17,11 +17,11 @@ const promptSchema = new mongoose.Schema<PrompTypes>({
   title: { type: String, required: true },
   description: { type: String, required: true },
   prompt: { type: String, required: true },
-  //   createdBy: {
-  //     type: mongoose.Schema.Types.ObjectId,
-  //     ref: "User",
-  //     required: true,
-  //   },
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
   platforms: [{ type: String, required: true }],

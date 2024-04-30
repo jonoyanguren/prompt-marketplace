@@ -17,7 +17,7 @@ const prompt_model_1 = __importDefault(require("./prompt.model"));
 const logger_1 = require("../logger");
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allPrompts = yield prompt_model_1.default.find();
+        const allPrompts = yield prompt_model_1.default.find().populate("createdBy");
         res.status(200).json(allPrompts);
     }
     catch (error) {
@@ -26,6 +26,7 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.getAll = getAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const { title, description, prompt, platforms, tags } = req.body;
     if (!title || !description || !prompt || !platforms) {
         return res.status(400).json({ message: "All fields are required" });
@@ -36,6 +37,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             description,
             prompt,
             platforms,
+            createdBy: (_a = req.user) === null || _a === void 0 ? void 0 : _a.id,
             tags: tags || [],
         });
         const savedPrompt = yield newPrompt.save();
@@ -49,7 +51,7 @@ exports.create = create;
 const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const prompt = yield prompt_model_1.default.findById(id);
+        const prompt = yield prompt_model_1.default.findById(id).populate("createdBy");
         res.status(200).json(prompt);
     }
     catch (error) {
