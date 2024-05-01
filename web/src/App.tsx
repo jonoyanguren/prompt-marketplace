@@ -1,8 +1,7 @@
-import "./App.css";
 import { useTranslation } from "react-i18next";
-import "./i18n";
 import { Button, Input, Title } from "./components";
-import { ChangeEvent } from "react";
+
+import "./App.css";
 
 function App() {
   const { t, i18n } = useTranslation();
