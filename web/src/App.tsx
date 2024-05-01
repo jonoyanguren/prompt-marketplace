@@ -1,9 +1,9 @@
-import { Button } from "./components/Button";
-import { Input } from "./components/Input";
+import { Button, Input, Title } from "./components";
 
 function App() {
   return (
     <div className="App">
+      <Title>Title</Title>
       <Input name="name" value="value" onChange={() => {}} />
       <Button>Button</Button>
     </div>
