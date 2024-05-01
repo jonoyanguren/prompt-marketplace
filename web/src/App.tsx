@@ -19,13 +19,7 @@ function App() {
           </button>
         </div>
         <Title>{t("title")}</Title>
-        <Input
-          name={""}
-          value={""}
-          onChange={function (event: ChangeEvent<HTMLInputElement>): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+        <Input name={""} value={""} onChange={() => console.log("INPUT")} />
         <Button>Button</Button>
       </div>
     </>
