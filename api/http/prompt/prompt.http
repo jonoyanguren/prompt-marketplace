@@ -9,7 +9,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzE0MjA4Z
   "title": "Para Marketing",
   "description": "Descripción detallada del uso del prompt.",
   "prompt": "Prompt de ejemplo",
-//   "createdBy": "62dafcb2f74d12d2f4d8c121", 
+  "createdBy": "62dafcb2f74d12d2f4d8c121", 
   "platforms": ["ChatGPT", "Leonardo"],
   "tags": ["ejemplo", "IA"]
 }
