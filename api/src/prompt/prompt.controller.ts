@@ -47,7 +47,6 @@ export const getOneById = async (req: Request, res: Response) => {
 };
 
 export const upvotePrompt = async (req: Request, res: Response) => {
-  logger.info("UPVOTE");
   try {
     const { id } = req.params;
     const prompt = await Prompt.findById(id);

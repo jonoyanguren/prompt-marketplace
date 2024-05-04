@@ -14,7 +14,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getAll = void 0;
 const prompt_model_1 = __importDefault(require("./prompt.model"));
-const logger_1 = require("../logger");
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allPrompts = yield prompt_model_1.default.find().populate("createdBy");
@@ -60,7 +59,6 @@ const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.getOneById = getOneById;
 const upvotePrompt = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    logger_1.logger.info("UPVOTE");
     try {
         const { id } = req.params;
         const prompt = yield prompt_model_1.default.findById(id);

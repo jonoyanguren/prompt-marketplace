@@ -1,4 +1,4 @@
-import { Prompt, User } from "../../types";
+import { Prompt } from "../../types";
 import { AuthorCard } from "./AuthorCard";
 
 export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
