@@ -13,12 +13,15 @@ const promptSchema = new mongoose_1.default.Schema({
         ref: "User",
         required: true,
     },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
+    category: {
+        type: mongoose_1.default.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+    },
     platforms: [{ type: String, required: true }],
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
     tags: [{ type: String }],
-});
+}, { timestamps: true });
 const Prompt = mongoose_1.default.model("Prompt", promptSchema);
 exports.default = Prompt;

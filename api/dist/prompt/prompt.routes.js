@@ -12,4 +12,5 @@ router.post("/", jwtVerify_1.jwtVerify, prompt_controller_1.create);
 router.post("/:id/upvote", prompt_controller_1.upvotePrompt);
 router.post("/:id/downvote", prompt_controller_1.downvotePrompt);
 router.get("/:id", prompt_controller_1.getOneById);
+router.put("/:id", prompt_controller_1.update);
 exports.default = router;

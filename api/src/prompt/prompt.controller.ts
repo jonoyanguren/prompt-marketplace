@@ -5,7 +5,9 @@ import { ExtendedRequest } from "../types/extendedRequest";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
-    const allPrompts = await Prompt.find().populate("createdBy");
+    const allPrompts = await Prompt.find()
+      .populate("createdBy")
+      .populate("category");
     res.status(200).json(allPrompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -13,9 +15,9 @@ export const getAll = async (req: Request, res: Response) => {
 };
 
 export const create = async (req: ExtendedRequest, res: Response) => {
-  const { title, description, prompt, platforms, tags } = req.body;
+  const { title, description, prompt, platforms, tags, category } = req.body;
 
-  if (!title || !description || !prompt || !platforms) {
+  if (!title || !description || !prompt || !platforms || !category) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -26,6 +28,7 @@ export const create = async (req: ExtendedRequest, res: Response) => {
       prompt,
       platforms,
       createdBy: req.user?.id,
+      category,
       tags: tags || [],
     });
 
@@ -39,7 +42,9 @@ export const create = async (req: ExtendedRequest, res: Response) => {
 export const getOneById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const prompt = await Prompt.findById(id).populate("createdBy");
+    const prompt = await Prompt.findById(id)
+      .populate("createdBy")
+      .populate("category");
     res.status(200).json(prompt);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -71,6 +76,19 @@ export const downvotePrompt = async (req: Request, res: Response) => {
     prompt.downvotes++;
     const savedPrompt = await prompt.save();
     res.status(200).json(savedPrompt);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const update = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log("UPDATE");
+    const updatedPrompt = await Prompt.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(updatedPrompt);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

@@ -10,6 +10,7 @@ import authRoutes from "./auth/auth.routes";
 import userRoutes from "./user/user.routes";
 import promptRoutes from "./prompt/prompt.routes";
 import categoryRoutes from "./category/category.routes";
+import platformRoutes from "./platform/platform.routes";
 
 const app = express();
 app.use(cors());
@@ -27,6 +28,7 @@ app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/prompt", promptRoutes);
 app.use("/category", categoryRoutes);
+app.use("/platform", platformRoutes);
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Not Found" });
 });

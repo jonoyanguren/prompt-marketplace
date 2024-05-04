@@ -4,9 +4,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-const categorySchema = new mongoose_1.default.Schema({
-    title: { type: String, required: true },
-    description: { type: String, required: true },
+const platformSchema = new mongoose_1.default.Schema({
+    name: { type: String, required: true },
+    url: { type: String, required: true },
 }, { timestamps: true });
-const Category = mongoose_1.default.model("Category", categorySchema);
-exports.default = Category;
+const Platform = mongoose_1.default.model("Platform", platformSchema);
+exports.default = Platform;

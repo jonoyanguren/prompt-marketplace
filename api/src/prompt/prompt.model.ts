@@ -5,6 +5,7 @@ interface PrompTypes {
   description: string;
   prompt: string;
   createdBy: mongoose.Schema.Types.ObjectId;
+  category: mongoose.Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
   platforms: string[];
@@ -13,22 +14,28 @@ interface PrompTypes {
   tags: string[];
 }
 
-const promptSchema = new mongoose.Schema<PrompTypes>({
-  title: { type: String, required: true },
-  description: { type: String, required: true },
-  prompt: { type: String, required: true },
-  createdBy: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
+const promptSchema = new mongoose.Schema<PrompTypes>(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    prompt: { type: String, required: true },
+    createdBy: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    category: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
+    platforms: [{ type: String, required: true }],
+    upvotes: { type: Number, default: 0 },
+    downvotes: { type: Number, default: 0 },
+    tags: [{ type: String }],
   },
-  createdAt: { type: Date, default: Date.now },
-  updatedAt: { type: Date, default: Date.now },
-  platforms: [{ type: String, required: true }],
-  upvotes: { type: Number, default: 0 },
-  downvotes: { type: Number, default: 0 },
-  tags: [{ type: String }],
-});
+  { timestamps: true }
+);
 
 const Prompt = mongoose.model<PrompTypes>("Prompt", promptSchema);
 

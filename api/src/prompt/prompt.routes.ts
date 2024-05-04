@@ -5,6 +5,7 @@ import {
   getOneById,
   upvotePrompt,
   downvotePrompt,
+  update,
 } from "./prompt.controller";
 
 import { jwtVerify } from "../middleware/jwtVerify";
@@ -16,5 +17,6 @@ router.post("/", jwtVerify, create);
 router.post("/:id/upvote", upvotePrompt);
 router.post("/:id/downvote", downvotePrompt);
 router.get("/:id", getOneById);
+router.put("/:id", update);
 
 export default router;

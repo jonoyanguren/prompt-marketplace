@@ -12,11 +12,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getAll = void 0;
+exports.update = exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getAll = void 0;
 const prompt_model_1 = __importDefault(require("./prompt.model"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const allPrompts = yield prompt_model_1.default.find().populate("createdBy");
+        const allPrompts = yield prompt_model_1.default.find()
+            .populate("createdBy")
+            .populate("category");
         res.status(200).json(allPrompts);
     }
     catch (error) {
@@ -26,8 +28,8 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getAll = getAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const { title, description, prompt, platforms, tags } = req.body;
-    if (!title || !description || !prompt || !platforms) {
+    const { title, description, prompt, platforms, tags, category } = req.body;
+    if (!title || !description || !prompt || !platforms || !category) {
         return res.status(400).json({ message: "All fields are required" });
     }
     try {
@@ -37,6 +39,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             prompt,
             platforms,
             createdBy: (_a = req.user) === null || _a === void 0 ? void 0 : _a.id,
+            category,
             tags: tags || [],
         });
         const savedPrompt = yield newPrompt.save();
@@ -50,7 +53,9 @@ exports.create = create;
 const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
-        const prompt = yield prompt_model_1.default.findById(id).populate("createdBy");
+        const prompt = yield prompt_model_1.default.findById(id)
+            .populate("createdBy")
+            .populate("category");
         res.status(200).json(prompt);
     }
     catch (error) {
@@ -90,3 +95,17 @@ const downvotePrompt = (req, res) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.downvotePrompt = downvotePrompt;
+const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        console.log("UPDATE");
+        const updatedPrompt = yield prompt_model_1.default.findByIdAndUpdate(id, req.body, {
+            new: true,
+        });
+        res.status(200).json(updatedPrompt);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.update = update;

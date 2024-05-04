@@ -1,32 +1,25 @@
 @host = http://localhost:3202
 
-# "Marketing": "663693af02ea6db5c7908464",
-# "Finanzas": "6636941102ea6db5c7908466",
-# "Emprendimiento": "6636942602ea6db5c7908468",
-# "Legal": "6636943a02ea6db5c790846a",
-# "Programación": "6636945702ea6db5c790846c",
-# "Diseño": "6636946d02ea6db5c790846e",
-
-### Create category
-POST {{host}}/category
+### Create platform
+POST {{host}}/platform
 Content-Type: application/json
 
 
 {
-  "title": "Moda",
-  "description": "Moda test"
+  "name": "Chat GPT",
+  "url": "https://chatgpt.com/"
 }
 
-### All categories
-GET {{host}}/category
+### All platform
+GET {{host}}/platform
 Content-Type: application/json
 
-### Category by Id 
-GET {{host}}/category/663693af02ea6db5c7908464
+### platform by Id 
+GET {{host}}/platform/663693af02ea6db5c7908464
 Content-Type: application/json
 
-### Update category
-PUT {{host}}/category/6636946d02ea6db5c790846e
+### Update platform
+PUT {{host}}/platform/6636946d02ea6db5c790846e
 Content-Type: application/json
 
 {

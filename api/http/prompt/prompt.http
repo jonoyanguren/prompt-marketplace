@@ -10,6 +10,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2MzE0MjA4Z
   "description": "Descripción detallada del uso del prompt.",
   "prompt": "Prompt de ejemplo",
   "createdBy": "62dafcb2f74d12d2f4d8c121", 
+  "category": "6636945702ea6db5c790846c",
   "platforms": ["ChatGPT", "Leonardo"],
   "tags": ["ejemplo", "IA"]
 }
@@ -19,15 +20,23 @@ GET {{host}}/prompt
 Content-Type: application/json
 
 ### Prompt by Id 
-GET {{host}}/prompt/661ba7c352bef1ecce12c143
+GET {{host}}/prompt/663656f7ceee3bfadd4201be
 Content-Type: application/json
 
-### 
-GET {{host}}/prompt
+### Upvote Prompt
+POST {{host}}/prompt/663656f7ceee3bfadd4201be/upvote
 Content-Type: application/json
 
-###
-POST {{host}}/prompt/661ba7c352bef1ecce12c143/upvote
+### Update Prompt
+PUT {{host}}/prompt/663656f7ceee3bfadd4201be
+Content-Type: application/json
 
-###
-POST {{host}}/prompt/661ba7c352bef1ecce12c143/downvote
+{
+  "title": "Para Marketing Editado",
+  "description": "Descripción detallada del uso del prompt editado.",
+  "prompt": "Prompt de ejemplo PROMPET",
+  "createdBy": "663698ab1e009d0176327186", 
+  "category": "6636945702ea6db5c790846c",
+  "platforms": ["ChatGPT", "Leonardo"],
+  "tags": ["ejemplo", "IA"]
+}

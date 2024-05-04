@@ -9,8 +9,6 @@ const userSchema = new mongoose_1.default.Schema({
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-    createdAt: { type: Date, default: Date.now },
-    updatedAt: { type: Date, default: Date.now },
-});
+}, { timestamps: true });
 const User = mongoose_1.default.model("User", userSchema);
 exports.default = User;
