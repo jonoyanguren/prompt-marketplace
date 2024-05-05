@@ -21,7 +21,7 @@ GET {{host}}/platform/663693af02ea6db5c7908464
 Content-Type: application/json
 
 ### Update platform
-PUT {{host}}/platform/66369db9c8239b29feee4bf5
+PUT {{host}}/platform/6637ba3b207c779199a63edf
 Content-Type: application/json
 
 {
