@@ -192,10 +192,7 @@ export const seedPrompts = async (req: Request, res: Response) => {
       createdBy: "",
     };
 
-    prompt.categories =
-      finalCategoriesIds[
-        Math.floor(Math.random() * finalCategoriesIds.length) + 1
-      ];
+    prompt.categories = selectRandomElementsFromArray(finalCategoriesIds, 2);
     prompt.platforms = selectRandomElementsFromArray(finalPlatformsIds, 2);
     prompt.createdBy = finalUsersIds[0];
 

@@ -23,7 +23,7 @@ export const CategoriesFilter = ({
                 : "border-gray-300"
             }`}
           >
-            {category.title} - {category._id}
+            {category.title}
           </div>
         );
       })}

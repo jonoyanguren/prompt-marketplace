@@ -24,11 +24,13 @@ const promptSchema = new mongoose.Schema<PrompTypes>(
       ref: "User",
       required: true,
     },
-    categories: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
+    categories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+      },
+    ],
     platforms: [
       {
         type: mongoose.Schema.Types.ObjectId,
