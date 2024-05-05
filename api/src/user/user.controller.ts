@@ -3,8 +3,12 @@ import bcrypt from "bcrypt";
 import User from "./user.model";
 
 export const getAll = async (req: Request, res: Response) => {
-  console.log("GET ALL USERS");
-  return res.status(200).json({ message: "GET ALL USERS" });
+  try {
+    const allUsers = await User.find();
+    res.status(200).json(allUsers);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
 };
 
 export const register = async (req: Request, res: Response) => {

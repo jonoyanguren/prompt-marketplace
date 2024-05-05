@@ -28,6 +28,9 @@ const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { id } = req.params;
         const platform = yield platform_model_1.default.findById(id);
+        if (!platform) {
+            return res.status(404).json({ message: "Platform not found" });
+        }
         res.status(200).json(platform);
     }
     catch (error) {

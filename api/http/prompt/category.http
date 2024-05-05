@@ -1,12 +1,5 @@
 @host = http://localhost:3202
 
-# "Marketing": "663693af02ea6db5c7908464",
-# "Finanzas": "6636941102ea6db5c7908466",
-# "Emprendimiento": "6636942602ea6db5c7908468",
-# "Legal": "6636943a02ea6db5c790846a",
-# "Programación": "6636945702ea6db5c790846c",
-# "Diseño": "6636946d02ea6db5c790846e",
-
 ### Create category
 POST {{host}}/category
 Content-Type: application/json

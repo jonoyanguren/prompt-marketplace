@@ -16,8 +16,13 @@ exports.register = exports.getAll = void 0;
 const bcrypt_1 = __importDefault(require("bcrypt"));
 const user_model_1 = __importDefault(require("./user.model"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log("GET ALL USERS");
-    return res.status(200).json({ message: "GET ALL USERS" });
+    try {
+        const allUsers = yield user_model_1.default.find();
+        res.status(200).json(allUsers);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
 });
 exports.getAll = getAll;
 const register = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

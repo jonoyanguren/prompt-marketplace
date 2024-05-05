@@ -28,6 +28,9 @@ const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     try {
         const { id } = req.params;
         const category = yield category_model_1.default.findById(id);
+        if (!category) {
+            return res.status(404).json({ message: "Category not found" });
+        }
         res.status(200).json(category);
     }
     catch (error) {
@@ -49,6 +52,9 @@ exports.create = create;
 const update = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { id } = req.params;
+        if (!id) {
+            return res.status(400).json({ message: "Category id is required" });
+        }
         const updatedCategory = yield category_model_1.default.findByIdAndUpdate(id, req.body, {
             new: true,
         });

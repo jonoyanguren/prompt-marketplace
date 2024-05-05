@@ -23,6 +23,9 @@ function App() {
         <Link className="mr-4 text-teal-600" to="/">
           {t("header.home")}
         </Link>
+        <Link className="mr-4 text-teal-600" to="/how-it-works">
+          {t("header.howItWorks")}
+        </Link>
         <Link className="mr-4 text-teal-600" to="/become-creator">
           {t("header.becomeCreator")}
         </Link>

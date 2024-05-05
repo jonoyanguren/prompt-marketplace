@@ -14,6 +14,11 @@ export const getOneById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const platform = await Platform.findById(id);
+
+    if (!platform) {
+      return res.status(404).json({ message: "Platform not found" });
+    }
+
     res.status(200).json(platform);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
