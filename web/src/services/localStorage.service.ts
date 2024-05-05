@@ -3,7 +3,8 @@ export const save = (key: string, value: string) => {
 };
 
 export const get = (key: string) => {
-  return localStorage.getItem(key);
+  const element = localStorage.getItem(key);
+  return JSON.parse(element || "{}");
 };
 
 export const remove = (key: string) => {

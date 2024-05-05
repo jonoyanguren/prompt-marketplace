@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.update = exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getAll = void 0;
+exports.update = exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getPromptsByPlatform = exports.getPromptsByCategory = exports.getAll = void 0;
 const prompt_model_1 = __importDefault(require("./prompt.model"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
@@ -27,6 +27,34 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     }
 });
 exports.getAll = getAll;
+const getPromptsByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { id } = req.params;
+        const prompts = yield prompt_model_1.default.find({ categories: id })
+            .populate("createdBy")
+            .populate("platforms")
+            .populate("categories");
+        res.status(200).json(prompts);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.getPromptsByCategory = getPromptsByCategory;
+const getPromptsByPlatform = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        const { platform } = req.params;
+        const prompts = yield prompt_model_1.default.find({ platforms: platform })
+            .populate("createdBy")
+            .populate("platforms")
+            .populate("categories");
+        res.status(200).json(prompts);
+    }
+    catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+exports.getPromptsByPlatform = getPromptsByPlatform;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const { title, description, prompt, platforms, tags, categories } = req.body;

@@ -1,8 +1,6 @@
 import { Prompt } from "../../types";
 
 export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
-  console.log(prompt);
-
   return (
     <div className="p-6 rounded-xl shadow-lg bg-white text-left">
       <p className="font-bold text-lg text-gray-900">{prompt.title}</p>

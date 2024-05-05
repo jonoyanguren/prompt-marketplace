@@ -16,3 +16,23 @@ export const getAllPrompts = async (): Promise<Prompt[]> => {
     }
   }
 };
+
+export const getPromptsByCategory = async ({
+  categoryId,
+}: {
+  categoryId: string;
+}): Promise<Prompt[]> => {
+  try {
+    const response = await axios.get(
+      `${API_URL}/prompt/category/${categoryId}`
+    );
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};

@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import Prompt from "./prompt.model";
-import { logger } from "../logger";
 import { ExtendedRequest } from "../types/extendedRequest";
 
 export const getAll = async (req: Request, res: Response) => {
@@ -10,6 +9,32 @@ export const getAll = async (req: Request, res: Response) => {
       .populate("platforms")
       .populate("categories");
     res.status(200).json(allPrompts);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPromptsByCategory = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const prompts = await Prompt.find({ categories: id })
+      .populate("createdBy")
+      .populate("platforms")
+      .populate("categories");
+    res.status(200).json(prompts);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPromptsByPlatform = async (req: Request, res: Response) => {
+  try {
+    const { platform } = req.params;
+    const prompts = await Prompt.find({ platforms: platform })
+      .populate("createdBy")
+      .populate("platforms")
+      .populate("categories");
+    res.status(200).json(prompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
