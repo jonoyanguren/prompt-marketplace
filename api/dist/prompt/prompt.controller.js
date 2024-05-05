@@ -18,7 +18,8 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allPrompts = yield prompt_model_1.default.find()
             .populate("createdBy")
-            .populate("category");
+            .populate("platforms")
+            .populate("categories");
         res.status(200).json(allPrompts);
     }
     catch (error) {
@@ -28,8 +29,8 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getAll = getAll;
 const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
-    const { title, description, prompt, platforms, tags, category } = req.body;
-    if (!title || !description || !prompt || !platforms || !category) {
+    const { title, description, prompt, platforms, tags, categories } = req.body;
+    if (!title || !description || !prompt || !platforms || !categories) {
         return res.status(400).json({ message: "All fields are required" });
     }
     try {
@@ -39,7 +40,7 @@ const create = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             prompt,
             platforms,
             createdBy: (_a = req.user) === null || _a === void 0 ? void 0 : _a.id,
-            category,
+            categories,
             tags: tags || [],
         });
         const savedPrompt = yield newPrompt.save();
@@ -55,7 +56,8 @@ const getOneById = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         const { id } = req.params;
         const prompt = yield prompt_model_1.default.findById(id)
             .populate("createdBy")
-            .populate("category");
+            .populate("platforms")
+            .populate("categories");
         res.status(200).json(prompt);
     }
     catch (error) {

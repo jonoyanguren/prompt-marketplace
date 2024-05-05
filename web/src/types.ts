@@ -3,19 +3,34 @@ export interface User {
   username: string;
   name: string;
   email: string;
-  createdAt: Date;
-  updatedAt: Date;
+}
+
+export interface Category {
+  _id: string;
+  title: string;
+  description: string;
+  bgColor: string;
+  textColor: string;
+}
+
+export interface Platform {
+  _id: string;
+  code: string;
+  name: string;
+  url: string;
+  logo: string;
 }
 
 export interface Prompt {
   _id: string;
   title: string;
   description: string;
+  categories: Category[];
   prompt: string;
   createdBy: User;
   createdAt: Date;
   updatedAt: Date;
-  platforms: string[];
+  platforms: Platform[];
   upvotes: number;
   downvotes: number;
   tags: string[];

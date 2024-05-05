@@ -6,8 +6,10 @@ Content-Type: application/json
 
 
 {
-  "name": "Chat GPT",
-  "url": "https://chatgpt.com/"
+  "code": "midjourney",
+  "name": "Midjourney",
+  "url": "https://www.midjourney.com/home",
+  "logo": "https://en.wikipedia.org/wiki/File:Midjourney_Emblem.png#/media/File:Midjourney_Emblem.png"
 }
 
 ### All platform
@@ -19,10 +21,9 @@ GET {{host}}/platform/663693af02ea6db5c7908464
 Content-Type: application/json
 
 ### Update platform
-PUT {{host}}/platform/6636946d02ea6db5c790846e
+PUT {{host}}/platform/66369db9c8239b29feee4bf5
 Content-Type: application/json
 
 {
-  "title": "Diseño",
-  "description": "Esta categoría incluye prompts relacionados con la creación de diseños visuales, experiencia de usuario, branding y diseño gráfico. Abarca temas como selección de paletas de color, composición de layouts, diseño de interfaces, creación de logotipos y desarrollo de identidad de marca. Estos prompts ayudarán a los usuarios a mejorar la apariencia y la usabilidad de sus productos y servicios."
+  "logo": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/480px-ChatGPT_logo.svg.png"
 }

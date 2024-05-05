@@ -5,10 +5,10 @@ interface PrompTypes {
   description: string;
   prompt: string;
   createdBy: mongoose.Schema.Types.ObjectId;
-  category: mongoose.Schema.Types.ObjectId;
+  categories: mongoose.Schema.Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
-  platforms: string[];
+  platforms: mongoose.Schema.Types.ObjectId[];
   upvotes: number;
   downvotes: number;
   tags: string[];
@@ -24,12 +24,20 @@ const promptSchema = new mongoose.Schema<PrompTypes>(
       ref: "User",
       required: true,
     },
-    category: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Category",
-      required: true,
-    },
-    platforms: [{ type: String, required: true }],
+    categories: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Category",
+        required: true,
+      },
+    ],
+    platforms: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Platform",
+        required: true,
+      },
+    ],
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
     tags: [{ type: String }],

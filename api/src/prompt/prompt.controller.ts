@@ -7,7 +7,8 @@ export const getAll = async (req: Request, res: Response) => {
   try {
     const allPrompts = await Prompt.find()
       .populate("createdBy")
-      .populate("category");
+      .populate("platforms")
+      .populate("categories");
     res.status(200).json(allPrompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -15,9 +16,9 @@ export const getAll = async (req: Request, res: Response) => {
 };
 
 export const create = async (req: ExtendedRequest, res: Response) => {
-  const { title, description, prompt, platforms, tags, category } = req.body;
+  const { title, description, prompt, platforms, tags, categories } = req.body;
 
-  if (!title || !description || !prompt || !platforms || !category) {
+  if (!title || !description || !prompt || !platforms || !categories) {
     return res.status(400).json({ message: "All fields are required" });
   }
 
@@ -28,7 +29,7 @@ export const create = async (req: ExtendedRequest, res: Response) => {
       prompt,
       platforms,
       createdBy: req.user?.id,
-      category,
+      categories,
       tags: tags || [],
     });
 
@@ -44,7 +45,8 @@ export const getOneById = async (req: Request, res: Response) => {
     const { id } = req.params;
     const prompt = await Prompt.findById(id)
       .populate("createdBy")
-      .populate("category");
+      .populate("platforms")
+      .populate("categories");
     res.status(200).json(prompt);
   } catch (error: any) {
     res.status(500).json({ message: error.message });

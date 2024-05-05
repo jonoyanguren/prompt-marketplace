@@ -28,7 +28,7 @@ export const Home = () => {
   return (
     <div>
       <Title>{t("home.title")}</Title>
-      <div className="flex gap-2">
+      <div className="grid grid-cols-3 gap-8 mt-12">
         {prompts.map((prompt) => (
           <PromptItem key={prompt._id} prompt={prompt} />
         ))}

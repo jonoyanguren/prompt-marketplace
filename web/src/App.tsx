@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import routes, { Routes } from "./routes.tsx";
+import { Routes } from "./routes.tsx";
 
 import "./App.css";
 
@@ -22,6 +22,9 @@ function App() {
       <header>
         <Link className="mr-4 text-teal-600" to="/">
           {t("header.home")}
+        </Link>
+        <Link className="mr-4 text-teal-600" to="/platforms">
+          {t("header.platforms")}
         </Link>
         <Link className="mr-4 text-teal-600" to="/how-it-works">
           {t("header.howItWorks")}

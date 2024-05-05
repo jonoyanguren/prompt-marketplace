@@ -1,19 +1,16 @@
 import { time } from "console";
 import mongoose from "mongoose";
 
-interface PlatformTypes {
-  name: string;
-  url: string;
-}
-
-const platformSchema = new mongoose.Schema<PlatformTypes>(
+const platformSchema = new mongoose.Schema(
   {
+    code: { type: String, required: true },
     name: { type: String, required: true },
     url: { type: String, required: true },
+    logo: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-const Platform = mongoose.model<PlatformTypes>("Platform", platformSchema);
+const Platform = mongoose.model("Platform", platformSchema);
 
 export default Platform;

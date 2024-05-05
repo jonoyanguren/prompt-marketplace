@@ -13,12 +13,20 @@ const promptSchema = new mongoose_1.default.Schema({
         ref: "User",
         required: true,
     },
-    category: {
-        type: mongoose_1.default.Schema.Types.ObjectId,
-        ref: "Category",
-        required: true,
-    },
-    platforms: [{ type: String, required: true }],
+    categories: [
+        {
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: "Category",
+            required: true,
+        },
+    ],
+    platforms: [
+        {
+            type: mongoose_1.default.Schema.Types.ObjectId,
+            ref: "Platform",
+            required: true,
+        },
+    ],
     upvotes: { type: Number, default: 0 },
     downvotes: { type: Number, default: 0 },
     tags: [{ type: String }],

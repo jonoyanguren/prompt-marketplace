@@ -7,6 +7,8 @@ const mongoose_1 = __importDefault(require("mongoose"));
 const categorySchema = new mongoose_1.default.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
+    bgColor: { type: String, required: true },
+    textColor: { type: String, required: true },
 }, { timestamps: true });
 const Category = mongoose_1.default.model("Category", categorySchema);
 exports.default = Category;
