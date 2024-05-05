@@ -14,6 +14,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.update = exports.downvotePrompt = exports.upvotePrompt = exports.getOneById = exports.create = exports.getPromptsByPlatform = exports.getPromptsByCategory = exports.getAll = void 0;
 const prompt_model_1 = __importDefault(require("./prompt.model"));
+const mongoose_1 = __importDefault(require("mongoose"));
 const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allPrompts = yield prompt_model_1.default.find()
@@ -29,11 +30,29 @@ const getAll = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.getAll = getAll;
 const getPromptsByCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
+        console.log("BY CATEGORY");
         const { id } = req.params;
-        const prompts = yield prompt_model_1.default.find({ categories: id })
+        console.log("ID", id);
+        console.log(new mongoose_1.default.Types.ObjectId(id));
+        // const prompts = await Prompt.find({
+        //   "createdBy._id": "6637b77a156ebb7b8a11fcc8",
+        // });
+        const allPrompts = yield prompt_model_1.default.find()
+            .populate("categories")
+            .populate("createdBy")
+            .populate("platforms");
+        // const db = mongoose.connection.db;
+        // const prompts = await db
+        //   .collection("prompts")
+        //   .find({ categories: id })
+        //   .toArray();
+        const prompts = yield prompt_model_1.default.find({
+            categories: id,
+        })
             .populate("createdBy")
             .populate("platforms")
             .populate("categories");
+        console.log("PROMPTS", prompts.length);
         res.status(200).json(prompts);
     }
     catch (error) {

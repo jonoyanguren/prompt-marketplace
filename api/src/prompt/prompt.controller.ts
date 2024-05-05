@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import Prompt from "./prompt.model";
 import { ExtendedRequest } from "../types/extendedRequest";
+import mongoose from "mongoose";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -16,11 +17,34 @@ export const getAll = async (req: Request, res: Response) => {
 
 export const getPromptsByCategory = async (req: Request, res: Response) => {
   try {
+    console.log("BY CATEGORY");
     const { id } = req.params;
-    const prompts = await Prompt.find({ categories: id })
+    console.log("ID", id);
+    console.log(new mongoose.Types.ObjectId(id));
+
+    // const prompts = await Prompt.find({
+    //   "createdBy._id": "6637b77a156ebb7b8a11fcc8",
+    // });
+
+    const allPrompts = await Prompt.find()
+      .populate("categories")
+      .populate("createdBy")
+      .populate("platforms");
+
+    // const db = mongoose.connection.db;
+    // const prompts = await db
+    //   .collection("prompts")
+    //   .find({ categories: id })
+    //   .toArray();
+
+    const prompts = await Prompt.find({
+      categories: id,
+    })
       .populate("createdBy")
       .populate("platforms")
       .populate("categories");
+
+    console.log("PROMPTS", prompts.length);
     res.status(200).json(prompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });

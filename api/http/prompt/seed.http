@@ -1,0 +1,13 @@
+@host = http://localhost:3202
+
+### Seed categories
+GET {{host}}/seed/categories
+Content-Type: application/json
+
+### Seed users
+GET {{host}}/seed/users
+Content-Type: application/json
+
+### Seed prompts
+GET {{host}}/seed/prompts
+Content-Type: application/json

@@ -16,6 +16,7 @@ const prompt_routes_1 = __importDefault(require("./prompt/prompt.routes"));
 const category_routes_1 = __importDefault(require("./category/category.routes"));
 const platform_routes_1 = __importDefault(require("./platform/platform.routes"));
 const config_routes_1 = __importDefault(require("./config/config.routes"));
+const seed_routes_1 = __importDefault(require("./data/seed.routes"));
 const app = (0, express_1.default)();
 exports.app = app;
 app.use(cors());
@@ -32,6 +33,7 @@ app.use("/prompt", prompt_routes_1.default);
 app.use("/category", category_routes_1.default);
 app.use("/platform", platform_routes_1.default);
 app.use("/config", config_routes_1.default);
+app.use("/seed", seed_routes_1.default);
 app.use("*", (req, res) => {
     res.status(404).json({ message: "Not Found" });
 });

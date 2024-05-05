@@ -11,7 +11,7 @@ export const CategoriesFilter = ({
   const config = get("config");
 
   return (
-    <div className="flex gap-2 justify-center p-4">
+    <div className="flex gap-2 justify-center p-4 flex-wrap">
       {config.categories.map((category: Category) => {
         return (
           <div
@@ -23,7 +23,7 @@ export const CategoriesFilter = ({
                 : "border-gray-300"
             }`}
           >
-            {category.title}
+            {category.title} - {category._id}
           </div>
         );
       })}

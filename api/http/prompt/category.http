@@ -5,8 +5,10 @@ POST {{host}}/category
 Content-Type: application/json
 
 {
-  "title": "Moda",
-  "description": "Moda test"
+  "title": "OTRA",
+  "description": "Moda test",
+  "bgColor": "#edbbfe",
+  "textColor": "#6c2bd9"
 }
 
 ### All categories

@@ -5,7 +5,7 @@ interface PrompTypes {
   description: string;
   prompt: string;
   createdBy: mongoose.Schema.Types.ObjectId;
-  categories: mongoose.Schema.Types.ObjectId[];
+  categories: mongoose.Schema.Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
   platforms: mongoose.Schema.Types.ObjectId[];
@@ -24,13 +24,11 @@ const promptSchema = new mongoose.Schema<PrompTypes>(
       ref: "User",
       required: true,
     },
-    categories: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Category",
-        required: true,
-      },
-    ],
+    categories: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Category",
+      required: true,
+    },
     platforms: [
       {
         type: mongoose.Schema.Types.ObjectId,
