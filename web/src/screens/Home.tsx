@@ -7,6 +7,7 @@ import { getAllPrompts, getPromptsByCategory } from "../api/prompt";
 import { Prompt } from "../types";
 import { PromptItem } from "../components/Prompt/PromptItem";
 import { CategoriesFilter } from "../components/Home/CategoriesFilter";
+import { NoResults } from "../components/Prompt/NoResults";
 
 export const Home = () => {
   const { t } = useTranslation();
@@ -41,6 +42,7 @@ export const Home = () => {
           selectedCategory={selectedCategory}
         />
       </div>
+      {prompts.length === 0 && <NoResults />}
       <div className="grid grid-cols-3 gap-8">
         {prompts.map((prompt) => (
           <PromptItem key={prompt._id} prompt={prompt} />
