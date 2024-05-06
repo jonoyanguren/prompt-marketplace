@@ -8,7 +8,7 @@
     "dbstart": "brew services start mongodb-community",
     "build": "npx tsc",
     "start": "tsc && node dist/app.js",
-    "dev": "tsc-watch --onSuccess \"node dist/app.js\""
+    "dev": "tsc -w & node dist/app.js"
   },
   "author": "",
   "license": "ISC",
@@ -37,6 +37,7 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "tsc-watch": "^6.2.0",
+    "tsx": "^4.9.3",
     "typescript": "^5.4.5"
   }
 }

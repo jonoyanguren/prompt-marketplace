@@ -1,10 +1,7 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const mongoose_1 = __importDefault(require("mongoose"));
-const promptSchema = new mongoose_1.default.Schema({
+var mongoose_1 = require("mongoose");
+var promptSchema = new mongoose_1.default.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     prompt: { type: String, required: true },
@@ -32,5 +29,5 @@ const promptSchema = new mongoose_1.default.Schema({
     tags: [{ type: String }],
 }, { timestamps: true });
 promptSchema.index({ title: "text", description: "text" });
-const Prompt = mongoose_1.default.model("Prompt", promptSchema);
+var Prompt = mongoose_1.default.model("Prompt", promptSchema);
 exports.default = Prompt;

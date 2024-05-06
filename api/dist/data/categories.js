@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const categories = [
+exports.categories = void 0;
+exports.categories = [
     {
         title: "Marketing",
         description: "Esta categoría incluye prompts relacionados con estrategias y técnicas de marketing para atraer, llegar y retener clientes. Abarca temas como publicidad, redes sociales, email marketing, SEO, análisis de datos de mercado, desarrollo de campañas, creación de contenido y métricas de rendimiento. Los prompts en esta sección ayudarán a los usuarios a idear, planificar y optimizar sus esfuerzos de marketing.",
@@ -44,4 +45,3 @@ const categories = [
         textColor: "#6c2bd9",
     },
 ];
-exports.default = categories;

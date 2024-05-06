@@ -1,20 +1,6 @@
 import mongoose from "mongoose";
 
-interface PrompTypes {
-  title: string;
-  description: string;
-  prompt: string;
-  createdBy: mongoose.Schema.Types.ObjectId;
-  categories: mongoose.Schema.Types.ObjectId;
-  createdAt: Date;
-  updatedAt: Date;
-  platforms: mongoose.Schema.Types.ObjectId[];
-  upvotes: number;
-  downvotes: number;
-  tags: string[];
-}
-
-const promptSchema = new mongoose.Schema<PrompTypes>(
+const promptSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
@@ -45,6 +31,7 @@ const promptSchema = new mongoose.Schema<PrompTypes>(
   { timestamps: true }
 );
 
-const Prompt = mongoose.model<PrompTypes>("Prompt", promptSchema);
+promptSchema.index({ title: "text", description: "text" });
+const Prompt = mongoose.model("Prompt", promptSchema);
 
 export default Prompt;

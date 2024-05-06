@@ -17,25 +17,7 @@ export const getAll = async (req: Request, res: Response) => {
 
 export const getPromptsByCategory = async (req: Request, res: Response) => {
   try {
-    console.log("BY CATEGORY");
     const { id } = req.params;
-    console.log("ID", id);
-    console.log(new mongoose.Types.ObjectId(id));
-
-    // const prompts = await Prompt.find({
-    //   "createdBy._id": "6637b77a156ebb7b8a11fcc8",
-    // });
-
-    const allPrompts = await Prompt.find()
-      .populate("categories")
-      .populate("createdBy")
-      .populate("platforms");
-
-    // const db = mongoose.connection.db;
-    // const prompts = await db
-    //   .collection("prompts")
-    //   .find({ categories: id })
-    //   .toArray();
 
     const prompts = await Prompt.find({
       categories: id,
@@ -44,7 +26,6 @@ export const getPromptsByCategory = async (req: Request, res: Response) => {
       .populate("platforms")
       .populate("categories");
 
-    console.log("PROMPTS", prompts.length);
     res.status(200).json(prompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
@@ -135,11 +116,27 @@ export const downvotePrompt = async (req: Request, res: Response) => {
 export const update = async (req: ExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
-    console.log("UPDATE");
     const updatedPrompt = await Prompt.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.status(200).json(updatedPrompt);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPromptsByText = async (req: Request, res: Response) => {
+  try {
+    const { text } = req.params;
+    if (!text) getAll(req, res);
+    const prompts = await Prompt.find({
+      $text: { $search: text },
+    })
+      .populate("createdBy")
+      .populate("platforms")
+      .populate("categories");
+
+    res.status(200).json(prompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

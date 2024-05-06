@@ -43,8 +43,17 @@ app.options("*", cors());
 connectDB();
 
 //Server
-app.listen(process.env.PORT, () => {
-  console.info(`Magic is happening in port: ${process.env.PORT}`);
-});
+app
+  .listen(process.env.PORT, () => {
+    console.info(`Magic is happening in port: ${process.env.PORT}`);
+  })
+  .on("error", function (err) {
+    process.once("SIGUSR2", function () {
+      process.kill(process.pid, "SIGUSR2");
+    });
+    process.on("SIGINT", function () {
+      process.kill(process.pid, "SIGINT");
+    });
+  });
 
 export { app };

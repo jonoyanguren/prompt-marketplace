@@ -1,12 +1,9 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-const express_1 = __importDefault(require("express"));
-const prompt_controller_1 = require("./prompt.controller");
-const jwtVerify_1 = require("../middleware/jwtVerify");
-const router = express_1.default.Router();
+var express_1 = require("express");
+var prompt_controller_1 = require("./prompt.controller");
+var jwtVerify_1 = require("../middleware/jwtVerify");
+var router = express_1.default.Router();
 router.get("/", prompt_controller_1.getAll);
 router.post("/", jwtVerify_1.jwtVerify, prompt_controller_1.create);
 router.get("/category/:id", prompt_controller_1.getPromptsByCategory);
