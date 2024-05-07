@@ -10,6 +10,8 @@ export const CategoriesFilter = ({
 }) => {
   const config = get("config");
 
+  console.log("config", config);
+  if (!config || !config.categories) return null;
   return (
     <div className="flex gap-2 justify-center p-4 flex-wrap">
       {config.categories.map((category: Category) => {

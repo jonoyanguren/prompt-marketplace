@@ -3,6 +3,13 @@ import { Prompt } from "../../types";
 export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
   return (
     <div className="p-6 rounded-xl shadow-lg bg-white text-left">
+      <div className="text-right">
+        <p className="text-sm text-gray-500">Like (HEART EMPTY)</p>
+        <p className="text-sm text-gray-500">
+          You liked this prompt{" "}
+          <span className="text-rose-500">HEART FULL</span>
+        </p>
+      </div>
       <p className="font-bold text-lg text-gray-900">{prompt.title}</p>
       <p className="text-sm my-2 underline text-gray-800">
         {prompt.createdBy.name}
