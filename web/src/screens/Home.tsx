@@ -12,17 +12,32 @@ import { Prompt } from "../types";
 import { PromptItem } from "../components/Prompt/PromptItem";
 import { CategoriesFilter } from "../components/Home/CategoriesFilter";
 import { NoResults } from "../components/Prompt/NoResults";
+import Skeleton from "react-loading-skeleton";
+import "react-loading-skeleton/dist/skeleton.css";
+import { PromptItemSkeleton } from "../components/Prompt/PromptItemSkeleton";
 
 export const Home = () => {
   const { t } = useTranslation();
 
   const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [search, setSearch] = useState<string>("");
+
+  // TODO Remove this
+  async function waitSeconds(seconds: number): Promise<void> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, seconds * 1000);
+    });
+  }
 
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
+        setLoading(true);
+        await waitSeconds(1.5);
         let data;
         if (!selectedCategory || selectedCategory === "all") {
           data = await getAllPrompts();
@@ -32,6 +47,8 @@ export const Home = () => {
         setPrompts(data);
       } catch (error) {
         console.error("Error al obtener los prompts:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -73,7 +90,15 @@ export const Home = () => {
           selectedCategory={selectedCategory}
         />
       </div>
-      {prompts.length === 0 && <NoResults />}
+      {loading && (
+        <div className="grid grid-cols-3 gap-8">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <PromptItemSkeleton key={index} />
+          ))}
+        </div>
+      )}
+
+      {!loading && prompts.length === 0 && <NoResults />}
       <div className="grid grid-cols-3 gap-8">
         {prompts.map((prompt) => (
           <PromptItem key={prompt._id} prompt={prompt} />
