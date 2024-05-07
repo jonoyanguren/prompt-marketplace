@@ -8,6 +8,7 @@ export const es = {
     login: "Login",
   },
   home: {
+    allCategories: "Todas las categorías",
     title: "Controla la IA con la experiencia de los mejores",
   },
 };

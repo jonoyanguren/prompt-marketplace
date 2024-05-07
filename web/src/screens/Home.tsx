@@ -24,10 +24,10 @@ export const Home = () => {
     const fetchPrompts = async () => {
       try {
         let data;
-        if (selectedCategory) {
-          data = await getPromptsByCategory({ categoryId: selectedCategory });
-        } else {
+        if (!selectedCategory || selectedCategory === "all") {
           data = await getAllPrompts();
+        } else {
+          data = await getPromptsByCategory({ categoryId: selectedCategory });
         }
         setPrompts(data);
       } catch (error) {
