@@ -39,7 +39,6 @@ export const Home = () => {
   }, [selectedCategory]);
 
   const executeSearch = async () => {
-    console.log("Buscando:", search);
     const prompts = await getPromptsByText({ text: search });
     setPrompts(prompts);
   };

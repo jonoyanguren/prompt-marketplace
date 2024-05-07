@@ -10,5 +10,10 @@ export const es = {
   home: {
     allCategories: "Todas las categorías",
     title: "Controla la IA con la experiencia de los mejores",
+    search: "Buscar",
+    searchPlaceholder: "Buscar por palabra clave",
+  },
+  platforms: {
+    title: "Plataformas",
   },
 };
