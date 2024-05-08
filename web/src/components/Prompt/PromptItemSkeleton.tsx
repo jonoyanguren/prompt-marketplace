@@ -1,4 +1,3 @@
-import { HeartFull } from "../../assets/icons/HeartFull";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
@@ -6,7 +5,6 @@ export const PromptItemSkeleton = () => {
   return (
     <div className="p-6 rounded-xl shadow-lg bg-white text-left">
       <div className="flex justify-end mb-8 items-center">
-        <HeartFull className="text-red-500" />
         <Skeleton width={40} className="ml-1" />
       </div>
       <Skeleton height={22} className="font-bold text-lg text-gray-900" />

@@ -3,13 +3,14 @@ import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
 import { Home } from "./screens/Home";
 import { Platforms } from "./screens/Plaforms";
 import { HowItWorks } from "./screens/HowItWorks";
+import { Login } from "./screens/Auth/Login";
 
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/how-it-works", element: <HowItWorks /> },
   { path: "/platforms", element: <Platforms /> },
   { path: "/become-creator", element: <div>Become a Creator</div> },
-  { path: "/login", element: <div>Login</div> },
+  { path: "/login", element: <Login /> },
 ];
 
 export const Routes = () => {

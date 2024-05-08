@@ -9,7 +9,10 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
     return (likes / 1000000000).toFixed(1) + "B";
   };
   return (
-    <div className="p-6 rounded-xl shadow-lg bg-white text-left">
+    <div
+      className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer"
+      onClick={() => console.log(prompt._id)}
+    >
       <div className="flex justify-end mb-8 items-center">
         <HeartFull className="text-red-500" />
         <p className="text-sm text-gray-500 ml-1">

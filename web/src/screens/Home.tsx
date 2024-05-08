@@ -12,8 +12,6 @@ import { Prompt } from "../types";
 import { PromptItem } from "../components/Prompt/PromptItem";
 import { CategoriesFilter } from "../components/Home/CategoriesFilter";
 import { NoResults } from "../components/Prompt/NoResults";
-import Skeleton from "react-loading-skeleton";
-import "react-loading-skeleton/dist/skeleton.css";
 import { PromptItemSkeleton } from "../components/Prompt/PromptItemSkeleton";
 
 export const Home = () => {

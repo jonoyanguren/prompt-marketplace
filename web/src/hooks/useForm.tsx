@@ -1,13 +1,7 @@
 import { useState } from "react";
 
-interface UseFormProps {
-  name: string;
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-export const useForm = (initialValues: UseFormProps) => {
-  const [form, setForm] = useState<UseFormProps>(initialValues);
+export const useForm = (initialValues: Record<string, any>) => {
+  const [form, setForm] = useState(initialValues);
   const [errors, setErrors] = useState<Record<string, string | undefined>>({});
 
   const handleInputChange = (
@@ -31,9 +25,8 @@ export const useForm = (initialValues: UseFormProps) => {
 
     return {
       name: field,
-      value: form[field as keyof UseFormProps],
+      value: form[field],
       onChange: (e: { target: { value: any } }) => handleInputChange(e, field),
-      validationState: errors[field] ? "invalid" : undefined,
       errorMessage: errors[field],
       onFocus: () => setErrors({ ...errors, [field]: undefined }),
     };
