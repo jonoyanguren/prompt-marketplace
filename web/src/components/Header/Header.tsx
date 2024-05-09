@@ -1,52 +1,71 @@
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Button } from "../Button";
 import { AuthContext } from "../../contexts/AuthContext";
-import { useContext } from "react";
+import { useContext, useState } from "react";
+import { NavbarLink } from "./NavbarLink";
+import { ToggleMenuButton } from "./ToggleMenuButton";
+import { Button } from "../Button";
 
 export const Header = () => {
-  const { t, i18n } = useTranslation();
-
+  const { t } = useTranslation();
   const { user, logout } = useContext(AuthContext);
-  console.log("USER in context", user);
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
 
   return (
-    <>
-      <div>
-        <button className="m-2" onClick={() => i18n.changeLanguage("en")}>
-          English
-        </button>
-        <button className="m-2" onClick={() => i18n.changeLanguage("es")}>
-          Español
-        </button>
-      </div>
-
-      {user && (
-        <div className="bg-teal-500 text-white p-4">
-          {t("welcome")} - {user.email}
-        </div>
-      )}
-      <header>
-        <Link className="mr-4 text-teal-600" to="/">
-          {t("header.home")}
-        </Link>
-        <Link className="mr-4 text-teal-600" to="/platforms">
-          {t("header.platforms")}
-        </Link>
-        <Link className="mr-4 text-teal-600" to="/how-it-works">
-          {t("header.howItWorks")}
-        </Link>
-        <Link className="mr-4 text-teal-600" to="/become-creator">
-          {t("header.becomeCreator")}
-        </Link>
-        {!user ? (
-          <Link className="mr-4 text-teal-600" to="/login">
-            {t("header.login")}
+    <header>
+      <nav className="bg-white border-gray-200 px-4 lg:px-6 py-6 dark:bg-gray-800">
+        <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+          <Link to="/" className="flex items-center">
+            <img
+              src="https://flowbite.com/docs/images/logo.svg"
+              className="mr-3 h-6 sm:h-9"
+              alt="Flowbite Logo"
+            />
+            <span className="self-center text-xl font-semibold whitespace-nowrap dark:text-white">
+              Flowbite
+            </span>
           </Link>
-        ) : (
-          <Button onClick={() => logout()}>{t("header.logout")}</Button>
-        )}
-      </header>
-    </>
+          <div className="flex items-center lg:order-2 gap-2">
+            {user ? (
+              <>
+                <Button onClick={logout}>{t("header.logout")}</Button>
+                <ToggleMenuButton isOpen={isOpen} toggleMenu={toggleMenu} />
+              </>
+            ) : (
+              <>
+                <NavbarLink href="/login" text={t("header.login")} />
+                <NavbarLink href="/register" text={t("header.register")} />
+                <ToggleMenuButton isOpen={isOpen} toggleMenu={toggleMenu} />
+              </>
+            )}
+          </div>
+          <div
+            className={`${
+              isOpen ? "flex" : "hidden"
+            } justify-between items-center w-full lg:flex lg:w-auto lg:order-1`}
+            id="mobile-menu-2"
+          >
+            <div
+              className={`
+                ${isOpen && "w-full"}
+                flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0
+              `}
+            >
+              <NavbarLink href="/" text={t("header.home")} />
+              <NavbarLink href="/platforms" text={t("header.platforms")} />
+              <NavbarLink href="/how-it-works" text={t("header.howItWorks")} />
+              <NavbarLink
+                href="/become-creator"
+                text={t("header.becomeCreator")}
+              />
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
   );
 };

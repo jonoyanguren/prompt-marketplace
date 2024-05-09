@@ -6,6 +6,8 @@ export const es = {
     howItWorks: "Como funciona",
     becomeCreator: "Conviértete en creador",
     login: "Login",
+    register: "Registro",
+    logout: "Logout",
   },
   errors: {
     required: "Este campo es requerido",
@@ -27,5 +29,9 @@ export const es = {
     password: "Contraseña",
     passwordPlaceholder: "Contraseña",
     submit: "Enviar",
+  },
+  footer: {
+    copyright: "© 2023 Prompt marketplace.",
+    contact: "Contacto",
   },
 };

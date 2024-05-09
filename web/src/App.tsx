@@ -7,6 +7,7 @@ import { AuthContextProvider } from "./contexts/AuthContext.tsx";
 import { save } from "./services/localStorage.service.ts";
 import "./App.css";
 import { Header } from "./components/Header/Header.tsx";
+import { Footer } from "./components/Footer.tsx";
 
 function App() {
   useEffect(() => {
@@ -24,12 +25,11 @@ function App() {
 
   return (
     <AuthContextProvider>
-      <div>
-        <Header />
-        <div className="p-8">
-          <Routes />
-        </div>
+      <Header />
+      <div className="p-8">
+        <Routes />
       </div>
+      <Footer />
     </AuthContextProvider>
   );
 }
