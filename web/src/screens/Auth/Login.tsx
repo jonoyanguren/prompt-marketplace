@@ -1,19 +1,21 @@
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
+
+import { login } from "../../api/auth";
+
 import { Button, Input, Title } from "../../components";
 import { useForm } from "../../hooks/useForm";
 import { FormContainer } from "../../components/FormContainer";
-import { save } from "../../services/localStorage.service";
-
-import { login } from "../../api/auth";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const Login = () => {
   const { t } = useTranslation();
+  const { updateToken, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const { form, formFields, setErrors } = useForm({
-    username: "",
-    password: "",
+    email: "jon@localhost.com",
+    password: "password",
   });
   const [apiErrors, setApiErrors] = useState<
     Record<string, string | undefined> | undefined
@@ -23,8 +25,8 @@ export const Login = () => {
     let result = true;
     const errors: Record<string, string | undefined> = {};
 
-    if (!form.username) {
-      errors.username = t("errors.required");
+    if (!form.email) {
+      errors.email = t("errors.required");
       result = false;
     }
 
@@ -40,16 +42,14 @@ export const Login = () => {
     setApiErrors(undefined);
     if (!validate()) return;
 
-    console.log("FORM", form);
     try {
-      const res = await login({
-        username: form.username,
+      const user = await login({
+        email: form.email,
         password: form.password,
       });
 
-      console.log("RES", res);
-      save("token", res.token);
-      save("user", res);
+      updateToken(user.token);
+      updateUser(user);
       navigate("/");
     } catch (error: any) {
       console.error(error);
@@ -65,8 +65,8 @@ export const Login = () => {
       <FormContainer>
         <Input
           className="mb-4"
-          placeholder={t("login.usernamePlaceholder")}
-          {...formFields("username")}
+          placeholder={t("login.emailPlaceholder")}
+          {...formFields("email")}
         />
         <Input
           type="password"

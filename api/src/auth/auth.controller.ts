@@ -5,8 +5,8 @@ import User from "../user/user.model";
 
 export const login = async (req: Request, res: Response) => {
   try {
-    const { username, password } = req.body;
-    const user = await User.findOne({ username });
+    const { email, password } = req.body;
+    const user = await User.findOne({ email });
 
     if (!user || !(await bcrypt.compare(password, user.password))) {
       return res.status(401).json({ message: "Invalid credentials" });
@@ -14,7 +14,6 @@ export const login = async (req: Request, res: Response) => {
 
     const tokenPayload = {
       id: user._id,
-      username: user.username,
       email: user.email,
     };
 

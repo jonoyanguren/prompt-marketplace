@@ -22,8 +22,8 @@ export const es = {
   },
   login: {
     title: "Login",
-    username: "Username",
-    usernamePlaceholder: "Username",
+    email: "Email",
+    emailPlaceholder: "Email",
     password: "Contraseña",
     passwordPlaceholder: "Contraseña",
     submit: "Enviar",

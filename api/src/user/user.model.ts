@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 interface UserTypes {
-  username: string;
   name: string;
   email: string;
   password: string;
@@ -11,7 +10,6 @@ interface UserTypes {
 
 const userSchema = new mongoose.Schema<UserTypes>(
   {
-    username: { type: String, required: true },
     name: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
