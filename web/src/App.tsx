@@ -25,11 +25,13 @@ function App() {
 
   return (
     <AuthContextProvider>
-      <Header />
-      <div className="p-8">
-        <Routes />
+      <div className="h-screen flex justify-between flex-col">
+        <Header />
+        <div className="p-8">
+          <Routes />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </AuthContextProvider>
   );
 }
