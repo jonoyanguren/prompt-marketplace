@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { Subtitle, Title } from "../../components";
+import { Button, Subtitle, Title } from "../../components";
 import { useEffect, useState } from "react";
 import { Prompt } from "../../types";
 import { getPromptById } from "../../api/prompt";
@@ -46,7 +46,7 @@ export const PromptDetail = () => {
           <Title className="text-left">{prompt.title}</Title>
           <HeartFull className="w-16 h-16" />
         </div>
-        <div className="flex gap-8 border-y border-gray-600">
+        <div className="flex gap-6 border-y border-gray-600">
           {/* Likes */}
           <div className="flex w-fit py-4 gap-2">
             <HeartFull className="text-rose-600" />

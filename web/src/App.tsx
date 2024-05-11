@@ -25,7 +25,7 @@ function App() {
 
   return (
     <AuthContextProvider>
-      <div className="h-screen flex justify-between flex-col">
+      <div className="h-screen flex justify-between flex-col font-sans">
         <Header />
         <div className="p-8">
           <Routes />
