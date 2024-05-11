@@ -1,12 +1,12 @@
 @host = http://localhost:3202
+# @name login
 
 ### Create Prompt
-POST {{host}}/auth/login
+POST http://localhost:3202/auth/login
 Content-Type: application/json
 
 {
-    "username": "jon",
-    "password": "password"
+    "email": "jon@localhost.com", "password": "password"
 }
 
 

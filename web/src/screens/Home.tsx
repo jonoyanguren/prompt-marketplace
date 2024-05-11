@@ -22,20 +22,10 @@ export const Home = () => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [search, setSearch] = useState<string>("");
 
-  // TODO Remove this
-  async function waitSeconds(seconds: number): Promise<void> {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, seconds * 1000);
-    });
-  }
-
   useEffect(() => {
     const fetchPrompts = async () => {
       try {
         setLoading(true);
-        await waitSeconds(1.5);
         let data;
         if (!selectedCategory || selectedCategory === "all") {
           data = await getAllPrompts();

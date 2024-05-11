@@ -7,6 +7,7 @@ Content-Type: application/json
 ### Seed users
 GET {{host}}/seed/users
 Content-Type: application/json
+Authorization: Bearer {{process.env.HTTPYAC_ACCESS_TOKEN}}
 
 ### Seed prompts
 GET {{host}}/seed/prompts

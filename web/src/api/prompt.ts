@@ -54,3 +54,21 @@ export const getPromptsByText = async ({
     }
   }
 };
+
+export const getPromptById = async ({
+  id,
+}: {
+  id: string;
+}): Promise<Prompt> => {
+  try {
+    const response = await axios.get(`${API_URL}/prompt/${id}`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};

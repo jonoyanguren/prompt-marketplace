@@ -1,22 +1,25 @@
+import { useNavigate } from "react-router-dom";
 import { HeartFull } from "../../assets/icons/HeartFull";
 import { Prompt } from "../../types";
+import { PromptCategories } from "./PromptCategories";
+import { getLikeNumbers } from "../../utils";
 
 export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
-  const getLikesNumber = (likes: number) => {
-    if (likes < 1000) return likes;
-    if (likes < 1000000) return (likes / 1000).toFixed(1) + "K";
-    if (likes < 1000000000) return (likes / 1000000).toFixed(1) + "M";
-    return (likes / 1000000000).toFixed(1) + "B";
-  };
+  const navigate = useNavigate();
+
   return (
     <div
       className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer"
-      onClick={() => console.log(prompt._id)}
+      onClick={() =>
+        navigate(`/prompt/${prompt._id}`, {
+          state: { prompt },
+        })
+      }
     >
       <div className="flex justify-end mb-8 items-center">
         <HeartFull className="text-red-500" />
         <p className="text-sm text-gray-500 ml-1">
-          {getLikesNumber(prompt.upvotes)}
+          {getLikeNumbers(prompt.upvotes)}
         </p>
       </div>
       <p className="font-bold text-lg text-gray-900">{prompt.title}</p>
@@ -34,20 +37,9 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
           </div>
         ))}
       </div>
-      <div className="flex gap-2 flex-wrap my-4">
-        {prompt.categories.map((category) => (
-          <p
-            key={category._id}
-            className="py-1 px-3 rounded-lg text-sm uppercase"
-            style={{
-              color: category.textColor,
-              backgroundColor: category.bgColor,
-            }}
-          >
-            {category.title}
-          </p>
-        ))}
-      </div>
+
+      <PromptCategories categories={prompt.categories} />
+
       <div className="flex gap-2 mt-2 justify-end">
         {prompt.platforms.map((platform) => (
           <img key={platform._id} className="w-8" src={platform.logo} />

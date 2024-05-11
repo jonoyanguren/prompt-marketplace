@@ -1,5 +1,10 @@
 export const es = {
   title: "Título",
+  general: {
+    likes: "Likes",
+    sales: "Ventas",
+    tested: "Verificado",
+  },
   header: {
     home: "Inicio",
     platforms: "Plataformas",
@@ -33,5 +38,10 @@ export const es = {
   footer: {
     copyright: "© 2023 Prompt marketplace.",
     contact: "Contacto",
+  },
+  promptDetail: {
+    description: "Descripción del Prompt",
+    prompt: "El Prompt",
+    tags: "Tags",
   },
 };
