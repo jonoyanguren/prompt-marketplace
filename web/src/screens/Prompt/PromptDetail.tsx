@@ -132,8 +132,11 @@ export const PromptDetail = () => {
         </Subtitle>
         <div className="flex gap-4 mt-8">
           {similarPrompts.length > 0 &&
-            similarPrompts.map((prompt) => {
-              return <PromptItem key={prompt._id} prompt={prompt} />;
+            similarPrompts.map((similarPrompt) => {
+              if (similarPrompt._id === prompt._id) return null;
+              return (
+                <PromptItem key={similarPrompt._id} prompt={similarPrompt} />
+              );
             })}
         </div>
       </div>
