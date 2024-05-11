@@ -43,5 +43,6 @@ export const es = {
     description: "Descripción del Prompt",
     prompt: "El Prompt",
     tags: "Tags",
+    similarPrompts: "Otros prompts que podrán gustarte",
   },
 };

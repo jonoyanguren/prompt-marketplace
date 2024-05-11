@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 
-import { Title } from "../components";
+import { Button, Title } from "../components";
 import {
   getAllPrompts,
   getPromptsByCategory,
@@ -54,21 +54,23 @@ export const Home = () => {
       <div className="max-w-xl mx-auto mt-12">
         <div className="relative">
           <SearchSVG />
-          <input
-            type="search"
-            id="default-search"
-            className="bg-white w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:outline-none"
-            placeholder={t("home.searchPlaceholder")}
-            onChange={(e) => setSearch(e.target.value)}
-            value={search}
-            required
-          />
-          <button
-            className="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            onClick={() => executeSearch()}
-          >
-            {t("home.search")}
-          </button>
+          <div className="flex gap-2">
+            <input
+              type="search"
+              id="default-search"
+              className="bg-white w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:outline-none"
+              placeholder={t("home.searchPlaceholder")}
+              onChange={(e) => setSearch(e.target.value)}
+              value={search}
+              required
+            />
+            <Button
+              className="absolute right-2.5 top-0.5"
+              onClick={() => executeSearch()}
+            >
+              {t("home.search")}
+            </Button>
+          </div>
         </div>
       </div>
 
