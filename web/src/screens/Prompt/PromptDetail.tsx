@@ -66,7 +66,7 @@ export const PromptDetail = () => {
           <PromptCategories categories={prompt.categories} />
           <div className="flex items-end">
             <Title className="text-left">{prompt.title}</Title>
-            <HeartFull className="w-16 h-16" />
+            <HeartFull size={40} className="w-16 h-16" />
           </div>
           <div className="flex gap-6 border-y border-gray-600">
             {/* Likes */}
