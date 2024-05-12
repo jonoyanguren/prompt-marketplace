@@ -12,6 +12,7 @@ import { Check } from "../../assets/icons/Check";
 import { CopyButton } from "../../components/CopyButton";
 import { CreatedByCard } from "../../components/Prompt/UserCard";
 import { PromptItem } from "../../components/Prompt/PromptItem";
+import { enqueueSnackbar } from "notistack";
 
 export const PromptDetail = () => {
   const { id } = useParams();
@@ -66,7 +67,15 @@ export const PromptDetail = () => {
           <PromptCategories categories={prompt.categories} />
           <div className="flex items-end">
             <Title className="text-left">{prompt.title}</Title>
-            <HeartFull size={40} className="w-16 h-16" />
+            <div
+              onClick={() =>
+                enqueueSnackbar(t("promptDetail.likeSnack"), {
+                  variant: "success",
+                })
+              }
+            >
+              <HeartFull size={40} className="w-16 h-16" />
+            </div>
           </div>
           <div className="flex gap-6 border-y border-gray-600">
             {/* Likes */}

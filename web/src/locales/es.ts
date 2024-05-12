@@ -44,5 +44,6 @@ export const es = {
     prompt: "El Prompt",
     tags: "Tags",
     similarPrompts: "Otros prompts que podrán gustarte",
+    likeSnack: "Like hecho!",
   },
 };

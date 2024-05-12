@@ -8,6 +8,7 @@ import { save } from "./services/localStorage.service.ts";
 import "./App.css";
 import { Header } from "./components/Header/Header.tsx";
 import { Footer } from "./components/Footer.tsx";
+import { SnackbarProvider } from "notistack";
 
 function App() {
   useEffect(() => {
@@ -27,6 +28,8 @@ function App() {
     <AuthContextProvider>
       <div className="h-screen flex justify-between flex-col font-sans">
         <Header />
+        <SnackbarProvider />
+
         <div className="p-8">
           <Routes />
         </div>
