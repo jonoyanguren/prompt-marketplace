@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import Prompt from "./prompt.model";
 import { ExtendedRequest } from "../types/extendedRequest";
-import mongoose from "mongoose";
+import PromptUpvote from "./promptUpvote.model";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -70,26 +70,50 @@ export const create = async (req: ExtendedRequest, res: Response) => {
   }
 };
 
-export const getOneById = async (req: Request, res: Response) => {
+export const getOneById = async (req: ExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
+
+    const upvoteCount = await PromptUpvote.countDocuments({ prompt: id });
+    const userHasUpvoted = await PromptUpvote.exists({
+      prompt: id,
+      user: req.user?.id,
+    });
+
     const prompt = await Prompt.findById(id)
       .populate("createdBy")
       .populate("platforms")
       .populate("categories");
-    res.status(200).json(prompt);
+    res.status(200).json({
+      ...prompt.toObject(),
+      upvoteCount,
+      userHasUpvoted: !!userHasUpvoted,
+    });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const upvotePrompt = async (req: Request, res: Response) => {
+export const upvotePrompt = async (req: ExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
+    console.log("ID", id);
+    console.log("USER", req.user?.id);
     const prompt = await Prompt.findById(id);
     if (!prompt) {
       return res.status(404).json({ message: "Prompt not found" });
     }
+
+    const userHasUpvoted = await PromptUpvote.exists({
+      prompt: id,
+      user: req.user?.id,
+    });
+    console.log("UPVOTE", !!userHasUpvoted);
+
+    if (userHasUpvoted) {
+      return res.status(400).json({ message: "Prompt already upvoted" });
+    }
+
     prompt.upvotes++;
     const savedPrompt = await prompt.save();
     res.status(200).json(savedPrompt);

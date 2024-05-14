@@ -10,7 +10,7 @@ import {
   getPromptsByText,
 } from "./prompt.controller";
 
-import { jwtVerify } from "../middleware/jwtVerify";
+import { jwtPayloadOnly, jwtVerify } from "../middleware/jwtVerify";
 
 const router = express.Router();
 
@@ -19,9 +19,9 @@ router.post("/", jwtVerify, create);
 router.get("/category/:id", getPromptsByCategory);
 router.get("/search", getAll);
 router.get("/search/:text", getPromptsByText);
-router.post("/:id/upvote", upvotePrompt);
-router.post("/:id/downvote", downvotePrompt);
-router.get("/:id", getOneById);
+router.post("/:id/upvote", jwtVerify, upvotePrompt);
+router.post("/:id/downvote", jwtVerify, downvotePrompt);
+router.get("/:id", jwtPayloadOnly, getOneById);
 router.put("/:id", update);
 
 export default router;

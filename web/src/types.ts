@@ -34,4 +34,5 @@ export interface Prompt {
   upvotes: number;
   downvotes: number;
   tags: string[];
+  userHasUpvoted?: boolean;
 }

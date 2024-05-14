@@ -1,16 +1,7 @@
-export const HeartFull = ({
-  size = 24,
-  className,
-}: {
-  size?: number;
-  className?: string;
-}) => {
-  const sizeClassName = `w-${size / 4} h-${size / 4}`;
+export const HeartFull = ({ className }: { className?: string }) => {
   return (
     <svg
-      width={size}
-      height={size}
-      className={`${sizeClassName} text-gray-800 dark:text-white ${className}`}
+      className={`w-6 h-6 text-gray-800 dark:text-white ${className}`}
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       fill="currentColor"

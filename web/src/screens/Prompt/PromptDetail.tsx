@@ -2,7 +2,11 @@ import { useParams } from "react-router-dom";
 import { Subtitle, Title } from "../../components";
 import { useEffect, useState } from "react";
 import { Prompt } from "../../types";
-import { getPromptById, getPromptsByCategory } from "../../api/prompt";
+import {
+  getPromptById,
+  getPromptsByCategory,
+  upvotePrompt,
+} from "../../api/prompt";
 import { PromptCategories } from "../../components/Prompt/PromptCategories";
 import { HeartFull } from "../../assets/icons/HeartFull";
 import { getLikeNumbers } from "../../utils";
@@ -57,6 +61,26 @@ export const PromptDetail = () => {
     fetchSimilarPrompts();
   }, [prompt]);
 
+  const likePrompt = async () => {
+    console.log("LIKE PROMPT", prompt);
+    if (prompt?.userHasUpvoted) return;
+
+    try {
+      const data = await upvotePrompt({ id: prompt!._id });
+      console.log("DATA", data);
+      setPrompt({
+        ...prompt,
+        upvotes: data.upvotes,
+        userHasUpvoted: true,
+      } as Prompt);
+      enqueueSnackbar(t("promptDetail.likeSnack"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error al votar el prompt:", error);
+    }
+  };
+
   if (loading) return <p>Loading</p>;
   if (!prompt) return <p>No prompt found</p>;
 
@@ -67,14 +91,12 @@ export const PromptDetail = () => {
           <PromptCategories categories={prompt.categories} />
           <div className="flex items-end">
             <Title className="text-left">{prompt.title}</Title>
-            <div
-              onClick={() =>
-                enqueueSnackbar(t("promptDetail.likeSnack"), {
-                  variant: "success",
-                })
-              }
-            >
-              <HeartFull size={40} className="w-16 h-16" />
+            <div onClick={() => likePrompt()}>
+              <HeartFull
+                className={`w-12 h-12 cursor-pointer ${
+                  prompt.userHasUpvoted && "text-rose-600"
+                }`}
+              />
             </div>
           </div>
           <div className="flex gap-6 border-y border-gray-600">

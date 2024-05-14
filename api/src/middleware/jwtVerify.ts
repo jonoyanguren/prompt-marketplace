@@ -15,3 +15,16 @@ export const jwtVerify = (req: Request, res: Response, next: NextFunction) => {
     res.status(401).json({ message: "Unauthorized" });
   }
 };
+
+export const jwtPayloadOnly = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const token = req.headers.authorization?.split(" ")[1];
+  if (!token) next();
+  const decoded = jwt.verify(token, process.env.JWT_SECRET!);
+  // @ts-ignore
+  req.user = decoded;
+  next();
+};
