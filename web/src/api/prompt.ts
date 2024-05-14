@@ -86,3 +86,17 @@ export const upvotePrompt = async ({ id }: { id: string }) => {
     }
   }
 };
+
+export const downvotePrompt = async ({ id }: { id: string }) => {
+  try {
+    const response = await axios.post(`${API_URL}/prompt/${id}/downvote`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};

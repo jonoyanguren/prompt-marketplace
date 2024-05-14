@@ -97,41 +97,63 @@ export const getOneById = async (req: ExtendedRequest, res: Response) => {
 export const upvotePrompt = async (req: ExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
-    console.log("ID", id);
-    console.log("USER", req.user?.id);
     const prompt = await Prompt.findById(id);
     if (!prompt) {
       return res.status(404).json({ message: "Prompt not found" });
     }
 
+    console.log("ID", id);
+    console.log("USER", req.user?.id);
+
     const userHasUpvoted = await PromptUpvote.exists({
       prompt: id,
       user: req.user?.id,
     });
-    console.log("UPVOTE", !!userHasUpvoted);
+
+    console.log("UPVOTE", userHasUpvoted);
 
     if (userHasUpvoted) {
       return res.status(400).json({ message: "Prompt already upvoted" });
     }
 
+    await PromptUpvote.create({ prompt: id, user: req.user?.id });
+
     prompt.upvotes++;
     const savedPrompt = await prompt.save();
-    res.status(200).json(savedPrompt);
+    res
+      .status(200)
+      .json({ savedPrompt, upvoteCount: prompt.upvotes, userHasUpvoted: true });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
 };
 
-export const downvotePrompt = async (req: Request, res: Response) => {
+export const downvotePrompt = async (req: ExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
     const prompt = await Prompt.findById(id);
     if (!prompt) {
       return res.status(404).json({ message: "Prompt not found" });
     }
-    prompt.downvotes++;
+
+    const existingUpvote = await PromptUpvote.findOne({
+      prompt: id,
+      user: req.user?.id,
+    });
+
+    if (!existingUpvote) {
+      return res.status(400).json({ message: "Prompt already downvoted" });
+    } else {
+      await PromptUpvote.findByIdAndDelete(existingUpvote._id);
+    }
+
+    prompt.upvotes--;
     const savedPrompt = await prompt.save();
-    res.status(200).json(savedPrompt);
+    res.status(200).json({
+      ...savedPrompt,
+      upvoteCount: prompt.upvotes,
+      userHasUpvoted: false,
+    });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

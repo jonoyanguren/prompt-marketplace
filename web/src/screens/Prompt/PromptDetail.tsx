@@ -3,6 +3,7 @@ import { Subtitle, Title } from "../../components";
 import { useEffect, useState } from "react";
 import { Prompt } from "../../types";
 import {
+  downvotePrompt,
   getPromptById,
   getPromptsByCategory,
   upvotePrompt,
@@ -62,20 +63,24 @@ export const PromptDetail = () => {
   }, [prompt]);
 
   const likePrompt = async () => {
-    console.log("LIKE PROMPT", prompt);
-    if (prompt?.userHasUpvoted) return;
-
     try {
-      const data = await upvotePrompt({ id: prompt!._id });
-      console.log("DATA", data);
+      let data;
+      if (prompt?.userHasUpvoted) {
+        data = await downvotePrompt({ id: prompt!._id });
+        enqueueSnackbar(t("promptDetail.unlikeSnack"), {
+          variant: "warning",
+        });
+      } else {
+        data = await upvotePrompt({ id: prompt!._id });
+        enqueueSnackbar(t("promptDetail.likeSnack"), {
+          variant: "success",
+        });
+      }
       setPrompt({
         ...prompt,
-        upvotes: data.upvotes,
-        userHasUpvoted: true,
+        upvotes: data.upvoteCount,
+        userHasUpvoted: data.userHasUpvoted,
       } as Prompt);
-      enqueueSnackbar(t("promptDetail.likeSnack"), {
-        variant: "success",
-      });
     } catch (error) {
       console.error("Error al votar el prompt:", error);
     }
