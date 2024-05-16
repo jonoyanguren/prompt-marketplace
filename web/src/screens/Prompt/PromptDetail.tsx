@@ -86,7 +86,6 @@ export const PromptDetail = () => {
     }
   };
 
-  if (loading) return <p>Loading</p>;
   if (!prompt) return <p>No prompt found</p>;
 
   return (
@@ -94,7 +93,7 @@ export const PromptDetail = () => {
       <div className="text-left xl:flex pt-20">
         <div className="pr-8 flex flex-col gap-8">
           <PromptCategories categories={prompt.categories} />
-          <div className="flex items-end">
+          <div className="flex items-end justify-between">
             <Title className="text-left">{prompt.title}</Title>
             <div onClick={() => likePrompt()}>
               <HeartFull

@@ -43,7 +43,7 @@ app.options("*", cors());
 connectDB();
 
 //Server
-app
+const server = app
   .listen(process.env.PORT, () => {
     console.info(`Magic is happening in port: ${process.env.PORT}`);
   })
@@ -56,4 +56,8 @@ app
     });
   });
 
-export { app };
+const closeServer = () => {
+  server.close();
+};
+
+export { app, closeServer };
