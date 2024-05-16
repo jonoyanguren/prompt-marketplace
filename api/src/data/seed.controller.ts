@@ -73,7 +73,7 @@ export const seedPrompts = async (req: Request, res: Response) => {
   const finalUsersIds = usersIds.map((user) => user._id.toString());
 
   await Prompt.collection.drop();
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     const prompt = {
       title: faker.lorem.sentence(),
       description: faker.lorem.paragraph(),

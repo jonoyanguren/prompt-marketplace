@@ -23,6 +23,7 @@ export const es = {
     title: "Controla la IA con la experiencia de los mejores",
     search: "Buscar",
     searchPlaceholder: "Buscar por palabra clave",
+    endOfResults: "Ya te lo has visto todo",
   },
   platforms: {
     title: "Plataformas",

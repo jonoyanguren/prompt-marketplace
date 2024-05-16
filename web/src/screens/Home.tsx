@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Button, Title } from "../components";
 import {
@@ -20,6 +21,8 @@ export const Home = () => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [timesFetched, setTimesFetched] = useState<number>(1);
+  const [hasMore, setHasMore] = useState<boolean>(true);
   const [search, setSearch] = useState<string>("");
 
   useEffect(() => {
@@ -28,10 +31,11 @@ export const Home = () => {
         setLoading(true);
         let data;
         if (!selectedCategory || selectedCategory === "all") {
-          data = await getAllPrompts();
+          data = await getAllPrompts({ timesFetched: 0 });
         } else {
           data = await getPromptsByCategory({ categoryId: selectedCategory });
         }
+        setTimesFetched(timesFetched + 1);
         setPrompts(data);
       } catch (error) {
         console.error("Error al obtener los prompts:", error);
@@ -89,11 +93,27 @@ export const Home = () => {
       )}
 
       {!loading && prompts.length === 0 && <NoResults />}
-      <div className="grid grid-cols-3 gap-8">
+
+      <InfiniteScroll
+        className="grid grid-cols-3 gap-8"
+        dataLength={prompts.length}
+        next={async () => {
+          setTimesFetched(timesFetched + 1);
+          const newPrompts = await getAllPrompts({ timesFetched });
+          if (newPrompts.length === 0) {
+            setHasMore(false);
+            return;
+          }
+          setPrompts([...prompts, ...newPrompts]);
+        }}
+        endMessage={<EndOfResults text={t("home.endOfResults")} />}
+        hasMore={hasMore}
+        loader={<h4>Loading...</h4>}
+      >
         {prompts.map((prompt) => (
           <PromptItem key={prompt._id} prompt={prompt} />
         ))}
-      </div>
+      </InfiniteScroll>
     </div>
   );
 };
@@ -115,5 +135,11 @@ const SearchSVG = () => (
         d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
       />
     </svg>
+  </div>
+);
+
+const EndOfResults = ({ text }: { text: string }) => (
+  <div className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer">
+    <p className="text-center text-gray-500 dark:text-gray-400">{text}</p>
   </div>
 );

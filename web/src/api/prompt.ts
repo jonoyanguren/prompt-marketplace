@@ -3,9 +3,17 @@ import { Prompt } from "../types";
 import { API_URL } from "../conf";
 import { handleAxiosError } from ".";
 
-export const getAllPrompts = async (): Promise<Prompt[]> => {
+export const getAllPrompts = async ({
+  timesFetched,
+}: {
+  timesFetched?: number;
+}): Promise<Prompt[]> => {
   try {
-    const response = await axios.get(`${API_URL}/prompt`);
+    const url = timesFetched
+      ? `${API_URL}/prompt?timesFetched=${timesFetched}`
+      : `${API_URL}/prompt`;
+
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -4,8 +4,14 @@ import { ExtendedRequest } from "../types/extendedRequest";
 import PromptUpvote from "./promptUpvote.model";
 
 export const getAll = async (req: Request, res: Response) => {
+  const param = req.query;
+  const COUNT_PER_PAGE = 10;
+  const timesFetched = req.query.timesFetched || 0;
+
   try {
     const allPrompts = await Prompt.find()
+      .skip(COUNT_PER_PAGE * parseInt(timesFetched as string))
+      .limit(10)
       .populate("createdBy")
       .populate("platforms")
       .populate("categories");
