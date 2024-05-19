@@ -17,6 +17,7 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
       }
     >
       <div className="flex justify-end mb-8 items-center">
+        <p className="text-xs">{prompt._id}</p>
         <HeartFull className="text-red-500" />
         <p className="text-sm text-gray-500 ml-1">
           {getLikeNumbers(prompt.upvotes)}

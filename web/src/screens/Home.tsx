@@ -21,10 +21,9 @@ export const Home = () => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [timesFetched, setTimesFetched] = useState<number>(1);
+  const [timesFetched, setTimesFetched] = useState<number>(0);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [search, setSearch] = useState<string>("");
-  const prevSelectedCategory = useRef(selectedCategory);
 
   useEffect(() => {
     const fetchPrompts = async () => {
@@ -47,13 +46,6 @@ export const Home = () => {
         setLoading(false);
       }
     };
-
-    if (prevSelectedCategory.current !== selectedCategory) {
-      console.log("CAMBIO CAEGORIA");
-      setTimesFetched(0);
-      setHasMore(true);
-      prevSelectedCategory.current = selectedCategory;
-    }
 
     fetchPrompts();
   }, [selectedCategory]);
@@ -121,7 +113,12 @@ export const Home = () => {
 
       <div className="mt-4 mb-12">
         <CategoriesFilter
-          filterByCategory={(category) => setSelectedCategory(category._id)}
+          filterByCategory={(category) => {
+            setTimesFetched(0);
+            setSearch("");
+            setHasMore(true);
+            setSelectedCategory(category._id);
+          }}
           selectedCategory={selectedCategory}
         />
       </div>
