@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Button, Title } from "../components";
@@ -24,6 +24,7 @@ export const Home = () => {
   const [timesFetched, setTimesFetched] = useState<number>(1);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [search, setSearch] = useState<string>("");
+  const prevSelectedCategory = useRef(selectedCategory);
 
   useEffect(() => {
     const fetchPrompts = async () => {
@@ -33,7 +34,10 @@ export const Home = () => {
         if (!selectedCategory || selectedCategory === "all") {
           data = await getAllPrompts({ timesFetched: 0 });
         } else {
-          data = await getPromptsByCategory({ categoryId: selectedCategory });
+          data = await getPromptsByCategory({
+            categoryId: selectedCategory,
+            timesFetched: 0,
+          });
         }
         setTimesFetched(timesFetched + 1);
         setPrompts(data);
@@ -44,12 +48,49 @@ export const Home = () => {
       }
     };
 
+    if (prevSelectedCategory.current !== selectedCategory) {
+      console.log("CAMBIO CAEGORIA");
+      setTimesFetched(0);
+      setHasMore(true);
+      prevSelectedCategory.current = selectedCategory;
+    }
+
     fetchPrompts();
   }, [selectedCategory]);
 
   const executeSearch = async () => {
+    setLoading(true);
+    setTimesFetched(0);
+    setHasMore(true);
     const prompts = await getPromptsByText({ text: search });
+    if (prompts.length === 0) {
+      setHasMore(false);
+    }
     setPrompts(prompts);
+    setLoading(false);
+  };
+
+  const fetchMoreData = async () => {
+    setTimesFetched(timesFetched + 1);
+    const hasToFetchWithCategory =
+      selectedCategory && selectedCategory !== "all";
+
+    let newPrompts;
+    if (!hasToFetchWithCategory) {
+      newPrompts = await getAllPrompts({ timesFetched });
+    } else {
+      newPrompts = await getPromptsByCategory({
+        categoryId: selectedCategory,
+        timesFetched,
+      });
+    }
+
+    if (newPrompts.length === 0) {
+      setHasMore(false);
+      return;
+    }
+
+    setPrompts([...prompts, ...newPrompts]);
   };
 
   return (
@@ -97,18 +138,12 @@ export const Home = () => {
       <InfiniteScroll
         className="grid grid-cols-3 gap-8"
         dataLength={prompts.length}
-        next={async () => {
-          setTimesFetched(timesFetched + 1);
-          const newPrompts = await getAllPrompts({ timesFetched });
-          if (newPrompts.length === 0) {
-            setHasMore(false);
-            return;
-          }
-          setPrompts([...prompts, ...newPrompts]);
-        }}
-        endMessage={<EndOfResults text={t("home.endOfResults")} />}
+        next={fetchMoreData}
+        endMessage={
+          prompts.length !== 0 && <EndOfResults text={t("home.endOfResults")} />
+        }
         hasMore={hasMore}
-        loader={<h4>Loading...</h4>}
+        loader={<h4>Loading of results...</h4>}
       >
         {prompts.map((prompt) => (
           <PromptItem key={prompt._id} prompt={prompt} />

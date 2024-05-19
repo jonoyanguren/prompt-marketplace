@@ -3,9 +3,10 @@ import Prompt from "./prompt.model";
 import { ExtendedRequest } from "../types/extendedRequest";
 import PromptUpvote from "./promptUpvote.model";
 
+const COUNT_PER_PAGE = 10;
+
 export const getAll = async (req: Request, res: Response) => {
   const param = req.query;
-  const COUNT_PER_PAGE = 10;
   const timesFetched = req.query.timesFetched || 0;
 
   try {
@@ -24,10 +25,34 @@ export const getAll = async (req: Request, res: Response) => {
 export const getPromptsByCategory = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const timesFetched = req.query.timesFetched || 0;
 
     const prompts = await Prompt.find({
       categories: id,
     })
+      .skip(COUNT_PER_PAGE * parseInt(timesFetched as string))
+      .limit(10)
+      .populate("createdBy")
+      .populate("platforms")
+      .populate("categories");
+
+    res.status(200).json(prompts);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getPromptsByText = async (req: Request, res: Response) => {
+  try {
+    const { text } = req.params;
+    const timesFetched = req.query.timesFetched || 0;
+
+    if (!text) getAll(req, res);
+    const prompts = await Prompt.find({
+      $text: { $search: text },
+    })
+      .skip(COUNT_PER_PAGE * parseInt(timesFetched as string))
+      .limit(10)
       .populate("createdBy")
       .populate("platforms")
       .populate("categories");
@@ -108,15 +133,10 @@ export const upvotePrompt = async (req: ExtendedRequest, res: Response) => {
       return res.status(404).json({ message: "Prompt not found" });
     }
 
-    console.log("ID", id);
-    console.log("USER", req.user?.id);
-
     const userHasUpvoted = await PromptUpvote.exists({
       prompt: id,
       user: req.user?.id,
     });
-
-    console.log("UPVOTE", userHasUpvoted);
 
     if (userHasUpvoted) {
       return res.status(400).json({ message: "Prompt already upvoted" });
@@ -172,23 +192,6 @@ export const update = async (req: ExtendedRequest, res: Response) => {
       new: true,
     });
     res.status(200).json(updatedPrompt);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
-export const getPromptsByText = async (req: Request, res: Response) => {
-  try {
-    const { text } = req.params;
-    if (!text) getAll(req, res);
-    const prompts = await Prompt.find({
-      $text: { $search: text },
-    })
-      .populate("createdBy")
-      .populate("platforms")
-      .populate("categories");
-
-    res.status(200).json(prompts);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

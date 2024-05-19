@@ -27,13 +27,16 @@ export const getAllPrompts = async ({
 
 export const getPromptsByCategory = async ({
   categoryId,
+  timesFetched,
 }: {
   categoryId: string;
+  timesFetched?: number;
 }): Promise<Prompt[]> => {
   try {
-    const response = await axios.get(
-      `${API_URL}/prompt/category/${categoryId}`
-    );
+    const url = timesFetched
+      ? `${API_URL}/prompt/category/${categoryId}?timesFetched=${timesFetched}`
+      : `${API_URL}/prompt/category/${categoryId}`;
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {
