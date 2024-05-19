@@ -50,11 +50,17 @@ export const getPromptsByCategory = async ({
 
 export const getPromptsByText = async ({
   text,
+  timesFetched,
 }: {
   text: string;
+  timesFetched?: number;
 }): Promise<Prompt[]> => {
   try {
-    const response = await axios.get(`${API_URL}/prompt/search/${text}`);
+    const url = timesFetched
+      ? `${API_URL}/prompt/search/${text}?timesFetched=${timesFetched}`
+      : `${API_URL}/prompt/search/${text}`;
+
+    const response = await axios.get(url);
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

@@ -31,11 +31,11 @@ export const Home = () => {
         setLoading(true);
         let data;
         if (!selectedCategory || selectedCategory === "all") {
-          data = await getAllPrompts({ timesFetched: 0 });
+          data = await getAllPrompts({ timesFetched });
         } else {
           data = await getPromptsByCategory({
             categoryId: selectedCategory,
-            timesFetched: 0,
+            timesFetched,
           });
         }
         setTimesFetched(timesFetched + 1);
@@ -52,9 +52,8 @@ export const Home = () => {
 
   const executeSearch = async () => {
     setLoading(true);
-    setTimesFetched(0);
     setHasMore(true);
-    const prompts = await getPromptsByText({ text: search });
+    const prompts = await getPromptsByText({ text: search, timesFetched });
     if (prompts.length === 0) {
       setHasMore(false);
     }
@@ -97,7 +96,12 @@ export const Home = () => {
               id="default-search"
               className="bg-white w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg focus:outline-none"
               placeholder={t("home.searchPlaceholder")}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => {
+                if (e.target.value.length === 1) {
+                  setTimesFetched(0);
+                }
+                setSearch(e.target.value);
+              }}
               value={search}
               required
             />
