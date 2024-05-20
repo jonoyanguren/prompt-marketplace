@@ -25,6 +25,13 @@ export const Login = () => {
     let result = true;
     const errors: Record<string, string | undefined> = {};
 
+    if (
+      form.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/) ===
+      null
+    ) {
+      errors.email = t("errors.invalidEmail");
+    }
+
     if (!form.email) {
       errors.email = t("errors.required");
       result = false;

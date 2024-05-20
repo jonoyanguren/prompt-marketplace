@@ -1,11 +1,10 @@
-import { register } from "module";
-
 export const es = {
   title: "Título",
   general: {
     likes: "Likes",
     sales: "Ventas",
     tested: "Verificado",
+    email: "Email",
   },
   header: {
     home: "Inicio",
@@ -19,6 +18,7 @@ export const es = {
   errors: {
     required: "Este campo es requerido",
     invalidEmail: "Email inválido",
+    passwordDoesNotMatch: "Las contraseñas no coinciden",
   },
   home: {
     allCategories: "Todas las categorías",
@@ -42,6 +42,11 @@ export const es = {
   },
   register: {
     title: "Registro",
+    name: "Nombre",
+    email: "Email",
+    password: "Contraseña",
+    confirmPassword: "Confirmar contraseña",
+    submit: "Enviar",
   },
   footer: {
     copyright: "© 2023 Prompt marketplace.",
