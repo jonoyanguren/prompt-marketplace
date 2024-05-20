@@ -6,6 +6,7 @@ import { HowItWorks } from "./screens/HowItWorks";
 import { Login } from "./screens/Auth/Login";
 import { Register } from "./screens/Auth/Register";
 import { PromptDetail } from "./screens/Prompt/PromptDetail";
+import { ForgotPassword } from "./screens/Auth/ForgotPassword";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -14,6 +15,7 @@ const routes = [
   { path: "/become-creator", element: <div>Become a Creator</div> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
+  { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/prompt/:id", element: <PromptDetail /> },
 ];
 

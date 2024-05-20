@@ -1,3 +1,5 @@
+import { register } from "module";
+
 export const es = {
   title: "Título",
   general: {
@@ -35,6 +37,11 @@ export const es = {
     password: "Contraseña",
     passwordPlaceholder: "Contraseña",
     submit: "Enviar",
+    registerLink: "¿No tienes una cuenta? Regístrate",
+    forgotPasswordLink: "¿Olvidaste tu contraseña?",
+  },
+  register: {
+    title: "Registro",
   },
   footer: {
     copyright: "© 2023 Prompt marketplace.",

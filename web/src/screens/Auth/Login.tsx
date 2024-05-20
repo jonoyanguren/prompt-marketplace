@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { login } from "../../api/auth";
 
@@ -61,7 +61,7 @@ export const Login = () => {
 
   return (
     <div>
-      <Title>Login</Title>
+      <Title>{t("login.title")}</Title>
       <FormContainer>
         <Input
           className="mb-4"
@@ -79,7 +79,17 @@ export const Login = () => {
             <p className="text-rose-500">{apiErrors.message}</p>
           </div>
         )}
-        <Button onClick={() => doLogin()}>{t("login.submit")}</Button>
+        <div className="flex justify-between">
+          <Link to="/register" className="text-indigo-600 underline">
+            {t("login.registerLink")}
+          </Link>
+          <Link to="/forgot-password" className="text-indigo-600 underline">
+            {t("login.forgotPasswordLink")}
+          </Link>
+        </div>
+        <Button className="mt-4" onClick={() => doLogin()}>
+          {t("login.submit")}
+        </Button>
       </FormContainer>
     </div>
   );

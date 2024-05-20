@@ -9,7 +9,7 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
 
   return (
     <div
-      className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer"
+      className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer flex flex-col justify-between"
       onClick={() =>
         navigate(`/prompt/${prompt._id}`, {
           state: { prompt },
@@ -40,7 +40,7 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
 
       <PromptCategories categories={prompt.categories} />
 
-      <div className="flex gap-2 mt-2 justify-end">
+      <div className="flex gap-2 mt-2 justify-end ">
         {prompt.platforms.map((platform) => (
           <img key={platform._id} className="w-8" src={platform.logo} />
         ))}

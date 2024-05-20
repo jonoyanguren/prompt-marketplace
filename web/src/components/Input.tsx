@@ -21,12 +21,10 @@ export const Input = ({
   className,
   ...props
 }: InputProps) => {
-  //TODO change color
   const baseStyles =
-    "w-full bg-white border border-gray-300 rounded-md mb-0 py-2 px-4 text-gray-700 focus:outline-none focus:border-gray-400";
-  const inputStyles = className ? `${baseStyles} ${className}` : baseStyles;
+    "w-full bg-white border border-gray-300 rounded-md py-2 px-4 text-gray-900 focus:outline-none focus:border-indigo-600";
   return (
-    <div className="mb-4">
+    <div className={`${className}`}>
       <input
         type={type}
         name={name}
@@ -34,10 +32,10 @@ export const Input = ({
         onChange={onChange}
         onFocus={onFocus}
         placeholder={placeholder}
-        className={inputStyles}
+        className={`${baseStyles} ${errorMessage ? "border-rose-500" : ""}`}
         {...props}
       />
-      <p className="text-xs text-red-500 m-0 text-right mt-1">{errorMessage}</p>
+      <p className="text-xs text-rose-500 m-0 mt-2 text-left">{errorMessage}</p>
     </div>
   );
 };
