@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import { Button, Input, Title } from "../../components";
 import { FormContainer } from "../../components/FormContainer";
 import { useForm } from "../../hooks/useForm";
+import { Link } from "react-router-dom";
 
 export const Register = () => {
   const { t } = useTranslation();
@@ -76,7 +77,14 @@ export const Register = () => {
           placeholder={t("register.confirmPassword")}
           {...formFields("confirmPassword")}
         />
-        <Button onClick={() => doRegister()}>Submit</Button>
+        <div className="flex justify-end">
+          <Link to="/login" className="text-indigo-600 underline">
+            {t("register.loginLink")}
+          </Link>
+        </div>
+        <Button className="mt-4" onClick={() => doRegister()}>
+          Submit
+        </Button>
       </FormContainer>
     </div>
   );

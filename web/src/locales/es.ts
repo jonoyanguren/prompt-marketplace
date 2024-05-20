@@ -47,6 +47,7 @@ export const es = {
     password: "Contraseña",
     confirmPassword: "Confirmar contraseña",
     submit: "Enviar",
+    loginLink: "¿Ya tienes una cuenta? Login",
   },
   footer: {
     copyright: "© 2023 Prompt marketplace.",
