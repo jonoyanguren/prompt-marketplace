@@ -62,4 +62,11 @@ export const es = {
     unlikeSnack: "Like eliminado!",
     alreadyVoted: "Ya ha votado",
   },
+  validateEmail: {
+    title: "Verificación de correo",
+    description:
+      "Te hemos enviado un código de validación a tu email. Introduce el código debajo para confirmar tu dirección de email. ",
+    code: "Codigo",
+    button: "Validar",
+  },
 };

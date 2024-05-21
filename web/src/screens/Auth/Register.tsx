@@ -2,10 +2,13 @@ import { useTranslation } from "react-i18next";
 import { Button, Input, Title } from "../../components";
 import { FormContainer } from "../../components/FormContainer";
 import { useForm } from "../../hooks/useForm";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { register } from "../../api/auth";
 
 export const Register = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const { form, formFields, setErrors } = useForm({
     name: "Jon",
     email: "jon@localhost.com",
@@ -49,7 +52,17 @@ export const Register = () => {
 
   const doRegister = async () => {
     if (!validate()) return;
-    console.log("doRegister", form);
+
+    try {
+      await register({
+        name: form.name,
+        email: form.email,
+        password: form.password,
+      });
+      navigate("/validate-email");
+    } catch (error: any) {
+      console.log("doRegister error", error);
+    }
   };
   return (
     <div>

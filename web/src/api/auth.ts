@@ -24,3 +24,29 @@ export const login = async ({
     }
   }
 };
+
+export const register = async ({
+  name,
+  email,
+  password,
+}: {
+  name: string;
+  email: string;
+  password: string;
+}) => {
+  try {
+    const response = await axios.post(`${API_URL}/user/register`, {
+      name,
+      email,
+      password,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};
