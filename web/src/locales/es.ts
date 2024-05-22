@@ -1,3 +1,5 @@
+import { ValidationSuccess } from "../screens/Auth/ValidationSuccess";
+
 export const es = {
   title: "Título",
   general: {
@@ -68,5 +70,8 @@ export const es = {
       "Te hemos enviado un código de validación a tu email. Introduce el código debajo para confirmar tu dirección de email. ",
     code: "Codigo",
     button: "Validar",
+  },
+  validationSuccess: {
+    title: "Cuenta verificada",
   },
 };

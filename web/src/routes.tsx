@@ -8,6 +8,7 @@ import { Register } from "./screens/Auth/Register";
 import { PromptDetail } from "./screens/Prompt/PromptDetail";
 import { ForgotPassword } from "./screens/Auth/ForgotPassword";
 import { ValidateEmail } from "./screens/Auth/ValidateEmail";
+import { ValidationSuccess } from "./screens/Auth/ValidationSuccess";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -18,7 +19,8 @@ const routes = [
   { path: "/register", element: <Register /> },
   { path: "/forgot-password", element: <ForgotPassword /> },
   { path: "/prompt/:id", element: <PromptDetail /> },
-  { path: "/validate-email", element: <ValidateEmail /> },
+  { path: "/validate-email/:email", element: <ValidateEmail /> },
+  { path: "/validation-success", element: <ValidationSuccess /> },
 ];
 
 export const Routes = () => {

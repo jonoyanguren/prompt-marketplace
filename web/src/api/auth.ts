@@ -50,3 +50,26 @@ export const register = async ({
     }
   }
 };
+
+export const validateEmail = async ({
+  code,
+  email,
+}: {
+  code: string;
+  email: string;
+}) => {
+  try {
+    const response = await axios.post(`${API_URL}/auth/verify-email`, {
+      code,
+      email,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};
