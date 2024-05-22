@@ -59,7 +59,6 @@ export const Register = () => {
         email: form.email,
         password: form.password,
       });
-      console.log("FORM EMAIL", form.email);
       navigate(`/validate-email/${form.email}`);
     } catch (error: any) {
       console.log("doRegister error", error);
