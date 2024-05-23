@@ -35,12 +35,11 @@ export const ForgotPassword = () => {
   const doForgot = async () => {
     if (!validate()) return;
     try {
-      const res = await forgotPassword({ email: form.email });
+      await forgotPassword({ email: form.email });
       navigate("/forgot-password-success");
     } catch (error) {
       console.error("Error al forgot password:", error);
     }
-    console.log("FORGOT", form);
   };
 
   return (

@@ -52,7 +52,6 @@ export const verifyEmail = async (req: Request, res: Response) => {
 };
 
 export const forgotPassword = async (req: Request, res: Response) => {
-  console.log("FORGOT PASSWORD");
   try {
     const { email } = req.body;
     const user = await User.findOne({ email });
@@ -65,8 +64,6 @@ export const forgotPassword = async (req: Request, res: Response) => {
       { id: user._id, email: user.email },
       process.env.JWT_SECRET!
     );
-
-    console.log("TOKEN", token);
 
     //TODO send email with LINK
     // await sendEmail(email, token);
@@ -84,7 +81,6 @@ export const resetPassword = async (req: Request, res: Response) => {
   try {
     const { token, password } = req.body;
     const decoded: any = jwt.verify(token, process.env.JWT_SECRET!);
-    console.log("DECODED TOKEN", decoded);
     const user = await User.findOne({ _id: decoded.id, email: decoded.email });
 
     if (!user) {

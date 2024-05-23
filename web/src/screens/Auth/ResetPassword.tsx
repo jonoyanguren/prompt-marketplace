@@ -9,7 +9,7 @@ export const ResetPassword = () => {
   const { t } = useTranslation();
   const { token } = useParams();
   const navigate = useNavigate();
-  console.log("TOKEN", token);
+
   const { form, formFields, setErrors } = useForm({
     password: "",
     passwordConfirm: "",
@@ -37,8 +37,7 @@ export const ResetPassword = () => {
     if (!validate()) return;
     if (!token) return;
     try {
-      const res = await resetPassword({ token, password: form.password });
-      console.log("RESET", res);
+      await resetPassword({ token, password: form.password });
       navigate("/reset-password-success");
     } catch (error) {
       console.error("Error al reset password:", error);
