@@ -1,3 +1,5 @@
+import { text } from "stream/consumers";
+import { ForgotPassword } from "../screens/Auth/ForgotPassword";
 import { ValidationSuccess } from "../screens/Auth/ValidationSuccess";
 
 export const es = {
@@ -73,5 +75,20 @@ export const es = {
   },
   validationSuccess: {
     title: "Cuenta verificada",
+  },
+  forgotPassword: {
+    title: "Olvidé mi contraseña",
+    emailPlaceholder: "Email",
+    submit: "Enviar",
+  },
+  forgotPasswordSuccess: {
+    title: "Email enviado",
+    text: "Hemos enviado un email con instrucciones para recuperar tu contraseña",
+  },
+  resetPassword: {
+    title: "Restablecer contraseña",
+    passwordPlaceholder: "Nueva contraseña",
+    confirmPasswordPlaceholder: "Confirmar nueva contraseña",
+    submit: "Enviar",
   },
 };

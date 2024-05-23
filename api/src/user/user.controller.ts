@@ -26,6 +26,7 @@ export const register = async (req: Request, res: Response) => {
 
     const verificationCode = Math.floor(100000 + Math.random() * 900000);
 
+    //TODO send email with code
     // await sendEmail(email, verificationCode);
 
     newUser.verificationCode = verificationCode;
