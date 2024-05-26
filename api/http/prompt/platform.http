@@ -9,7 +9,8 @@ Content-Type: application/json
   "code": "midjourney",
   "name": "Midjourney",
   "url": "https://www.midjourney.com/home",
-  "logo": "https://en.wikipedia.org/wiki/File:Midjourney_Emblem.png#/media/File:Midjourney_Emblem.png"
+  "logo": "https://en.wikipedia.org/wiki/File:Midjourney_Emblem.png#/media/File:Midjourney_Emblem.png",
+  "file": 
 }
 
 ### All platform

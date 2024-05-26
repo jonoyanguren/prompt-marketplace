@@ -1,7 +1,3 @@
-import { text } from "stream/consumers";
-import { ForgotPassword } from "../screens/Auth/ForgotPassword";
-import { ValidationSuccess } from "../screens/Auth/ValidationSuccess";
-
 export const es = {
   title: "Título",
   general: {
@@ -32,7 +28,7 @@ export const es = {
     endOfResults: "Ya te lo has visto todo",
   },
   platforms: {
-    title: "Plataformas",
+    title: "Top plataformas",
   },
   login: {
     title: "Login",

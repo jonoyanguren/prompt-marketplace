@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import { Button, Title } from "../components";
@@ -140,9 +140,6 @@ export const Home = () => {
         className="grid grid-cols-3 gap-8"
         dataLength={prompts.length}
         next={fetchMoreData}
-        endMessage={
-          prompts.length !== 0 && <EndOfResults text={t("home.endOfResults")} />
-        }
         hasMore={hasMore}
         loader={<h4>Loading of results...</h4>}
       >

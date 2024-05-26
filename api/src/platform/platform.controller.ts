@@ -1,5 +1,8 @@
 import { Request, Response } from "express";
 import Platform from "./platform.model";
+import { ExtendedRequest } from "../types/extendedRequest";
+import multer from "multer";
+import path from "path";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -25,16 +28,6 @@ export const getOneById = async (req: Request, res: Response) => {
   }
 };
 
-export const create = async (req: Request, res: Response) => {
-  try {
-    const newPlatform = new Platform(req.body);
-    const savedPlatform = await newPlatform.save();
-    res.status(201).json(savedPlatform);
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
-  }
-};
-
 export const update = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
@@ -42,6 +35,24 @@ export const update = async (req: Request, res: Response) => {
       new: true,
     });
     res.status(200).json(updatedPlatform);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const create = async (req: ExtendedRequest, res: Response) => {
+  try {
+    if (!req.file) {
+      return res
+        .status(400)
+        .json({ message: "No se ha cargado ningún archivo" });
+    }
+    const newPlatform = new Platform(req.body);
+    console.log("req.file.path", req.file.path);
+    newPlatform.logo = req.file.path;
+    const savedPlatform = await newPlatform.save();
+
+    res.status(201).json(savedPlatform);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

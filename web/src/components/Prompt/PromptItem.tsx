@@ -3,6 +3,7 @@ import { HeartFull } from "../../assets/icons/HeartFull";
 import { Prompt } from "../../types";
 import { PromptCategories } from "./PromptCategories";
 import { getLikeNumbers } from "../../utils";
+import { API_URL } from "../../conf";
 
 export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
   const navigate = useNavigate();
@@ -40,9 +41,13 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
 
       <PromptCategories categories={prompt.categories} />
 
-      <div className="flex gap-2 mt-2 justify-end ">
+      <div className="flex gap-2 mt-6 justify-end">
         {prompt.platforms.map((platform) => (
-          <img key={platform._id} className="w-8" src={platform.logo} />
+          <img
+            key={platform._id}
+            className="w-9 rounded-full"
+            src={`${API_URL}/${platform.logo}`}
+          />
         ))}
       </div>
     </div>

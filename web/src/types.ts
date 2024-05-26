@@ -19,6 +19,8 @@ export interface Platform {
   name: string;
   url: string;
   logo: string;
+  description: string;
+  votes: number;
 }
 
 export interface Prompt {

@@ -13,6 +13,7 @@ import categoryRoutes from "./category/category.routes";
 import platformRoutes from "./platform/platform.routes";
 import configRoutes from "./config/config.routes";
 import seedRoutes from "./data/seed.routes";
+import path from "path";
 
 const app = express();
 app.use(cors());
@@ -33,6 +34,14 @@ app.use("/category", categoryRoutes);
 app.use("/platform", platformRoutes);
 app.use("/config", configRoutes);
 app.use("/seed", seedRoutes);
+
+// Return platforms logos
+app.get("/platformsLogos/:filename", (req, res) => {
+  const { filename } = req.params;
+  const imagePath = path.join(__dirname, "..", "platformsLogos", filename);
+  res.sendFile(imagePath);
+});
+
 app.use("*", (req, res) => {
   res.status(404).json({ message: "Not Found" });
 });

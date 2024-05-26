@@ -93,3 +93,39 @@ export const seedPrompts = async (req: Request, res: Response) => {
 
   res.status(200).json({ message: "Prompts seeded" });
 };
+
+export const seedPlatforms = async (req: Request, res: Response) => {
+  await Platform.collection.drop();
+  const platforms = [
+    {
+      name: "Chat GPT",
+      url: "https://chatgpt.com/",
+      code: "chatgpt",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/480px-ChatGPT_logo.svg.png",
+      description:
+        "ChatGPT is a conversational AI model designed to facilitate natural language conversations, enhace customer support, and automate various text-based tasks.",
+    },
+    {
+      code: "midjourney",
+      name: "Midjourney",
+      url: "https://www.midjourney.com/home",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Midjourney_Emblem.png/240px-Midjourney_Emblem.png",
+      description:
+        "Midjourney is a platform that helps you to create and manage your own chatbot.",
+    },
+    {
+      code: "leonardo",
+      name: "Leonardo",
+      url: "https://app.leonardo.ai",
+      logo: "https://app.leonardo.ai/img/leonardo-logo.svg",
+      descripion:
+        "Leonardo is a platform that helps you to create and manage your own chatbot.",
+    },
+  ];
+
+  platforms.forEach(async (platform: any) => {
+    await Platform.create(platform);
+  });
+
+  res.status(200).json({ message: "Platforms seeded" });
+};

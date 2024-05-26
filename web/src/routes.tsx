@@ -1,7 +1,6 @@
 import { Routes as ReactRouterRoutes, Route } from "react-router-dom";
 
 import { Home } from "./screens/Home";
-import { Platforms } from "./screens/Plaforms";
 import { HowItWorks } from "./screens/HowItWorks";
 import { Login } from "./screens/Auth/Login";
 import { Register } from "./screens/Auth/Register";
@@ -12,6 +11,7 @@ import { ValidateEmail } from "./screens/Auth/ValidateEmail";
 import { ValidationSuccess } from "./screens/Auth/ValidationSuccess";
 import { ResetPassword } from "./screens/Auth/ResetPassword";
 import { ResetPasswordSuccess } from "./screens/Auth/ResetPasswordSuccess";
+import { Platforms } from "./screens/Platforms/Platforms";
 
 const routes = [
   { path: "/", element: <Home /> },

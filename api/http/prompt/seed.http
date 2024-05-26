@@ -12,3 +12,8 @@ Authorization: Bearer {{process.env.HTTPYAC_ACCESS_TOKEN}}
 ### Seed prompts
 GET {{host}}/seed/prompts
 Content-Type: application/json
+
+
+### Seed platforms
+GET {{host}}/seed/platforms
+Content-Type: application/json
