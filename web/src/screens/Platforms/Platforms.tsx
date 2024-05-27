@@ -20,7 +20,7 @@ export const Platforms = () => {
         setPlatforms(data);
         setLoading(false);
       } catch (error) {
-        console.error("Error al obtener los prompts:", error);
+        console.error("Error al obtener las plataformas:", error);
       }
     };
 

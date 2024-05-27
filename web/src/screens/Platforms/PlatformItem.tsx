@@ -1,7 +1,29 @@
+import { enqueueSnackbar } from "notistack";
+import { votePlatform } from "../../api/platforms";
 import { API_URL } from "../../conf";
 import { Platform } from "../../types";
+import { useTranslation } from "react-i18next";
+import { useState } from "react";
 
 export const PlatformItem = ({ platform }: { platform: Platform }) => {
+  const { t } = useTranslation();
+  const [votes, setVotes] = useState<number>(platform.votes);
+  const [userHasUpvoted, setUserHasUpvoted] = useState<boolean | undefined>(
+    platform.userHasUpvoted
+  );
+  const doVotePlatform = async (id: string) => {
+    try {
+      await votePlatform({ id });
+      setVotes(platform.votes + 1);
+      setUserHasUpvoted(true);
+      enqueueSnackbar(t("platforms.upvoteSnack"), {
+        variant: "success",
+      });
+    } catch (e) {
+      console.error("Error al votar plataforma", e);
+    }
+  };
+
   return (
     <div className="mb-4 p-6 rounded-xl shadow-lg bg-white text-left flex justify-between">
       <div className="flex">
@@ -23,8 +45,15 @@ export const PlatformItem = ({ platform }: { platform: Platform }) => {
         </div>
       </div>
       <div
-        className="bg-gray-50 border border-gray-200 min-w-16 h-16 flex flex-col justify-center items-center cursor-pointer"
-        onClick={() => console.log("VOTING")}
+        className={`border min-w-16 h-16 flex flex-col justify-center items-center rounded-md ${
+          userHasUpvoted
+            ? "bg-green-50 border-green-200"
+            : "bg-gray-50 border-gray-200 cursor-pointer"
+        }`}
+        onClick={() => {
+          if (userHasUpvoted) return;
+          doVotePlatform(platform._id);
+        }}
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -38,7 +67,7 @@ export const PlatformItem = ({ platform }: { platform: Platform }) => {
             fill="#1F2A37"
           />
         </svg>
-        <p>{platform.votes}</p>
+        <p>{votes}</p>
       </div>
     </div>
   );

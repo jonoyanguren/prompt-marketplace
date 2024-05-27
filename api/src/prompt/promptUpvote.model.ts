@@ -8,6 +8,5 @@ const promptUpvoteSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("PromptUpvote", promptUpvoteSchema);
 const PromptUpvote = mongoose.model("PromptUpvote", promptUpvoteSchema);
 export default PromptUpvote;

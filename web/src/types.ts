@@ -21,6 +21,7 @@ export interface Platform {
   logo: string;
   description: string;
   votes: number;
+  userHasUpvoted?: boolean;
 }
 
 export interface Prompt {

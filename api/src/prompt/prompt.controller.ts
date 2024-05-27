@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import Prompt from "./prompt.model";
 import { ExtendedRequest } from "../types/extendedRequest";
 import PromptUpvote from "./promptUpvote.model";
+import mongoose from "mongoose";
 
 const COUNT_PER_PAGE = 10;
 
@@ -104,24 +105,39 @@ export const create = async (req: ExtendedRequest, res: Response) => {
 export const getOneById = async (req: ExtendedRequest, res: Response) => {
   try {
     const { id } = req.params;
+    const userId = req.user?.id;
 
-    const upvoteCount = await PromptUpvote.countDocuments({ prompt: id });
-    const userHasUpvoted = await PromptUpvote.exists({
-      prompt: id,
-      user: req.user?.id,
-    });
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: "Invalid prompt ID." });
+    }
 
-    const prompt = await Prompt.findById(id)
-      .populate("createdBy")
-      .populate("platforms")
-      .populate("categories");
+    if (userId && !mongoose.Types.ObjectId.isValid(userId)) {
+      return res.status(400).json({ message: "Invalid user ID." });
+    }
+
+    const [prompt, upvoteCount, userHasUpvoted] = await Promise.all([
+      Prompt.findById(id)
+        .populate("createdBy")
+        .populate("platforms")
+        .populate("categories"),
+      PromptUpvote.countDocuments({ prompt: id }),
+      userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
+    ]);
+
+    if (!prompt) {
+      return res.status(404).json({ message: "Prompt not found." });
+    }
+
     res.status(200).json({
       ...prompt.toObject(),
       upvoteCount,
       userHasUpvoted: !!userHasUpvoted,
     });
-  } catch (error: any) {
-    res.status(500).json({ message: error.message });
+  } catch (error) {
+    res.status(500).json({
+      message: "Server error. Please try again later.",
+      error: error.message,
+    });
   }
 };
 

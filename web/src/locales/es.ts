@@ -29,6 +29,7 @@ export const es = {
   },
   platforms: {
     title: "Top plataformas",
+    upvoteSnack: "Voto enviado!",
   },
   login: {
     title: "Login",
