@@ -25,8 +25,9 @@ const CheckoutForm: React.FC = () => {
 
     try {
       const response = await createPaymentIntent({
-        amount: 1000,
-        currency: "usd",
+        amount: Math.floor(Math.random() * (15000 - 1000 + 1) + 1000),
+        currency: "eur",
+        promptId: "test prompt id",
       });
       const { clientSecret } = response;
 

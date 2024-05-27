@@ -1,14 +1,19 @@
 import { Request, Response } from "express";
 import stripe from "../stripe";
+import Payment from "./payment.model";
+import { ExtendedRequest } from "../types/extendedRequest";
 
-export const createPaymentIntent = async (req: Request, res: Response) => {
-  console.log("ONE PAYMENT");
+export const createPaymentIntent = async (
+  req: ExtendedRequest,
+  res: Response
+) => {
   try {
-    const { amount, currency } = req.body;
+    const { amount, currency, promptId } = req.body;
 
     const paymentIntent = await stripe.paymentIntents.create({
       amount,
       currency,
+      metadata: { userId: req.user?.id, promptId: promptId },
     });
 
     res.status(200).json({
@@ -19,55 +24,49 @@ export const createPaymentIntent = async (req: Request, res: Response) => {
   }
 };
 
-const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
-
 export const stripeWebhook = async (req: Request, res: Response) => {
   const sig = req.headers["stripe-signature"];
-
   let event;
 
   try {
-    event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+    // Use the raw body to construct the event
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
   } catch (err) {
-    res.status(400).send(`Webhook Error: ${err.message}`);
-    return;
+    console.log(`Webhook Error: ${err.message}`);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
   // Handle the event
   switch (event.type) {
-    case "payment_intent.canceled":
-      const paymentIntentCanceled = event.data.object;
-      // Then define and call a function to handle the event payment_intent.canceled
+    case "payment_intent.succeeded" || "payment_intent.charge.updated":
+      const paymentIntent = event.data.object;
+
+      // Save payment details to the database
+      const payment = new Payment({
+        stripePaymentId: paymentIntent.id,
+        userId: paymentIntent.metadata.userId || "6654c347fa5daf6824175a2a",
+        promptId: paymentIntent.metadata.promptId || "663d583a972ec1008d846f12",
+        amount: paymentIntent.amount,
+        currency: paymentIntent.currency,
+        status: paymentIntent.status,
+      });
+
+      try {
+        await payment.save();
+        console.log("Payment saved:", payment);
+      } catch (error) {
+        console.log("Error saving payment:", error);
+      }
+
       break;
-    case "payment_intent.created":
-      const paymentIntentCreated = event.data.object;
-      // Then define and call a function to handle the event payment_intent.created
-      break;
-    case "payment_intent.partially_funded":
-      const paymentIntentPartiallyFunded = event.data.object;
-      // Then define and call a function to handle the event payment_intent.partially_funded
-      break;
-    case "payment_intent.payment_failed":
-      const paymentIntentPaymentFailed = event.data.object;
-      // Then define and call a function to handle the event payment_intent.payment_failed
-      break;
-    case "payment_intent.processing":
-      const paymentIntentProcessing = event.data.object;
-      // Then define and call a function to handle the event payment_intent.processing
-      break;
-    case "payment_intent.requires_action":
-      const paymentIntentRequiresAction = event.data.object;
-      // Then define and call a function to handle the event payment_intent.requires_action
-      break;
-    case "payment_intent.succeeded":
-      const paymentIntentSucceeded = event.data.object;
-      // Then define and call a function to handle the event payment_intent.succeeded
-      break;
-    // ... handle other event types
+
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
 
-  // Return a 200 response to acknowledge receipt of the event
-  res.send();
+  res.json({ received: true });
 };

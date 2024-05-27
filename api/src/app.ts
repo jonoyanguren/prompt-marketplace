@@ -15,10 +15,10 @@ import platformRoutes from "./platform/platform.routes";
 import configRoutes from "./config/config.routes";
 import seedRoutes from "./data/seed.routes";
 import paymentRoutes from "./payments/payments.routes";
+import { stripeWebhook } from "./payments/payments.controller";
 
 const app = express();
 app.use(cors());
-app.use(express.json());
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   logger.info(`${req.method} ${req.path}`);
@@ -28,6 +28,9 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 logger.info("Testing logger");
 
 // Routes
+app.use("/payment", paymentRoutes);
+
+app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/user", userRoutes);
 app.use("/prompt", promptRoutes);
@@ -35,7 +38,6 @@ app.use("/category", categoryRoutes);
 app.use("/platform", platformRoutes);
 app.use("/config", configRoutes);
 app.use("/seed", seedRoutes);
-app.use("/payment", paymentRoutes);
 
 // Return platforms logos
 app.get("/platformsLogos/:filename", (req, res) => {
