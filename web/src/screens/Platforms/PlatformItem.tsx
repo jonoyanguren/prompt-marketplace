@@ -34,14 +34,14 @@ export const PlatformItem = ({ platform }: { platform: Platform }) => {
         />
         <div className="mx-8">
           <p className="font-bold text-lg text-gray-900">{platform.name}</p>
+          <p className="text-gray-500 my-2">{platform.description}</p>
           <a
             href={platform.url}
             target="_blank"
-            className="text-sm my-2 underline text-gray-800"
+            className="text-sm my-2 underline text-gray-500"
           >
             {platform.url}
           </a>
-          <p>{platform.description}</p>
         </div>
       </div>
       <div

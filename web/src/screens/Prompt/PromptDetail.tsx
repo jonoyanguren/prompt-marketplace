@@ -18,6 +18,7 @@ import { CopyButton } from "../../components/CopyButton";
 import { CreatedByCard } from "../../components/Prompt/UserCard";
 import { PromptItem } from "../../components/Prompt/PromptItem";
 import { enqueueSnackbar } from "notistack";
+import { API_URL } from "../../conf";
 
 export const PromptDetail = () => {
   const { id } = useParams();
@@ -92,7 +93,19 @@ export const PromptDetail = () => {
     <div className="bg-white rounded-xl shadow p-16">
       <div className="text-left xl:flex pt-20">
         <div className="pr-8 flex flex-col gap-8">
-          <PromptCategories categories={prompt.categories} />
+          <div className="flex gap-4 justify-between w-full items-center">
+            <PromptCategories categories={prompt.categories} />
+            <div className="flex">
+              {prompt.platforms.map((platform) => (
+                <img
+                  key={platform._id}
+                  className="w-12 ml-2 rounded-md"
+                  src={`${API_URL}/${platform.logo}`}
+                  alt={platform.name}
+                />
+              ))}
+            </div>
+          </div>
           <div className="flex items-end justify-between">
             <Title className="text-left">{prompt.title}</Title>
             <div onClick={() => likePrompt()}>
@@ -167,7 +180,7 @@ export const PromptDetail = () => {
         </Subtitle>
         <div className="flex gap-4 mt-8">
           {similarPrompts.length > 0 &&
-            similarPrompts.map((similarPrompt) => {
+            similarPrompts.slice(0, 4).map((similarPrompt) => {
               if (similarPrompt._id === prompt._id) return null;
               return (
                 <PromptItem key={similarPrompt._id} prompt={similarPrompt} />
