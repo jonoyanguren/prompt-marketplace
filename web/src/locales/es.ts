@@ -1,3 +1,5 @@
+import CheckoutForm from "../screens/Payments/CheckoutForm";
+
 export const es = {
   title: "Título",
   general: {
@@ -87,5 +89,9 @@ export const es = {
     passwordPlaceholder: "Nueva contraseña",
     confirmPasswordPlaceholder: "Confirmar nueva contraseña",
     submit: "Enviar",
+  },
+  checkoutForm: {
+    success: "Pago realizado con exito",
+    error: "Error al realizar el pago",
   },
 };

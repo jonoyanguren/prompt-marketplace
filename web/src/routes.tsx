@@ -12,6 +12,7 @@ import { ValidationSuccess } from "./screens/Auth/ValidationSuccess";
 import { ResetPassword } from "./screens/Auth/ResetPassword";
 import { ResetPasswordSuccess } from "./screens/Auth/ResetPasswordSuccess";
 import { Platforms } from "./screens/Platforms/Platforms";
+import { CheckoutScreen } from "./screens/Payments/CheckoutScreen";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -27,6 +28,7 @@ const routes = [
   { path: "/validation-success", element: <ValidationSuccess /> },
   { path: "/reset-password/:token", element: <ResetPassword /> },
   { path: "/reset-password-success", element: <ResetPasswordSuccess /> },
+  { path: "/checkout-form", element: <CheckoutScreen /> },
   { path: "*", element: <div>Not Found</div> },
 ];
 

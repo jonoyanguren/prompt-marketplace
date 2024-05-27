@@ -1,4 +1,5 @@
 import express, { Request, Response, NextFunction } from "express";
+import path from "path";
 const cors = require("cors");
 import dotenv from "dotenv";
 dotenv.config();
@@ -13,7 +14,7 @@ import categoryRoutes from "./category/category.routes";
 import platformRoutes from "./platform/platform.routes";
 import configRoutes from "./config/config.routes";
 import seedRoutes from "./data/seed.routes";
-import path from "path";
+import paymentRoutes from "./payments/payments.routes";
 
 const app = express();
 app.use(cors());
@@ -34,6 +35,7 @@ app.use("/category", categoryRoutes);
 app.use("/platform", platformRoutes);
 app.use("/config", configRoutes);
 app.use("/seed", seedRoutes);
+app.use("/payment", paymentRoutes);
 
 // Return platforms logos
 app.get("/platformsLogos/:filename", (req, res) => {
