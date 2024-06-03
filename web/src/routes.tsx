@@ -13,6 +13,7 @@ import { ResetPassword } from "./screens/Auth/ResetPassword";
 import { ResetPasswordSuccess } from "./screens/Auth/ResetPasswordSuccess";
 import { Platforms } from "./screens/Platforms/Platforms";
 import { CheckoutScreen } from "./screens/Payments/CheckoutScreen";
+import { Profile } from "./screens/Profile/Profile";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -29,6 +30,7 @@ const routes = [
   { path: "/reset-password/:token", element: <ResetPassword /> },
   { path: "/reset-password-success", element: <ResetPasswordSuccess /> },
   { path: "/checkout-form", element: <CheckoutScreen /> },
+  { path: "/profile", element: <Profile /> },
   { path: "*", element: <div>Not Found</div> },
 ];
 

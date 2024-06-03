@@ -2,6 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "./user.model";
 import { sendEmail } from "../middleware/sendEmail";
+import { ExtendedRequest } from "../types/extendedRequest";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -34,6 +35,18 @@ export const register = async (req: Request, res: Response) => {
     await newUser.save();
 
     res.status(201).json(savedUser);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const getMe = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+    res.status(200).json({ user });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

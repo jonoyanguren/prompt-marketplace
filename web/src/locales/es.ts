@@ -1,5 +1,3 @@
-import CheckoutForm from "../screens/Payments/CheckoutForm";
-
 export const es = {
   title: "Título",
   general: {
@@ -93,5 +91,9 @@ export const es = {
   checkoutForm: {
     success: "Pago realizado con exito",
     error: "Error al realizar el pago",
+  },
+  profile: {
+    profileMenu: "Perfil",
+    favoritesMenu: "Favoritos",
   },
 };

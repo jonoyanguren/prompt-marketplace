@@ -32,6 +32,15 @@ export const Header = () => {
           <div className="flex items-center lg:order-2 gap-2">
             {user ? (
               <>
+                {/* <img
+                  src={user.avatar}
+                  alt="Avatar"
+                  className="w-8 h-8 rounded-full mr-4"
+                /> */}
+                <Link
+                  to="/profile"
+                  className="w-10 h-10 rounded-full bg-gray-200 mr-2"
+                ></Link>
                 <Button onClick={logout}>{t("header.logout")}</Button>
                 <ToggleMenuButton isOpen={isOpen} toggleMenu={toggleMenu} />
               </>
