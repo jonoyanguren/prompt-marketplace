@@ -5,7 +5,7 @@ export const CreatedByCard = ({ author }: { author: User }) => {
   return (
     <>
       <div className="text-center">
-        <div className="w-20 h-20 mx-auto rounded-full bg-gray-300"></div>
+        <img className="w-20 h-20 rounded-full mx-auto" src={author.avatar} />
         <p className="font-medium mt-4">{author.name}</p>
         <p className="text-gray-500 text-sm">6K followers</p>
 

@@ -34,10 +34,10 @@ export const Profile = () => {
   return (
     <div className="p-6">
       <div className="flex items-center">
-        <img className="w-20 h-20 rounded-full" src={user.avatar} alt="" />
+        <img className="w-20 h-20 rounded-full mr-4" src={user.avatar} alt="" />
         <p className="font-medium text-3xl">{user.name}</p>
       </div>
-      <div>
+      <div className="mt-4">
         <TabMenu activeTab={activeTab} onChangeTab={setActiveTab} />
         {renderContent()}
       </div>
