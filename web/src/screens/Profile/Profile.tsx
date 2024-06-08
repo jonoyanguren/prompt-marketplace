@@ -18,8 +18,6 @@ export const Profile = () => {
     }
   };
 
-  console.log("USER", user);
-
   useEffect(() => {
     const fetchUser = async () => {
       try {

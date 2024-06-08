@@ -5,10 +5,11 @@ import { updateUser as updateUserApi } from "../../api/user";
 import { AuthContext } from "../../contexts/AuthContext";
 import { useContext } from "react";
 
-export const ProfileContent = ({ user }: { user: User }) => {
+export const ProfileContent = ({ user }: { user: User | null }) => {
   const { updateUser: updateUserContext } = useContext(AuthContext);
 
   const saveUser = async (url: string) => {
+    if (!user) return;
     try {
       await updateUserApi({
         userId: user._id,
@@ -21,6 +22,7 @@ export const ProfileContent = ({ user }: { user: User }) => {
     }
   };
 
+  if (!user) return null;
   return (
     <div className="mt-12">
       <Title>Profile</Title>
