@@ -16,6 +16,7 @@ import configRoutes from "./config/config.routes";
 import seedRoutes from "./data/seed.routes";
 import paymentRoutes from "./payments/payments.routes";
 import { stripeWebhook } from "./payments/payments.controller";
+import { getPresignedUploadURL } from "./s3";
 
 const app = express();
 app.use(cors());
@@ -44,6 +45,16 @@ app.get("/platformsLogos/:filename", (req, res) => {
   const { filename } = req.params;
   const imagePath = path.join(__dirname, "..", "platformsLogos", filename);
   res.sendFile(imagePath);
+});
+
+app.get("/upload-url", async (req, res) => {
+  const { fileName, fileType } = req.query;
+  try {
+    const url = await getPresignedUploadURL(fileName, fileType);
+    res.status(200).json({ url });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 app.use("*", (req, res) => {

@@ -12,11 +12,13 @@ export const Profile = () => {
   const renderContent = () => {
     switch (activeTab) {
       case "profile":
-        return <ProfileContent />;
+        return <ProfileContent user={user} />;
       case "favorites":
         return <FavoritesContent />;
     }
   };
+
+  console.log("USER", user);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -34,7 +36,7 @@ export const Profile = () => {
   return (
     <div className="p-6">
       <div className="flex items-center">
-        <div className="w-20 h-20 bg-gray-200 rounded-full mr-8"></div>
+        <img className="w-20 h-20 rounded-full" src={user.avatar} alt="" />
         <p className="font-medium text-3xl">{user.name}</p>
       </div>
       <div>

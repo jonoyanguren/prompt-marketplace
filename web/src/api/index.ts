@@ -7,6 +7,14 @@ axios.interceptors.request.use(
       config.headers.Authorization = `Bearer ${token}`;
     }
 
+    if (
+      config.method === "put" &&
+      config.url &&
+      config.url.includes("amazonaws.com")
+    ) {
+      delete config.headers.Authorization;
+    }
+
     return config;
   },
   (error: AxiosError) => Promise.reject(error)

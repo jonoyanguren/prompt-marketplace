@@ -13,9 +13,10 @@ export const getAll = async (req: Request, res: Response) => {
   }
 };
 
-export const register = async (req: Request, res: Response) => {
+export const register = async (req: ExtendedRequest, res: Response) => {
   try {
     const { username, password, name, email } = req.body;
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = new User({
@@ -47,6 +48,19 @@ export const getMe = async (req: ExtendedRequest, res: Response) => {
       return res.status(404).json({ message: "User not found" });
     }
     res.status(200).json({ user });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const update = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log("REQ.BODY", req.body);
+    const updatedUser = await User.findByIdAndUpdate(id, req.body, {
+      new: true,
+    });
+    res.status(200).json(updatedUser);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
