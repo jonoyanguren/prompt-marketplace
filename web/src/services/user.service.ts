@@ -1,9 +1,11 @@
 import { User } from "../types";
 import { remove, save } from "./localStorage.service";
 
-export const saveUser = (user: User, token: string) => {
+export const saveUser = (user: User, token?: string) => {
   save("user", JSON.stringify(user));
-  save("token", token);
+  if (token) {
+    save("token", token);
+  }
 };
 
 export const logout = () => {

@@ -1,18 +1,25 @@
-import { useState, ChangeEvent } from "react";
+import { useState, ChangeEvent, useRef, useEffect, useContext } from "react";
 import axios from "axios";
 import { API_URL } from "../conf";
+import { AuthContext } from "../contexts/AuthContext";
+import { use } from "i18next";
+import { useTranslation } from "react-i18next";
 
 const FileUploader = ({
   fileName,
   callback,
+  children,
 }: {
   fileName: string;
   callback: (url: string) => void;
+  children?: React.ReactNode;
 }) => {
+  const { t } = useTranslation();
   const [url, setUrl] = useState<string | null>(null);
   const [file, setFile] = useState<File | null>(null);
   const [uploading, setUploading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -21,6 +28,7 @@ const FileUploader = ({
   };
 
   const handleUpload = async () => {
+    console.log("handle upload", file);
     if (!file) return;
     setUploading(true);
     setError(null);
@@ -45,12 +53,14 @@ const FileUploader = ({
       });
 
       const imageUrl = uploadUrl.split("?")[0];
-      setUrl(imageUrl);
 
+      console.log("OUT CALLBACK");
       if (callback) {
+        console.log("INSIDE");
         callback(imageUrl);
       }
 
+      setUrl(imageUrl);
       setUploading(false);
     } catch (error: any) {
       console.error("Error uploading file:", error);
@@ -64,21 +74,42 @@ const FileUploader = ({
     }
   };
 
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
+  useEffect(() => {
+    if (file) {
+      handleUpload();
+    }
+  }, [file]);
+
   return (
     <div>
-      <input type="file" onChange={handleFileChange} />
-      <button onClick={handleUpload} disabled={!file || uploading}>
-        {uploading ? "Uploading..." : "Upload File"}
-      </button>
+      <input
+        type="file"
+        onChange={handleFileChange}
+        style={{ display: "none" }}
+        ref={fileInputRef}
+      />
+      <div
+        onClick={triggerFileInput}
+        style={{ display: "inline-block", cursor: "pointer" }}
+      >
+        {children || (
+          <button disabled={!file || uploading}>
+            {uploading ? "Uploading..." : "Upload File"}
+          </button>
+        )}
+      </div>
+
       {error && <p style={{ color: "red" }}>{error}</p>}
       {url && (
         <div>
-          <p>
-            File uploaded:{" "}
-            <a href={url} target="_blank" rel="noopener noreferrer">
+          <p className="text-green-500">{t("fileUploader.success")}</p>
+          {/* <a href={url} target="_blank" rel="noopener noreferrer">
               {url}
-            </a>
-          </p>
+            </a> */}
         </div>
       )}
     </div>

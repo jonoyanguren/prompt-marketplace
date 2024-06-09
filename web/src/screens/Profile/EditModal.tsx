@@ -1,38 +1,22 @@
 import { useTranslation } from "react-i18next";
 import { Button, Input, Modal } from "../../components";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { User } from "../../types";
 import { useForm } from "../../hooks/useForm";
-import { updateUser } from "../../api/user";
+import FileUploader from "../../components/FileUploader";
+import { AuthContext } from "../../contexts/AuthContext";
+import { updateUser as updateUserApi } from "../../api/user";
 
 interface UserProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   user: User;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-export const EditModal = ({ open, setOpen, user, setUser }: UserProps) => {
+export const EditModal = ({ open, setOpen, user }: UserProps) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"info" | "links">("info");
-
-  const renderContent = () => {
-    switch (activeTab) {
-      case "info":
-        return (
-          <InfoForm
-            user={user}
-            close={() => setOpen(false)}
-            setUser={setUser}
-          />
-        );
-      case "links":
-        return <LinksForm user={user} />;
-      default:
-        return <InfoForm user={user} />;
-    }
-  };
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
@@ -40,68 +24,72 @@ export const EditModal = ({ open, setOpen, user, setUser }: UserProps) => {
         <p className="text-2xl text-left font-semibold">
           {t("editModal.title")}
         </p>
-        {/* TABS */}
-        <div className="border-b border-gray-200 dark:border-gray-700 mt-4">
-          <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-            <li className="me-2">
-              <button
-                onClick={() => setActiveTab("info")}
-                className={`inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg ${
-                  activeTab === "info"
-                    ? "text-indigo-600 border-indigo-600 dark:text-indigo-500 dark:border-indigo-500"
-                    : "hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                } group`}
-              >
-                {t("editModal.infoMenu")}
-              </button>
-            </li>
-            <li className="me-2">
-              <button
-                onClick={() => setActiveTab("links")}
-                className={`inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg ${
-                  activeTab === "links"
-                    ? "text-indigo-600 border-indigo-600 dark:text-indigo-500 dark:border-indigo-500"
-                    : "hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
-                } group`}
-              >
-                {t("editModal.linksMenu")}
-              </button>
-            </li>
-          </ul>
+        <Tabs activeTab={activeTab} setActiveTab={setActiveTab} t={t} />
+        <div className="mt-6">
+          {activeTab === "info" ? (
+            <InfoForm user={user} close={() => setOpen(false)} />
+          ) : (
+            <LinksForm user={user} />
+          )}
         </div>
-        <div className="mt-6">{renderContent()}</div>
       </div>
     </Modal>
   );
 };
 
-const InfoForm = ({
-  user,
-  close,
-  setUser,
+const Tabs = ({
+  activeTab,
+  setActiveTab,
+  t,
 }: {
-  user: User;
-  close: () => void;
-  setUser: React.Dispatch<React.SetStateAction<User>>;
-}) => {
+  activeTab: string;
+  setActiveTab: (value: string) => void;
+  t: any;
+}) => (
+  <div className="border-b border-gray-200 dark:border-gray-700 mt-4">
+    <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+      {["info", "links"].map((tab) => (
+        <li key={tab} className="me-2">
+          <button
+            onClick={() => setActiveTab(tab)}
+            className={`inline-flex items-center justify-center p-4 border-b-2 border-transparent rounded-t-lg ${
+              activeTab === tab
+                ? "text-indigo-600 border-indigo-600 dark:text-indigo-500 dark:border-indigo-500"
+                : "hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
+            } group`}
+          >
+            {t(`editModal.${tab}Menu`)}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </div>
+);
+
+const InfoForm = ({ user, close }: { user: User; close: () => void }) => {
   const { t } = useTranslation();
-  // const [avatar, setAvatar] = useState(user.avatar);
-  const { form, formFields, setError } = useForm({
+  const [avatar, setAvatar] = useState(user.avatar);
+  const { updateUser } = useContext(AuthContext);
+  const { form, formFields } = useForm({
     name: user.name,
     bio: user.bio,
   });
 
+  const changeUserAvatar = (url: string) => {
+    updateUser({ ...user, avatar: url });
+    setAvatar(url);
+  };
+
   const doUpdateUser = async () => {
     try {
-      await updateUser({
+      await updateUserApi({
         userId: user._id,
-        user: form,
+        user: { ...form, avatar },
       });
+
+      updateUser({ ...user, ...form, avatar });
+      enqueueSnackbar(t("editModal.success"), { variant: "success" });
       close();
-      setUser({ ...user, ...form });
-      enqueueSnackbar(t("editModal.success"), {
-        variant: "success",
-      });
     } catch (error) {
       console.error("Error updating the user:", error);
     }
@@ -113,22 +101,29 @@ const InfoForm = ({
         {t("editModal.uploadYourPicture")}
       </p>
       <div className="flex items-start">
-        <img className="w-20 h-20 rounded-full mr-4" src={user.avatar} />
+        <img
+          className="w-20 h-20 rounded-full mr-4"
+          src={`${avatar}?${Date.now()}`}
+          alt="Avatar"
+        />
         <div className="text-left ml-4">
-          <p className="text-indigo-600 cursor-pointer">
-            {t("editModal.updatePhotoLink")}
-          </p>
-          {/* <FileUploader callback={(url) => setAvatar(url)} /> */}
+          <FileUploader
+            fileName={`${user._id}-avatar`}
+            callback={changeUserAvatar}
+          >
+            <p className="text-indigo-600 cursor-pointer">
+              {t("editModal.updatePhotoLink")}
+            </p>
+          </FileUploader>
           <p>{t("editModal.updatePhotoText")}</p>
         </div>
       </div>
-
       <div className="mt-6">
         <Input className="mt-6" {...formFields("name")} />
         <Input type="textarea" className="mt-4" {...formFields("bio")} />
         <Button
           className="w-full mt-4"
-          onClick={() => doUpdateUser()}
+          onClick={doUpdateUser}
           disabled={!form.name && !form.bio}
         >
           {t("editModal.save")}
@@ -140,5 +135,5 @@ const InfoForm = ({
 
 const LinksForm = ({ user }: { user: User }) => {
   const { t } = useTranslation();
-  return <div>LINKSSS</div>;
+  return <div>{t("editModal.linksContent")}</div>;
 };

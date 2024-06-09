@@ -107,4 +107,7 @@ export const es = {
     save: "Actualizar",
     success: "El usuario ha sido actualizado con éxito",
   },
+  fileUploader: {
+    success: "El archivo se ha cargado con éxito",
+  },
 };

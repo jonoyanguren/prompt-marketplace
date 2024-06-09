@@ -34,7 +34,7 @@ export const Header = () => {
               <>
                 <Link to="/profile">
                   <img
-                    src={user.avatar}
+                    src={`${user.avatar}?${Date.now()}`}
                     alt="Avatar"
                     className="w-10 h-10 rounded-full mr-4"
                   />
