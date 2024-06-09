@@ -26,11 +26,11 @@ function App() {
 
   return (
     <AuthContextProvider>
-      <div className="h-screen flex justify-between flex-col font-sans">
+      <div className="h-screen flex flex-col font-sans">
         <Header />
         <SnackbarProvider />
 
-        <div className="p-8">
+        <div className="p-8 flex-1">
           <Routes />
         </div>
         <Footer />

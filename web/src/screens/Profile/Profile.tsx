@@ -1,6 +1,4 @@
-import { useContext, useEffect, useState } from "react";
-import { getMe } from "../../api/user";
-import { User } from "../../types";
+import { useContext, useState } from "react";
 import TabMenu from "./TabMenu";
 import { ProfileContent } from "./ProfileContent";
 import { FavoritesContent } from "./FavoritesContent";
@@ -26,7 +24,7 @@ export const Profile = () => {
 
   if (!user) return null;
   return (
-    <>
+    <div className="">
       {openModal && (
         <EditModal open={openModal} setOpen={setOpenModal} user={user} />
       )}
@@ -49,6 +47,6 @@ export const Profile = () => {
           {renderContent()}
         </div>
       </div>
-    </>
+    </div>
   );
 };
