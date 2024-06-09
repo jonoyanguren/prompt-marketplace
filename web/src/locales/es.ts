@@ -1,3 +1,5 @@
+import { MyPromptsContent } from "../screens/Profile/MyPromptsContent";
+
 export const es = {
   title: "Título",
   general: {
@@ -113,5 +115,10 @@ export const es = {
   },
   fileUploader: {
     success: "El archivo se ha cargado con éxito",
+  },
+  myPromptsContent: {
+    noPromptsTitle: "Todavía no hay prompts",
+    text: "Cuando crees tu primer prompt, aparecerá aquí.",
+    button: "Crea un prompt",
   },
 };

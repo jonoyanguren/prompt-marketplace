@@ -27,7 +27,7 @@ export const Profile = () => {
 
   if (!user) return null;
   return (
-    <div className="">
+    <div>
       {openModal && (
         <EditModal open={openModal} setOpen={setOpenModal} user={user} />
       )}
