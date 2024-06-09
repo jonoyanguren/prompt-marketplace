@@ -118,7 +118,8 @@ const InfoForm = ({ user, close }: { user: User; close: () => void }) => {
           <p>{t("editModal.updatePhotoText")}</p>
         </div>
       </div>
-      <div className="mt-6">
+      <hr className="my-6" />
+      <div>
         <Input className="mt-6" {...formFields("name")} />
         <Input type="textarea" className="mt-4" {...formFields("bio")} />
         <Button
