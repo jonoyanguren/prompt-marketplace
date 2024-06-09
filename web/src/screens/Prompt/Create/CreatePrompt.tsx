@@ -21,7 +21,7 @@ export const CreatePrompt = () => {
     whoIsFor: "",
     howToUse: "",
     prompt: "",
-    price: 0,
+    price: "",
   });
 
   const validate: Record<number, () => boolean> = {

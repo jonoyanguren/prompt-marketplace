@@ -1,3 +1,5 @@
+import { PriceDetails } from "../screens/Prompt/Create/PriceDetails";
+
 export const es = {
   title: "Título",
   general: {
@@ -8,6 +10,7 @@ export const es = {
     save: "Guardar",
     cancel: "Cancelar",
     close: "Cerrar",
+    currency: "€",
   },
   header: {
     home: "Inicio",
@@ -163,6 +166,8 @@ export const es = {
       priceGuideText:
         "Establecer cuánto cobrar por un prompt puede depender de varios factores. Aquí tienes una guía en caso de que no sepas cómo fijar un precio.",
       priceGuideButton: "Ver guía",
+      totalPrice: "Precio total",
+      viewPriceDetails: "Ver detalles",
     },
   },
   priceGuide: {
@@ -174,6 +179,16 @@ export const es = {
       "<strong>Moderado:</strong> Los prompts que requieren algo de investigación y personalización pueden estar en el rango de $15 a $50.",
     advanced:
       "<strong>Avanzado:</strong> Los prompts altamente personalizados y complejos, que pueden requerir conocimientos especializados o una considerable investigación, pueden costar entre $50 y $200 o más.",
+    button: "Entendido",
+  },
+  priceDetails: {
+    title: "Detalles del precio",
+    costToUser: "Costo para el usuario",
+    promptPrice: "Precio del prompt",
+    servicePrice: "Costo del servicio",
+    total: "Total",
+    yourPayment: "Tu pago",
+    benefit: "Beneficio por prompt",
     button: "Entendido",
   },
 };
