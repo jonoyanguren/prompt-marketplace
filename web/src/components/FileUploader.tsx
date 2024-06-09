@@ -28,7 +28,6 @@ const FileUploader = ({
   };
 
   const handleUpload = async () => {
-    console.log("handle upload", file);
     if (!file) return;
     setUploading(true);
     setError(null);
@@ -54,9 +53,7 @@ const FileUploader = ({
 
       const imageUrl = uploadUrl.split("?")[0];
 
-      console.log("OUT CALLBACK");
       if (callback) {
-        console.log("INSIDE");
         callback(imageUrl);
       }
 
@@ -68,8 +65,8 @@ const FileUploader = ({
       setUploading(false);
 
       if (error.response) {
-        console.log("Error response: ", error.response);
-        console.log("Error data: ", error.response.data);
+        console.error("Error response: ", error.response);
+        console.error("Error data: ", error.response.data);
       }
     }
   };
