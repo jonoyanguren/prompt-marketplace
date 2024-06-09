@@ -39,7 +39,12 @@ export const Profile = () => {
   return (
     <>
       {openModal && (
-        <EditModal open={openModal} setOpen={setOpenModal} user={user} />
+        <EditModal
+          open={openModal}
+          setOpen={setOpenModal}
+          user={user}
+          setUser={setUser}
+        />
       )}
       <div className="p-6">
         <div className="flex items-center">

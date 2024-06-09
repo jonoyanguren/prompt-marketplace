@@ -1,23 +1,32 @@
 import { useTranslation } from "react-i18next";
 import { Button, Input, Modal } from "../../components";
 import { useState } from "react";
+import { enqueueSnackbar } from "notistack";
 import { User } from "../../types";
 import { useForm } from "../../hooks/useForm";
+import { updateUser } from "../../api/user";
 
 interface UserProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   user: User;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
 }
 
-export const EditModal = ({ open, setOpen, user }: UserProps) => {
+export const EditModal = ({ open, setOpen, user, setUser }: UserProps) => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState<"info" | "links">("info");
 
   const renderContent = () => {
     switch (activeTab) {
       case "info":
-        return <InfoForm user={user} />;
+        return (
+          <InfoForm
+            user={user}
+            close={() => setOpen(false)}
+            setUser={setUser}
+          />
+        );
       case "links":
         return <LinksForm user={user} />;
       default:
@@ -66,16 +75,36 @@ export const EditModal = ({ open, setOpen, user }: UserProps) => {
   );
 };
 
-const InfoForm = ({ user }: { user: User }) => {
+const InfoForm = ({
+  user,
+  close,
+  setUser,
+}: {
+  user: User;
+  close: () => void;
+  setUser: React.Dispatch<React.SetStateAction<User>>;
+}) => {
   const { t } = useTranslation();
-  const [avatar, setAvatar] = useState(user.avatar);
+  // const [avatar, setAvatar] = useState(user.avatar);
   const { form, formFields, setError } = useForm({
     name: user.name,
     bio: user.bio,
   });
 
   const doUpdateUser = async () => {
-    console.log("UPDATE USER", form);
+    try {
+      await updateUser({
+        userId: user._id,
+        user: form,
+      });
+      close();
+      setUser({ ...user, ...form });
+      enqueueSnackbar(t("editModal.success"), {
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Error updating the user:", error);
+    }
   };
 
   return (
@@ -97,7 +126,11 @@ const InfoForm = ({ user }: { user: User }) => {
       <div className="mt-6">
         <Input className="mt-6" {...formFields("name")} />
         <Input type="textarea" className="mt-4" {...formFields("bio")} />
-        <Button className="w-full mt-4" onClick={() => doUpdateUser()}>
+        <Button
+          className="w-full mt-4"
+          onClick={() => doUpdateUser()}
+          disabled={!form.name && !form.bio}
+        >
           {t("editModal.save")}
         </Button>
       </div>

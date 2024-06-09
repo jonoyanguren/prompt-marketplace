@@ -105,5 +105,6 @@ export const es = {
     updatePhotoLink: "Actualizar foto",
     updatePhotoText: "Asegúrate de que la foto no supere los 5 MB.",
     save: "Actualizar",
+    success: "El usuario ha sido actualizado con éxito",
   },
 };
