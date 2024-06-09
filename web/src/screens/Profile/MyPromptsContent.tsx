@@ -4,9 +4,11 @@ import { getMyPrompts } from "../../api/prompt";
 import { Prompt } from "../../types";
 import { Button } from "../../components";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 export const MyPromptsContent = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
 
   useEffect(() => {
@@ -21,11 +23,15 @@ export const MyPromptsContent = () => {
 
     fetchMyPrompts();
   }, []);
+
   if (prompts.length === 0) return <NoPrompts />;
+
   return (
     <div className="text-left pt-12">
       <div className="text-right mb-8">
-        <Button>{t("myPromptsContent.button")}</Button>
+        <Button onClick={() => navigate("/create-prompt")}>
+          {t("myPromptsContent.button")}
+        </Button>
       </div>
       {prompts.map((prompt) => (
         <div key={prompt._id} className="m-4 flex justify-between">
@@ -50,6 +56,7 @@ export const MyPromptsContent = () => {
 
 const NoPrompts = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   return (
     <div className="pt-16">
@@ -59,7 +66,9 @@ const NoPrompts = () => {
       <p className="text-gray-500 mb-4 text-thin">
         {t("myPromptsContent.text")}
       </p>
-      <Button>{t("myPromptsContent.button")}</Button>
+      <Button onClick={() => navigate("/create-prompt")}>
+        {t("myPromptsContent.button")}
+      </Button>
     </div>
   );
 };

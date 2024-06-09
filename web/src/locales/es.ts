@@ -121,4 +121,23 @@ export const es = {
     text: "Cuando crees tu primer prompt, aparecerá aquí.",
     button: "Crea un prompt",
   },
+  createPrompt: {
+    basicInfoTitle: "Información básica",
+    basicInfo: {
+      name: "¿Cómo se llama tu prompt?",
+      namePlaceholder: "Nombre del prompt",
+      nameText:
+        "Este será el título de tu prompt. Con un título claro y descriptivo para que otros puedan identificarlo.",
+      description: "Descripción del Prompt",
+      descriptionPlaceholder: "Descripción",
+      descriptionText:
+        "Llama la atención de las personas con una breve descripción de tu prompt. Los usuarios lo verán en la parte superior de la página de tu prompt (máximo 140 caracteres).",
+      whoIsFor: "¿Para quienes es este prompt?",
+      whoIsForPlaceholder: "Para quienes es este prompt?",
+      whoIsForText:
+        "Explica para quién está destinado el prompt y cómo les beneficia. (máximo 140 caracteres)",
+      categories: "Elige categorías",
+      categoriesText: "Select a maximum of two categories for the prompt",
+    },
+  },
 };

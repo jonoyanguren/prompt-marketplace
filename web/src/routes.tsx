@@ -14,6 +14,7 @@ import { ResetPasswordSuccess } from "./screens/Auth/ResetPasswordSuccess";
 import { Platforms } from "./screens/Platforms/Platforms";
 import { CheckoutScreen } from "./screens/Payments/CheckoutScreen";
 import { Profile } from "./screens/Profile/Profile";
+import { CreatePrompt } from "./screens/Prompt/Create/CreatePrompt";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -31,6 +32,7 @@ const routes = [
   { path: "/reset-password-success", element: <ResetPasswordSuccess /> },
   { path: "/checkout-form", element: <CheckoutScreen /> },
   { path: "/profile", element: <Profile /> },
+  { path: "/create-prompt", element: <CreatePrompt /> },
   { path: "*", element: <div>Not Found</div> },
 ];
 
