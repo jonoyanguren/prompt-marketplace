@@ -160,14 +160,14 @@ const LinksForm = ({ user, close }: { user: User; close: () => void }) => {
 
   return (
     <div>
-      <p className="text-lg text-left mb-4">{t("editModal.linkedin")}</p>
-      <Input {...formFields("linkedin")} />
+      <p className="text-lg text-left mb-2">{t("editModal.linkedin")}</p>
+      <Input className="mb-6" {...formFields("linkedin")} />
 
-      <p className="text-lg text-left mb-4">{t("editModal.twitter")}</p>
-      <Input {...formFields("twitter")} />
+      <p className="text-lg text-left mb-2">{t("editModal.twitter")}</p>
+      <Input className="mb-6" {...formFields("twitter")} />
 
-      <p className="text-lg text-left mb-4">{t("editModal.web")}</p>
-      <Input {...formFields("web")} />
+      <p className="text-lg text-left mb-2">{t("editModal.web")}</p>
+      <Input className="mb-6" {...formFields("web")} />
       <Button
         className="w-full mt-4"
         onClick={doUpdateUser}
