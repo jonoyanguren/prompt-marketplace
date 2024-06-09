@@ -94,6 +94,16 @@ export const es = {
   },
   profile: {
     profileMenu: "Perfil",
+    editProfile: "Editar perfil",
     favoritesMenu: "Favoritos",
+  },
+  editModal: {
+    title: "Actualiza los detalles de tu cuenta",
+    infoMenu: "Información básica",
+    linksMenu: "Enlaces sociales",
+    uploadYourPicture: "Sube tu imagen",
+    updatePhotoLink: "Actualizar foto",
+    updatePhotoText: "Asegúrate de que la foto no supere los 5 MB.",
+    save: "Actualizar",
   },
 };
