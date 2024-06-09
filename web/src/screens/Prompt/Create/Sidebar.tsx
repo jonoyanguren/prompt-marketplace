@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { FaLongArrowAltRight, FaCheck } from "react-icons/fa";
 
 export const Sidebar = ({
@@ -9,8 +10,13 @@ export const Sidebar = ({
   validSteps: number[];
   setStep: (value: number) => void;
 }) => {
-  //TODO
-  const menuItems = ["Basic Info", "Prompt Info", "Price", "Preview & Publish"];
+  const { t } = useTranslation();
+  const menuItems = [
+    t("createPrompt.sidebarItems.info"),
+    t("createPrompt.sidebarItems.prompt"),
+    t("createPrompt.sidebarItems.price"),
+    t("createPrompt.sidebarItems.previewAndPublish"),
+  ];
 
   const getItemStyles = (index: number) => {
     if (validSteps && validSteps.length && validSteps.includes(index)) {

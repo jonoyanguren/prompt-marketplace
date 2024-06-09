@@ -6,6 +6,7 @@ import { Sidebar } from "./Sidebar";
 import { BasicInfo } from "./BasicInfo";
 import { PromptInfo } from "./PromptInfo";
 import { Price } from "./Price";
+import { PreviewAndPublish } from "./PreviewAndPublish";
 
 export const CreatePrompt = () => {
   const { t } = useTranslation();
@@ -90,6 +91,14 @@ export const CreatePrompt = () => {
       setErrors(errors);
       return result;
     },
+    2: () => {
+      const result = true;
+      return result;
+    },
+    3: () => {
+      const result = true;
+      return result;
+    },
   };
 
   const renderContent = () => {
@@ -114,9 +123,9 @@ export const CreatePrompt = () => {
       case 2:
         return <Price form={form} formFields={formFields} />;
       case 3:
-        return <div>Step 3</div>;
+        return <PreviewAndPublish />;
       default:
-        return <div>Step 0</div>;
+        return <BasicInfo form={form} formFields={formFields} />;
     }
   };
 

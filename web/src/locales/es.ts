@@ -1,3 +1,4 @@
+import { PreviewAndPublish } from "../screens/Prompt/Create/PreviewAndPublish";
 import { PriceDetails } from "../screens/Prompt/Create/PriceDetails";
 
 export const es = {
@@ -126,6 +127,12 @@ export const es = {
     button: "Crea un prompt",
   },
   createPrompt: {
+    sidebarItems: {
+      info: "Información básica",
+      prompt: "Información del prompt",
+      price: "Precio de venta",
+      previewAndPublish: "Previsualizar y publicar",
+    },
     basicInfo: {
       title: "Información básica",
       name: "¿Cómo se llama tu prompt?",
