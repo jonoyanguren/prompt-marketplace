@@ -6,6 +6,7 @@ import { Button } from "../../components";
 import { useTranslation } from "react-i18next";
 import { EditModal } from "./EditModal";
 import { AuthContext } from "../../contexts/AuthContext";
+import { MyPromptsContent } from "./MyPromptsContent";
 
 export const Profile = () => {
   const { t } = useTranslation();
@@ -19,6 +20,8 @@ export const Profile = () => {
         return <ProfileContent user={user} />;
       case "favorites":
         return <FavoritesContent />;
+      case "my-prompts":
+        return <MyPromptsContent />;
     }
   };
 

@@ -117,3 +117,17 @@ export const downvotePrompt = async ({ id }: { id: string }) => {
     }
   }
 };
+
+export const getMyPrompts = async (): Promise<Prompt[]> => {
+  try {
+    const response = await axios.get(`${API_URL}/prompt/mine`);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};

@@ -8,6 +8,7 @@ import {
   update,
   getPromptsByCategory,
   getPromptsByText,
+  getMine,
 } from "./prompt.controller";
 
 import { jwtPayloadOnly, jwtVerify } from "../middleware/jwtVerify";
@@ -19,6 +20,7 @@ router.post("/", jwtVerify, create);
 router.get("/category/:id", getPromptsByCategory);
 router.get("/search", getAll);
 router.get("/search/:text", getPromptsByText);
+router.get("/mine", jwtVerify, getMine);
 router.post("/:id/upvote", jwtVerify, upvotePrompt);
 router.post("/:id/downvote", jwtVerify, downvotePrompt);
 router.get("/:id", jwtPayloadOnly, getOneById);

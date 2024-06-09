@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { HeartFull } from "../../assets/icons/HeartFull";
+import { AiFillHeart } from "react-icons/ai";
 import { Prompt } from "../../types";
 import { PromptCategories } from "./PromptCategories";
 import { getLikeNumbers } from "../../utils";
@@ -18,7 +18,7 @@ export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
       }
     >
       <div className="flex justify-end mb-8 items-center">
-        <HeartFull className="text-red-500" />
+        <AiFillHeart className="w-5 h-5 text-red-500" />
         <p className="text-sm text-gray-500 ml-1">
           {getLikeNumbers(prompt.upvotes)}
         </p>

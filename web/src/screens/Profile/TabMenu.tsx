@@ -1,6 +1,25 @@
-import { HeartIcon } from "../../assets/icons/profile/Heart";
-import { ProfileIcon } from "../../assets/icons/profile/Profile";
 import { useTranslation } from "react-i18next";
+import i18n from "../../i18n";
+import { AiOutlineUser, AiFillHeart } from "react-icons/ai";
+import { BsFillChatLeftTextFill } from "react-icons/bs";
+
+const tabs = [
+  {
+    code: "profile",
+    text: i18n.t("profile.profileMenu"),
+    icon: <AiOutlineUser className="w-5 h-5 mr-1" />,
+  },
+  {
+    code: "favorites",
+    text: i18n.t("profile.favoritesMenu"),
+    icon: <AiFillHeart className="w-5 h-5 mr-1" />,
+  },
+  {
+    code: "my-prompts",
+    text: i18n.t("profile.myPromptsMenu"),
+    icon: <BsFillChatLeftTextFill className="w-4 h-4 mr-1" />,
+  },
+];
 
 const TabMenu = ({
   activeTab,
@@ -13,18 +32,15 @@ const TabMenu = ({
   return (
     <div className="border-b border-gray-200 dark:border-gray-700">
       <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
-        <TabItem
-          text={t("profile.profileMenu")}
-          isActive={activeTab === "profile"}
-          icon={<ProfileIcon />}
-          onChangeTab={() => onChangeTab("profile")}
-        />
-        <TabItem
-          text={t("profile.favoritesMenu")}
-          isActive={activeTab === "favorites"}
-          icon={<HeartIcon />}
-          onChangeTab={() => onChangeTab("favorites")}
-        />
+        {tabs.map((tab) => (
+          <TabItem
+            key={tab.code}
+            text={tab.text}
+            isActive={activeTab === tab.code}
+            icon={tab.icon}
+            onChangeTab={() => onChangeTab(tab.code)}
+          />
+        ))}
       </ul>
     </div>
   );

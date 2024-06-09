@@ -212,3 +212,16 @@ export const update = async (req: ExtendedRequest, res: Response) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+export const getMine = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    console.log("USER ID", userId);
+    const prompts = await Prompt.find({ createdBy: userId }).populate(
+      "createdBy"
+    );
+    res.status(200).json(prompts);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};

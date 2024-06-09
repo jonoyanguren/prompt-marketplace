@@ -9,11 +9,11 @@ import {
   upvotePrompt,
 } from "../../api/prompt";
 import { PromptCategories } from "../../components/Prompt/PromptCategories";
-import { HeartFull } from "../../assets/icons/HeartFull";
+import { AiFillHeart } from "react-icons/ai";
 import { getLikeNumbers } from "../../utils";
 import { useTranslation } from "react-i18next";
-import { Cart } from "../../assets/icons/Cart";
-import { Check } from "../../assets/icons/Check";
+import { MdVerified, MdShoppingCart } from "react-icons/md";
+
 import { CopyButton } from "../../components/CopyButton";
 import { CreatedByCard } from "../../components/Prompt/UserCard";
 import { PromptItem } from "../../components/Prompt/PromptItem";
@@ -109,8 +109,8 @@ export const PromptDetail = () => {
           <div className="flex items-end justify-between">
             <Title className="text-left">{prompt.title}</Title>
             <div onClick={() => likePrompt()}>
-              <HeartFull
-                className={`w-12 h-12 cursor-pointer ${
+              <AiFillHeart
+                className={`w-8 h-8 cursor-pointer ${
                   prompt.userHasUpvoted && "text-rose-600"
                 }`}
               />
@@ -119,7 +119,7 @@ export const PromptDetail = () => {
           <div className="flex gap-6 border-y border-gray-600">
             {/* Likes */}
             <div className="flex w-fit py-4 gap-2">
-              <HeartFull className="text-rose-600" />
+              <AiFillHeart className="w-5 h-5 text-rose-600" />
               <div className="text-gray-500">
                 {getLikeNumbers(prompt.upvotes)}
               </div>
@@ -128,7 +128,7 @@ export const PromptDetail = () => {
 
             {/* TODO: Sales, just placeholder */}
             <div className="flex w-fit py-4 gap-2">
-              <Cart className="text-gray-600" />
+              <MdShoppingCart className="text-gray-600 w-6 h-6" />
               <div className="text-gray-500">
                 {getLikeNumbers(prompt.upvotes)}
               </div>
@@ -137,7 +137,7 @@ export const PromptDetail = () => {
 
             {/* TODO: Tested, just placeholder */}
             <div className="flex w-fit py-4 gap-2">
-              <Check className="text-green-600" />
+              <MdVerified className="text-green-600 w-6 h-6" />
               <div className="text-gray-500">{t("general.tested")}</div>
             </div>
           </div>
