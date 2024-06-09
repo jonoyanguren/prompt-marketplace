@@ -20,15 +20,13 @@ export const login = async (req: Request, res: Response) => {
     };
 
     const token = jwt.sign(tokenPayload, process.env.JWT_SECRET!);
-    res
-      .status(200)
-      .json({
-        token,
-        email: user.email,
-        id: user._id,
-        role: user.role,
-        avatar: user.avatar,
-      });
+
+    delete user.password;
+
+    res.status(200).json({
+      token,
+      user,
+    });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

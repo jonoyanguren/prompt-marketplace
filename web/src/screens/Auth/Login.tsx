@@ -50,13 +50,13 @@ export const Login = () => {
     if (!validate()) return;
 
     try {
-      const user = await login({
+      const res = await login({
         email: form.email,
         password: form.password,
       });
 
-      updateToken(user.token);
-      updateUser(user);
+      updateToken(res.token);
+      updateUser(res.user);
       navigate("/");
     } catch (error: any) {
       console.error(error);

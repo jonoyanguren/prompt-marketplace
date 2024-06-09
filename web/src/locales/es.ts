@@ -106,6 +106,9 @@ export const es = {
     updatePhotoText: "Asegúrate de que la foto no supere los 5 MB.",
     save: "Actualizar",
     success: "El usuario ha sido actualizado con éxito",
+    linkedin: "LinkedIn URL",
+    twitter: "Twitter URL",
+    web: "Website URL",
   },
   fileUploader: {
     success: "El archivo se ha cargado con éxito",

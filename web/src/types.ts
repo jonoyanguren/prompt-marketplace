@@ -5,6 +5,9 @@ export interface User {
   email: string;
   bio: string;
   avatar: string;
+  linkedin: string;
+  twitter: string;
+  web: string;
 }
 
 export interface Category {

@@ -29,7 +29,7 @@ export const EditModal = ({ open, setOpen, user }: UserProps) => {
           {activeTab === "info" ? (
             <InfoForm user={user} close={() => setOpen(false)} />
           ) : (
-            <LinksForm user={user} />
+            <LinksForm user={user} close={() => setOpen(false)} />
           )}
         </div>
       </div>
@@ -134,7 +134,47 @@ const InfoForm = ({ user, close }: { user: User; close: () => void }) => {
   );
 };
 
-const LinksForm = ({ user }: { user: User }) => {
+const LinksForm = ({ user, close }: { user: User; close: () => void }) => {
   const { t } = useTranslation();
-  return <div>{t("editModal.linksContent")}</div>;
+  const { updateUser } = useContext(AuthContext);
+  const { form, formFields } = useForm({
+    linkedin: user.linkedin || "",
+    twitter: user.twitter || "",
+    web: user.web || "",
+  });
+
+  const doUpdateUser = async () => {
+    try {
+      await updateUserApi({
+        userId: user._id,
+        user: form,
+      });
+
+      updateUser({ ...user, ...form });
+      enqueueSnackbar(t("editModal.success"), { variant: "success" });
+      close();
+    } catch (error) {
+      console.error("Error updating the user:", error);
+    }
+  };
+
+  return (
+    <div>
+      <p className="text-lg text-left mb-4">{t("editModal.linkedin")}</p>
+      <Input {...formFields("linkedin")} />
+
+      <p className="text-lg text-left mb-4">{t("editModal.twitter")}</p>
+      <Input {...formFields("twitter")} />
+
+      <p className="text-lg text-left mb-4">{t("editModal.web")}</p>
+      <Input {...formFields("web")} />
+      <Button
+        className="w-full mt-4"
+        onClick={doUpdateUser}
+        disabled={!form.linkedin && !form.twitter && !form.web}
+      >
+        {t("editModal.save")}
+      </Button>
+    </div>
+  );
 };
