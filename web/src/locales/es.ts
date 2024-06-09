@@ -1,4 +1,4 @@
-import { MyPromptsContent } from "../screens/Profile/MyPromptsContent";
+import { platform } from "os";
 
 export const es = {
   title: "Título",
@@ -7,6 +7,8 @@ export const es = {
     sales: "Ventas",
     tested: "Verificado",
     email: "Email",
+    save: "Guardar",
+    cancel: "Cancelar",
   },
   header: {
     home: "Inicio",
@@ -122,8 +124,8 @@ export const es = {
     button: "Crea un prompt",
   },
   createPrompt: {
-    basicInfoTitle: "Información básica",
     basicInfo: {
+      title: "Información básica",
       name: "¿Cómo se llama tu prompt?",
       namePlaceholder: "Nombre del prompt",
       nameText:
@@ -136,8 +138,22 @@ export const es = {
       whoIsForPlaceholder: "Para quienes es este prompt?",
       whoIsForText:
         "Explica para quién está destinado el prompt y cómo les beneficia. (máximo 140 caracteres)",
+      howToUse: "¿Cómo se usa este prompt?",
+      howToUsePlaceholder: "¿Cómo se usa este prompt?",
+      howToUseText:
+        "Asegúrate de agregar más funciones de validación para otros pasos si es necesario y manejar los errores de forma clara para el usuario.",
+    },
+    promptInfo: {
+      title: "Información del Prompt",
       categories: "Elige categorías",
       categoriesText: "Select a maximum of two categories for the prompt",
+      platforms: "Elige plataformas",
+      platformsText:
+        "Selecciona las plataformas en las que se puede usar el prompt",
+      prompt: "Prompt",
+      promptText:
+        "Copia y pega tu prompt aquí. Asegúrate de agregar más funciones de validación para otros pasos si es necesario y manejar los errores de forma clara para el usuario.",
+      promptPlaceholder: "Inserta el prompt",
     },
   },
 };

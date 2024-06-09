@@ -1,24 +1,19 @@
 import { useTranslation } from "react-i18next";
 import { Input } from "../../../components";
-import { CategoriesFilter } from "../../../components/Home/CategoriesFilter";
 
 export const BasicInfo = ({
   form,
   formFields,
-  selectedCategory,
-  setSelectedCategory,
 }: {
   form: any;
   formFields: any;
-  selectedCategory: string[];
-  setSelectedCategory: (category: string[]) => void;
 }) => {
   const { t } = useTranslation();
 
   return (
     <div className="w-3/4 p-8 text-left ml-8">
       <h1 className="text-3xl font-semibold mb-8">
-        {t("createPrompt.basicInfoTitle")}
+        {t("createPrompt.basicInfo.title")}
       </h1>
       {/* Name */}
       <div className="mb-8">
@@ -40,7 +35,7 @@ export const BasicInfo = ({
           {t("createPrompt.basicInfo.description")}
         </p>
         <p className="mb-6 text-gray-500">
-          {t("createPrompt.basicInfo.nameText")}
+          {t("createPrompt.basicInfo.descriptionText")}
         </p>
         <Input
           type="textarea"
@@ -53,10 +48,10 @@ export const BasicInfo = ({
       {/* Who is for */}
       <div className="mb-8">
         <p className="mb-6 text-xl font-medium text-gray-900">
-          {t("createPrompt.basicInfo.description")}
+          {t("createPrompt.basicInfo.whoIsFor")}
         </p>
         <p className="mb-6 text-gray-500">
-          {t("createPrompt.basicInfo.nameText")}
+          {t("createPrompt.basicInfo.whoIsForText")}
         </p>
         <Input
           type="textarea"
@@ -65,28 +60,21 @@ export const BasicInfo = ({
         />
         <p className="text-xs text-gray-500">{form.whoIsFor.length}/140</p>
       </div>
-      <div>
+
+      {/* How to use */}
+      <div className="mb-8">
         <p className="mb-6 text-xl font-medium text-gray-900">
-          {t("createPrompt.basicInfo.description")}
+          {t("createPrompt.basicInfo.howToUse")}
         </p>
         <p className="mb-6 text-gray-500">
-          {t("createPrompt.basicInfo.nameText")}
+          {t("createPrompt.basicInfo.howToUseText")}
         </p>
-        <CategoriesFilter
-          onlySelector
-          multiple
-          filterByCategory={(category) => {
-            if (selectedCategory.includes(category._id)) {
-              setSelectedCategory(
-                selectedCategory.filter((id) => id !== category._id)
-              );
-            } else {
-              if (selectedCategory.length >= 2) return;
-              setSelectedCategory([...selectedCategory, category._id]);
-            }
-          }}
-          selectedCategory={selectedCategory}
+        <Input
+          type="textarea"
+          placeholder={t("createPrompt.basicInfo.howToUsePlaceholder")}
+          {...formFields("howToUse")}
         />
+        <p className="text-xs text-gray-500">{form.howToUse.length}/140</p>
       </div>
     </div>
   );
