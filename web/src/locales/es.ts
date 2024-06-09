@@ -1,5 +1,3 @@
-import { platform } from "os";
-
 export const es = {
   title: "Título",
   general: {
@@ -9,6 +7,7 @@ export const es = {
     email: "Email",
     save: "Guardar",
     cancel: "Cancelar",
+    close: "Cerrar",
   },
   header: {
     home: "Inicio",
@@ -155,5 +154,26 @@ export const es = {
         "Copia y pega tu prompt aquí. Asegúrate de agregar más funciones de validación para otros pasos si es necesario y manejar los errores de forma clara para el usuario.",
       promptPlaceholder: "Inserta el prompt",
     },
+    price: {
+      title: "Precio de venta",
+      price: "¿Cual es el precio de venta?",
+      priceText: "Establecer un precio razonable ayuda a que tengas más ventas",
+      pricePlaceholder: "Precio de venta",
+      priceGuideTitle: "Guía de precios",
+      priceGuideText:
+        "Establecer cuánto cobrar por un prompt puede depender de varios factores. Aquí tienes una guía en caso de que no sepas cómo fijar un precio.",
+      priceGuideButton: "Ver guía",
+    },
+  },
+  priceGuide: {
+    title: "Guía de precios",
+    text: "Esta es una guía simple que puede ayudarte a establecer un precio adecuado:",
+    simple:
+      "<strong>Simple:</strong> Un prompt básico que no requiere mucha personalización puede tener un precio más bajo. Por ejemplo, entre $5 y $15.",
+    moderate:
+      "<strong>Moderado:</strong> Los prompts que requieren algo de investigación y personalización pueden estar en el rango de $15 a $50.",
+    advanced:
+      "<strong>Avanzado:</strong> Los prompts altamente personalizados y complejos, que pueden requerir conocimientos especializados o una considerable investigación, pueden costar entre $50 y $200 o más.",
+    button: "Entendido",
   },
 };

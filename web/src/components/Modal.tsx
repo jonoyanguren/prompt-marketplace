@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 
 interface ModalProps {
   open: boolean;
@@ -7,6 +8,7 @@ interface ModalProps {
 }
 
 export const Modal = ({ open, onClose, children }: ModalProps) => {
+  const { t } = useTranslation();
   if (!open) return null;
 
   return (
@@ -17,7 +19,7 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
       ></div>
       <div className="bg-white rounded-xl p-6 absolute top-36 w-1/3 left-1/3 z-20 min-w-[600px]">
         <button className="w-full text-right" onClick={onClose}>
-          Close
+          {t("general.close")}
         </button>
         {children}
       </div>

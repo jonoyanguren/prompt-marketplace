@@ -5,6 +5,7 @@ import { useForm } from "../../../hooks/useForm";
 import { Sidebar } from "./Sidebar";
 import { BasicInfo } from "./BasicInfo";
 import { PromptInfo } from "./PromptInfo";
+import { Price } from "./Price";
 
 export const CreatePrompt = () => {
   const { t } = useTranslation();
@@ -20,6 +21,7 @@ export const CreatePrompt = () => {
     whoIsFor: "",
     howToUse: "",
     prompt: "",
+    price: 0,
   });
 
   const validate: Record<number, () => boolean> = {
@@ -110,7 +112,7 @@ export const CreatePrompt = () => {
           />
         );
       case 2:
-        return <div>Step 2</div>;
+        return <Price form={form} formFields={formFields} />;
       case 3:
         return <div>Step 3</div>;
       default:
