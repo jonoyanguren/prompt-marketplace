@@ -148,6 +148,16 @@ export const PromptDetail = () => {
           </div>
 
           <div>
+            <Subtitle>{t("promptDetail.whoIsFor")}</Subtitle>
+            <p className="text-left text-gray-500">{prompt.whoIsFor}</p>
+          </div>
+
+          <div>
+            <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
+            <p className="text-left text-gray-500">{prompt.howToUse}</p>
+          </div>
+
+          <div>
             <Subtitle>{t("promptDetail.prompt")}</Subtitle>
             <CopyButton className="float-right" text={prompt.prompt} />
             <p className="text-left text-gray-500 bg-yellow-100 p-8 pt-12 font-mono text-sm">

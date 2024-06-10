@@ -4,6 +4,8 @@ const promptSchema = new mongoose.Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
+    whoIsFor: { type: String, required: true },
+    howToUse: { type: String, required: true },
     prompt: { type: String, required: true },
     createdBy: {
       type: mongoose.Schema.Types.ObjectId,

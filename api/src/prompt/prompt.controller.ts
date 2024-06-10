@@ -12,6 +12,7 @@ export const getAll = async (req: Request, res: Response) => {
 
   try {
     const allPrompts = await Prompt.find()
+      .sort({ createdAt: -1 })
       .skip(COUNT_PER_PAGE * parseInt(timesFetched as string))
       .limit(10)
       .populate("createdBy")
@@ -78,16 +79,23 @@ export const getPromptsByPlatform = async (req: Request, res: Response) => {
 };
 
 export const create = async (req: ExtendedRequest, res: Response) => {
-  const { title, description, prompt, platforms, tags, categories } = req.body;
-
-  if (!title || !description || !prompt || !platforms || !categories) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
+  const {
+    title,
+    description,
+    prompt,
+    platforms,
+    tags,
+    categories,
+    whoIsFor,
+    howToUse,
+  } = req.body;
 
   try {
     const newPrompt = new Prompt({
       title,
       description,
+      whoIsFor,
+      howToUse,
       prompt,
       platforms,
       createdBy: req.user?.id,

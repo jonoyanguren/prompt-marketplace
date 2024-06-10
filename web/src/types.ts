@@ -33,6 +33,8 @@ export interface Prompt {
   _id: string;
   title: string;
   description: string;
+  whoIsFor: string;
+  howToUse: string;
   categories: Category[];
   prompt: string;
   createdBy: User;

@@ -61,6 +61,8 @@ export const es = {
   },
   promptDetail: {
     description: "Descripción del Prompt",
+    whoIsFor: "¿Para quienes es este prompt?",
+    howToUse: "¿Cómo se usa este prompt?",
     prompt: "El Prompt",
     tags: "Tags",
     similarPrompts: "Otros prompts que podrán gustarte",
