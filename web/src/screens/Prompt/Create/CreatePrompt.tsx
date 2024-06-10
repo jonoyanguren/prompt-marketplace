@@ -8,18 +8,18 @@ import { PromptInfo } from "./PromptInfo";
 import { Price } from "./Price";
 import { PreviewAndPublish } from "./PreviewAndPublish";
 import { AuthContext } from "../../../contexts/AuthContext";
-import { CreatedByCard } from "../../../components/Prompt/UserCard";
 import { createPrompt } from "../../../api/prompt";
+import { useNavigate } from "react-router-dom";
 
 export const CreatePrompt = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState<string[]>([]);
   const [errorCategory, setErrorCategory] = useState<string | undefined>();
   const [selectedPlatform, setSelectedPlatform] = useState<string[]>([]);
   const [errorPlatform, setErrorPlatform] = useState<string | undefined>();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [errorTags, setErrorTags] = useState<string | undefined>();
   const [validSteps, setValidSteps] = useState<number[]>([]);
 
   const { user } = useContext(AuthContext);
@@ -165,6 +165,7 @@ export const CreatePrompt = () => {
       };
 
       const res = await createPrompt({ prompt: finalPrompt });
+      navigate("/create-prompt-success");
       console.log("RES", res);
     } catch (error) {
       console.error("Error publishing prompt", error);

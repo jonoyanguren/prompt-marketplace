@@ -5,7 +5,10 @@ export const CreatedByCard = ({ author }: { author: User }) => {
   return (
     <>
       <div className="text-center">
-        <img className="w-20 h-20 rounded-full mx-auto" src={author.avatar} />
+        <img
+          className="w-20 h-20 rounded-full mx-auto"
+          src={`${author.avatar}?${Date.now()}`}
+        />
         <p className="font-medium mt-4">{author.name}</p>
         <p className="text-gray-500 text-sm">6K followers</p>
 
