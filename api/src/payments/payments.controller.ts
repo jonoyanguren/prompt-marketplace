@@ -57,15 +57,15 @@ export const stripeWebhook = async (req: Request, res: Response) => {
 
       try {
         await payment.save();
-        console.log("Payment saved:", payment);
+        console.info("Payment saved:", payment);
       } catch (error) {
-        console.log("Error saving payment:", error);
+        console.error("Error saving payment:", error);
       }
 
       break;
 
     default:
-      console.log(`Unhandled event type ${event.type}`);
+      console.error(`Unhandled event type ${event.type}`);
   }
 
   res.json({ received: true });

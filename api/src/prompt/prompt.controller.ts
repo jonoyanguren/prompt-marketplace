@@ -226,7 +226,6 @@ export const update = async (req: ExtendedRequest, res: Response) => {
 export const getMine = async (req: ExtendedRequest, res: Response) => {
   try {
     const userId = req.user?.id;
-    console.log("USER ID", userId);
     const prompts = await Prompt.find({ createdBy: userId }).populate(
       "createdBy"
     );

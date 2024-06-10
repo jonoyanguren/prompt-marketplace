@@ -150,8 +150,6 @@ export const CreatePrompt = () => {
 
   const handleNext = () => {
     if (!validate[step]()) return;
-    console.log("FORM", form, selectedCategory, selectedPlatform);
-
     setStep(step + 1);
   };
 
@@ -164,9 +162,8 @@ export const CreatePrompt = () => {
         tags: selectedTags,
       };
 
-      const res = await createPrompt({ prompt: finalPrompt });
+      await createPrompt({ prompt: finalPrompt });
       navigate("/create-prompt-success");
-      console.log("RES", res);
     } catch (error) {
       console.error("Error publishing prompt", error);
     }
