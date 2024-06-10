@@ -15,6 +15,8 @@ export const CreatePrompt = () => {
   const [errorCategory, setErrorCategory] = useState<string | undefined>();
   const [selectedPlatform, setSelectedPlatform] = useState<string[]>([]);
   const [errorPlatform, setErrorPlatform] = useState<string | undefined>();
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [errorTags, setErrorTags] = useState<string | undefined>();
   const [validSteps, setValidSteps] = useState<number[]>([]);
   const { form, formFields, setErrors } = useForm({
     title: "Hola",
@@ -120,6 +122,10 @@ export const CreatePrompt = () => {
             setSelectedPlatform={setSelectedPlatform}
             errorPlatform={errorPlatform}
             setErrorPlatform={setErrorPlatform}
+            selectedTags={selectedTags}
+            setSelectedTags={setSelectedTags}
+            errorTags={errorTags}
+            setErrorTags={setErrorTags}
           />
         );
       case 2:

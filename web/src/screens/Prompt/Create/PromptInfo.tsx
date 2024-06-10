@@ -4,6 +4,7 @@ import { CategoriesFilter } from "../../../components/Home/CategoriesFilter";
 import { get } from "../../../services/localStorage.service";
 import { Platform } from "../../../types";
 import { API_URL } from "../../../conf";
+import { MdOutlineClose } from "react-icons/md";
 
 export const PromptInfo = ({
   form,
@@ -16,6 +17,8 @@ export const PromptInfo = ({
   setSelectedPlatform,
   errorPlatform,
   setErrorPlatform,
+  selectedTags,
+  setSelectedTags,
 }: {
   form: any;
   formFields: any;
@@ -27,6 +30,8 @@ export const PromptInfo = ({
   setSelectedPlatform: (platform: string[]) => void;
   errorPlatform: string | undefined;
   setErrorPlatform: (error: string | undefined) => void;
+  selectedTags: string[] | undefined;
+  setSelectedTags: (tags: string[]) => void;
 }) => {
   const { t } = useTranslation();
   const config = get("config");
@@ -105,6 +110,48 @@ export const PromptInfo = ({
         {errorPlatform && (
           <p className="text-rose-500 text-xs">{errorPlatform}</p>
         )}
+      </div>
+
+      {/* Tags */}
+      <div className="mb-8">
+        <p className="mb-6 text-xl font-medium text-gray-900">
+          {t("createPrompt.promptInfo.tags")}
+        </p>
+        <p className="mb-6 text-gray-500">
+          {t("createPrompt.promptInfo.tagsText")}
+        </p>
+        <Input
+          placeholder={t("createPrompt.promptInfo.tagsPlaceholder")}
+          onKeyPress={(e: any) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              if (!selectedTags?.includes(e.target.value)) {
+                setSelectedTags([...(selectedTags ?? []), e.target.value]);
+              }
+              e.target.value = "";
+            }
+          }}
+          name={""}
+          value={undefined}
+          onChange={() => {}}
+        />
+        <div className="flex">
+          {selectedTags &&
+            selectedTags.map((tag: string) => (
+              <div
+                key={tag}
+                className="flex items-center bg-gray-100 rounded-full px-3 py-1 text-sm text-gray-900 mr-2 mt-2"
+              >
+                #{tag}
+                <MdOutlineClose
+                  className="ml-1 w-4 h-4 cursor-pointer"
+                  onClick={() => {
+                    setSelectedTags(selectedTags.filter((t) => t !== tag));
+                  }}
+                />
+              </div>
+            ))}
+        </div>
       </div>
 
       {/* Prompt */}

@@ -4,12 +4,6 @@ import { useContext } from "react";
 import { AuthContext } from "../../../contexts/AuthContext";
 import { get } from "../../../services/localStorage.service";
 import { Category, Platform } from "../../../types";
-import { useNavigate } from "react-router-dom";
-import { LuExternalLink } from "react-icons/lu";
-import { updateUser } from "../../../api/user";
-import { platform } from "os";
-import { create } from "domain";
-import { table } from "console";
 import { PromptPreview } from "../PromptPreview";
 
 export const PreviewAndPublish = ({
@@ -22,7 +16,6 @@ export const PreviewAndPublish = ({
   selectedPlatforms: string[];
 }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
   const config = get("config");
@@ -42,11 +35,6 @@ export const PreviewAndPublish = ({
     platforms: filteredPlatforms,
     createdBy: user,
     tags: [],
-  };
-
-  const handleNavigate = () => {
-    const promptStr = encodeURIComponent(JSON.stringify(previewPrompt));
-    window.open(`/prompt-preview?prompt=${promptStr}`, "_blank");
   };
 
   return (

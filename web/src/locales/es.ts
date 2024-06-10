@@ -161,6 +161,9 @@ export const es = {
       promptText:
         "Copia y pega tu prompt aquí. Asegúrate de agregar más funciones de validación para otros pasos si es necesario y manejar los errores de forma clara para el usuario.",
       promptPlaceholder: "Inserta el prompt",
+      tags: "Elige las tags",
+      tagsText: "Agrega etiquetas para identificar tu prompt",
+      tagsPlaceholder: "Inserta las etiquetas",
     },
     price: {
       title: "Precio de venta",
