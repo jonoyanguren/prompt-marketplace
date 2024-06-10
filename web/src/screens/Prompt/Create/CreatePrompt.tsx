@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Button } from "../../../components";
 import { useForm } from "../../../hooks/useForm";
@@ -7,6 +7,9 @@ import { BasicInfo } from "./BasicInfo";
 import { PromptInfo } from "./PromptInfo";
 import { Price } from "./Price";
 import { PreviewAndPublish } from "./PreviewAndPublish";
+import { AuthContext } from "../../../contexts/AuthContext";
+import { CreatedByCard } from "../../../components/Prompt/UserCard";
+import { createPrompt } from "../../../api/prompt";
 
 export const CreatePrompt = () => {
   const { t } = useTranslation();
@@ -18,6 +21,9 @@ export const CreatePrompt = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [errorTags, setErrorTags] = useState<string | undefined>();
   const [validSteps, setValidSteps] = useState<number[]>([]);
+
+  const { user } = useContext(AuthContext);
+
   const { form, formFields, setErrors } = useForm({
     title: "Hola",
     description: "Este es un prompt de prueba",
@@ -25,6 +31,7 @@ export const CreatePrompt = () => {
     howToUse: "hola",
     prompt: "El prompt en si",
     price: "3",
+    createdBy: user?._id,
   });
 
   const validate: Record<number, () => boolean> = {
@@ -124,8 +131,6 @@ export const CreatePrompt = () => {
             setErrorPlatform={setErrorPlatform}
             selectedTags={selectedTags}
             setSelectedTags={setSelectedTags}
-            errorTags={errorTags}
-            setErrorTags={setErrorTags}
           />
         );
       case 2:
@@ -150,8 +155,20 @@ export const CreatePrompt = () => {
     setStep(step + 1);
   };
 
-  const publish = () => {
-    console.log("PUBLISH", form, selectedCategory, selectedPlatform);
+  const publish = async () => {
+    try {
+      const finalPrompt = {
+        ...form,
+        categories: selectedCategory,
+        platforms: selectedPlatform,
+        tags: selectedTags,
+      };
+
+      const res = await createPrompt({ prompt: finalPrompt });
+      console.log("RES", res);
+    } catch (error) {
+      console.error("Error publishing prompt", error);
+    }
   };
 
   return (
