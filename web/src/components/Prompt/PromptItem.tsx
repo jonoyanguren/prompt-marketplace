@@ -5,17 +5,26 @@ import { PromptCategories } from "./PromptCategories";
 import { getLikeNumbers } from "../../utils";
 import { API_URL } from "../../conf";
 
-export const PromptItem = ({ prompt }: { prompt: Prompt }) => {
+export const PromptItem = ({
+  prompt,
+  noLink,
+}: {
+  prompt: Prompt;
+  noLink?: boolean;
+}) => {
   const navigate = useNavigate();
 
   return (
     <div
-      className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer flex flex-col justify-between"
-      onClick={() =>
+      className={`p-6 rounded-xl shadow-lg bg-white text-left flex flex-col justify-between ${
+        !noLink && "cursor-pointer"
+      }`}
+      onClick={() => {
+        if (noLink) return;
         navigate(`/prompt/${prompt._id}`, {
           state: { prompt },
-        })
-      }
+        });
+      }}
     >
       <div className="flex justify-end mb-8 items-center">
         <AiFillHeart className="w-5 h-5 text-red-500" />

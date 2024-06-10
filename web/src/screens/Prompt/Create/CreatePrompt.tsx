@@ -17,12 +17,12 @@ export const CreatePrompt = () => {
   const [errorPlatform, setErrorPlatform] = useState<string | undefined>();
   const [validSteps, setValidSteps] = useState<number[]>([]);
   const { form, formFields, setErrors } = useForm({
-    title: "",
-    description: "",
-    whoIsFor: "",
-    howToUse: "",
-    prompt: "",
-    price: "",
+    title: "Hola",
+    description: "Este es un prompt de prueba",
+    whoIsFor: "hola",
+    howToUse: "hola",
+    prompt: "El prompt en si",
+    price: "3",
   });
 
   const validate: Record<number, () => boolean> = {
@@ -93,10 +93,12 @@ export const CreatePrompt = () => {
     },
     2: () => {
       const result = true;
+      setValidSteps([...validSteps, step]);
       return result;
     },
     3: () => {
       const result = true;
+      setValidSteps([...validSteps, step]);
       return result;
     },
   };
@@ -123,7 +125,13 @@ export const CreatePrompt = () => {
       case 2:
         return <Price form={form} formFields={formFields} />;
       case 3:
-        return <PreviewAndPublish />;
+        return (
+          <PreviewAndPublish
+            form={form}
+            selectedCategories={selectedCategory}
+            selectedPlatforms={selectedPlatform}
+          />
+        );
       default:
         return <BasicInfo form={form} formFields={formFields} />;
     }
@@ -136,6 +144,10 @@ export const CreatePrompt = () => {
     setStep(step + 1);
   };
 
+  const publish = () => {
+    console.log("PUBLISH", form, selectedCategory, selectedPlatform);
+  };
+
   return (
     <div className="bg-white h-full p-8 shadow-lg rounded-xl">
       <div className="flex">
@@ -144,8 +156,14 @@ export const CreatePrompt = () => {
       </div>
       <hr className="my-7" />
       <div className="flex justify-end gap-4">
-        <Button outline>{t("general.cancel")}</Button>
-        <Button onClick={() => handleNext()}>{t("general.save")}</Button>
+        {step === 3 ? (
+          <Button onClick={() => publish()}>{t("general.publish")}</Button>
+        ) : (
+          <>
+            <Button outline>{t("general.cancel")}</Button>
+            <Button onClick={() => handleNext()}>{t("general.save")}</Button>
+          </>
+        )}
       </div>
     </div>
   );

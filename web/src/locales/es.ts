@@ -1,6 +1,3 @@
-import { PreviewAndPublish } from "../screens/Prompt/Create/PreviewAndPublish";
-import { PriceDetails } from "../screens/Prompt/Create/PriceDetails";
-
 export const es = {
   title: "Título",
   general: {
@@ -12,6 +9,7 @@ export const es = {
     cancel: "Cancelar",
     close: "Cerrar",
     currency: "€",
+    publish: "Publicar",
   },
   header: {
     home: "Inicio",
@@ -175,6 +173,12 @@ export const es = {
       priceGuideButton: "Ver guía",
       totalPrice: "Precio total",
       viewPriceDetails: "Ver detalles",
+    },
+    preview: {
+      title: "Previsualizar y Publicar",
+      subtitle: "Tu prompt está casi listo",
+      text: "Mira a ver que es lo que vas a publicar. Luego, haz clic en publicar para publicar tu prompt.",
+      button: "Publicar",
     },
   },
   priceGuide: {
