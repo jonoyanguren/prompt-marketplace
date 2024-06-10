@@ -10,6 +10,10 @@ export const Price = ({ form, formFields }: { form: any; formFields: any }) => {
   const [guidePriceOpen, setGuidePriceOpen] = useState(false);
   const [priceDetailsOpen, setPriceDetailsOpen] = useState(false);
 
+  const calculateServicePrice = () => {
+    return Math.max(Math.floor(Number(form.price) * 0.1), 1);
+  };
+
   return (
     <div className="w-3/4 p-8 text-left ml-8">
       <Modal open={guidePriceOpen} onClose={() => setGuidePriceOpen(false)}>
@@ -18,7 +22,7 @@ export const Price = ({ form, formFields }: { form: any; formFields: any }) => {
       <Modal open={priceDetailsOpen} onClose={() => setPriceDetailsOpen(false)}>
         <PriceDetails
           price={form.price}
-          servicePrice={1}
+          servicePrice={calculateServicePrice()}
           onClose={() => setPriceDetailsOpen(false)}
         />
       </Modal>
@@ -41,7 +45,8 @@ export const Price = ({ form, formFields }: { form: any; formFields: any }) => {
         {form.price && form.price !== 0 && (
           <div className="text-gray-500 flex justify-between text-sm px-2">
             <p>
-              {t("createPrompt.price.totalPrice")}: {parseFloat(form.price) + 1}{" "}
+              {t("createPrompt.price.totalPrice")}:{" "}
+              {parseFloat(form.price) + calculateServicePrice()}{" "}
               {t("general.currency")}
             </p>
             <p

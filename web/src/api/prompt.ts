@@ -134,7 +134,6 @@ export const getMyPrompts = async (): Promise<Prompt[]> => {
 
 export const createPrompt = async ({ prompt }: { prompt: any }) => {
   try {
-    console.log("PROMPT API", prompt);
     const response = await axios.post(`${API_URL}/prompt`, prompt);
     return response.data;
   } catch (error) {
