@@ -6,7 +6,6 @@ const router = express.Router();
 
 router.post("/onePayment", express.json(), jwtVerify, createPaymentIntent);
 
-// TODO: Add to a public domain
 router.post(
   "/webhook",
   express.raw({ type: "application/json" }),

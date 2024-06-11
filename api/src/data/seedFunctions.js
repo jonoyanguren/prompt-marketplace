@@ -1,19 +1,15 @@
-// @ts-nocheck
-import { Request, Response } from "express";
-import Prompt from "../prompt/prompt.model";
-import Category from "../category/category.model";
-import User from "../user/user.model";
-import Platform from "../platform/platform.model";
-import bcrypt from "bcrypt";
-import { faker } from "@faker-js/faker";
+// src/seedFunctions.js
+const Prompt = require("../prompt/prompt.model").default;
+const Category = require("../category/category.model").default;
+const User = require("../user/user.model").default;
+const Platform = require("../platform/platform.model").default;
+const bcrypt = require("bcrypt");
+const faker = require("@faker-js/faker").fakerES;
 
-// @ts-ignore
-import categories from "./categories";
-function selectRandomElementsFromArray(
-  array: string[],
-  count: number
-): string[] {
-  const selectedElements: string[] = [];
+const { categories } = require("./categories");
+
+function selectRandomElementsFromArray(array, count) {
+  const selectedElements = [];
 
   if (count >= array.length) {
     return array;
@@ -28,41 +24,41 @@ function selectRandomElementsFromArray(
   return selectedElements;
 }
 
-export const seedCategories = async (req: Request, res: Response) => {
+const seedCategories = async () => {
   await Category.collection.drop();
-  categories.forEach(async (category: any) => {
-    await Category.create(category);
-  });
+  for (let i = 0; i < categories.length; i++) {
+    await Category.create(categories[i]);
+  }
 
-  res.status(200).json({ message: "Categories seeded" });
+  console.log("Categories seeded");
 };
 
-export const seedUsers = async (req: Request, res: Response) => {
+const seedUsers = async () => {
   await User.collection.drop();
   const users = [
     {
       username: "jon",
       email: "jon@localhost.com",
-      password: await bcrypt.hashSync("password", 10),
+      password: await bcrypt.hash("password", 10),
       role: "admin",
       name: "Jon",
     },
     {
       username: "mayka",
       email: "mayka@localhost.com",
-      password: await bcrypt.hashSync("password", 10),
+      password: await bcrypt.hash("password", 10),
       role: "user",
       name: "Mayka",
     },
   ];
-  users.forEach(async (user: any) => {
+  for (const user of users) {
     await User.create(user);
-  });
+  }
 
-  res.status(200).json({ message: "Users seeded" });
+  console.log("Users seeded");
 };
 
-export const seedPrompts = async (req: Request, res: Response) => {
+const seedPrompts = async () => {
   const categoriesIds = await Category.find().select("_id");
   const finalCategoriesIds = categoriesIds.map((cat) => cat._id.toString());
 
@@ -75,27 +71,25 @@ export const seedPrompts = async (req: Request, res: Response) => {
   await Prompt.collection.drop();
   for (let i = 0; i < 100; i++) {
     const prompt = {
-      title: faker.lorem.sentence(),
+      title: faker.lorem.words(5),
       description: faker.lorem.paragraph(),
+      whoIsFor: faker.lorem.paragraph(),
+      howToUse: faker.lorem.paragraph(),
       prompt: faker.lorem.paragraph(),
       tags: ["tag 1", "tag 2", "tag 3"],
-      categories: "",
-      platforms: [],
-      createdBy: "",
+      categories: selectRandomElementsFromArray(finalCategoriesIds, 2),
+      platforms: selectRandomElementsFromArray(finalPlatformsIds, 2),
+      createdBy: finalUsersIds[0],
     };
-
-    prompt.categories = selectRandomElementsFromArray(finalCategoriesIds, 2);
-    prompt.platforms = selectRandomElementsFromArray(finalPlatformsIds, 2);
-    prompt.createdBy = finalUsersIds[0];
 
     await Prompt.create(prompt);
   }
 
-  res.status(200).json({ message: "Prompts seeded" });
+  console.log("Prompts seeded");
 };
 
-export const seedPlatforms = async (req: Request, res: Response) => {
-  await Platform.collection.drop();
+const seedPlatforms = async () => {
+  await Platform.deleteMany(); // Usa deleteMany en lugar de drop
   const platforms = [
     {
       name: "Chat GPT",
@@ -103,7 +97,7 @@ export const seedPlatforms = async (req: Request, res: Response) => {
       code: "chatgpt",
       logo: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/ChatGPT_logo.svg/480px-ChatGPT_logo.svg.png",
       description:
-        "ChatGPT is a conversational AI model designed to facilitate natural language conversations, enhace customer support, and automate various text-based tasks.",
+        "ChatGPT is a conversational AI model designed to facilitate natural language conversations, enhance customer support, and automate various text-based tasks.",
     },
     {
       code: "midjourney",
@@ -118,14 +112,21 @@ export const seedPlatforms = async (req: Request, res: Response) => {
       name: "Leonardo",
       url: "https://app.leonardo.ai",
       logo: "https://app.leonardo.ai/img/leonardo-logo.svg",
-      descripion:
+      description:
         "Leonardo is a platform that helps you to create and manage your own chatbot.",
     },
   ];
 
-  platforms.forEach(async (platform: any) => {
+  for (const platform of platforms) {
     await Platform.create(platform);
-  });
+  }
 
-  res.status(200).json({ message: "Platforms seeded" });
+  console.log("Platforms seeded");
+};
+
+module.exports = {
+  seedCategories,
+  seedUsers,
+  seedPrompts,
+  seedPlatforms,
 };

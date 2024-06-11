@@ -13,9 +13,7 @@ import promptRoutes from "./prompt/prompt.routes";
 import categoryRoutes from "./category/category.routes";
 import platformRoutes from "./platform/platform.routes";
 import configRoutes from "./config/config.routes";
-import seedRoutes from "./data/seed.routes";
 import paymentRoutes from "./payments/payments.routes";
-import { stripeWebhook } from "./payments/payments.controller";
 import { getPresignedUploadURL } from "./s3";
 
 const app = express();
@@ -38,7 +36,6 @@ app.use("/prompt", promptRoutes);
 app.use("/category", categoryRoutes);
 app.use("/platform", platformRoutes);
 app.use("/config", configRoutes);
-app.use("/seed", seedRoutes);
 
 // Return platforms logos
 app.get("/platformsLogos/:filename", (req, res) => {

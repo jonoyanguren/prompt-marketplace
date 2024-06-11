@@ -8,7 +8,8 @@
     "dbstart": "brew services start mongodb-community",
     "build": "npx tsc",
     "start": "tsc && node dist/app.js",
-    "dev": "npx nodemon ./src/app.ts"
+    "dev": "npx nodemon ./src/app.ts",
+    "seed": "ts-node src/data/seed.ts"
   },
   "author": "",
   "license": "ISC",
