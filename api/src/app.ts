@@ -44,6 +44,7 @@ app.get("/platformsLogos/:filename", (req, res) => {
   res.sendFile(imagePath);
 });
 
+//aws presigned URL
 app.get("/upload-url", async (req, res) => {
   const { fileName, fileType } = req.query;
   try {
