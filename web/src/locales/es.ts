@@ -104,6 +104,7 @@ export const es = {
     editProfile: "Editar perfil",
     favoritesMenu: "Favoritos",
     myPromptsMenu: "Mis prompts",
+    myEarningsMenu: "Mis ganancias",
   },
   editModal: {
     title: "Actualiza los detalles de tu cuenta",

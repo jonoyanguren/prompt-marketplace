@@ -7,6 +7,7 @@ import { useTranslation } from "react-i18next";
 import { EditModal } from "./EditModal";
 import { AuthContext } from "../../contexts/AuthContext";
 import { MyPromptsContent } from "./MyPromptsContent";
+import { MyEarningsContent } from "./MyEarningsContent";
 
 export const Profile = () => {
   const { t } = useTranslation();
@@ -22,6 +23,8 @@ export const Profile = () => {
         return <FavoritesContent />;
       case "my-prompts":
         return <MyPromptsContent />;
+      case "my-earnings":
+        return <MyEarningsContent />;
     }
   };
 

@@ -2,6 +2,7 @@ import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { AiOutlineUser, AiFillHeart } from "react-icons/ai";
 import { BsFillChatLeftTextFill } from "react-icons/bs";
+import { GiReceiveMoney } from "react-icons/gi";
 
 const tabs = [
   {
@@ -18,6 +19,11 @@ const tabs = [
     code: "my-prompts",
     text: i18n.t("profile.myPromptsMenu"),
     icon: <BsFillChatLeftTextFill className="w-4 h-4 mr-1" />,
+  },
+  {
+    code: "my-earnings",
+    text: i18n.t("profile.myEarningsMenu"),
+    icon: <GiReceiveMoney className="w-4 h-4 mr-1" />,
   },
 ];
 
