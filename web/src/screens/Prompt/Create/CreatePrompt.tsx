@@ -141,6 +141,7 @@ export const CreatePrompt = () => {
             form={form}
             selectedCategories={selectedCategory}
             selectedPlatforms={selectedPlatform}
+            selectedTags={selectedTags}
           />
         );
       default:

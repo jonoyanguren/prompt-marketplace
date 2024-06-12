@@ -10,10 +10,12 @@ export const PreviewAndPublish = ({
   form,
   selectedCategories,
   selectedPlatforms,
+  selectedTags,
 }: {
   form: any;
   selectedCategories: string[];
   selectedPlatforms: string[];
+  selectedTags: string[];
 }) => {
   const { t } = useTranslation();
   const { user } = useContext(AuthContext);
@@ -34,7 +36,7 @@ export const PreviewAndPublish = ({
     categories: filteredCategories,
     platforms: filteredPlatforms,
     createdBy: user,
-    tags: [],
+    tags: selectedTags,
   };
 
   return (

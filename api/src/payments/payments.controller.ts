@@ -41,8 +41,13 @@ export const stripeWebhook = async (req: Request, res: Response) => {
   }
 
   // Handle the event
+  const successCases =
+    "payment_intent.succeeded" ||
+    "payment_intent.charge.updated" ||
+    "payment_intent.created";
+
   switch (event.type) {
-    case "payment_intent.succeeded" || "payment_intent.charge.updated":
+    case successCases:
       const paymentIntent = event.data.object;
 
       // Save payment details to the database

@@ -15,7 +15,7 @@ import { Platforms } from "./screens/Platforms/Platforms";
 import { CheckoutScreen } from "./screens/Payments/CheckoutScreen";
 import { Profile } from "./screens/Profile/Profile";
 import { CreatePrompt } from "./screens/Prompt/Create/CreatePrompt";
-import { PromptPreview } from "./screens/Prompt/PromptPreview";
+import { Checkout } from "./screens/Prompt/Payment/Checkout";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -34,7 +34,8 @@ const routes = [
   { path: "/checkout-form", element: <CheckoutScreen /> },
   { path: "/profile", element: <Profile /> },
   { path: "/create-prompt", element: <CreatePrompt /> },
-  { path: "/prompt-preview", element: <PromptPreview /> },
+  { path: "/create-prompt-success", element: <div>Create Prompt Success</div> },
+  { path: "/checkout/:promptId", element: <Checkout /> },
   { path: "*", element: <div>Route Not Found</div> },
 ];
 

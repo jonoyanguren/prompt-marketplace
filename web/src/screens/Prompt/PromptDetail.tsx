@@ -1,5 +1,5 @@
-import { useParams } from "react-router-dom";
-import { Subtitle, Title } from "../../components";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Subtitle, Title } from "../../components";
 import { useEffect, useState } from "react";
 import { Prompt } from "../../types";
 import {
@@ -23,10 +23,13 @@ import { API_URL } from "../../conf";
 export const PromptDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState<Prompt | null>(null);
   const [similarPrompts, setSimilarPrompts] = useState<Prompt[]>([]);
+
+  console.log("PROMPT", prompt);
 
   useEffect(() => {
     if (!id) return;
@@ -142,21 +145,25 @@ export const PromptDetail = () => {
             </div>
           </div>
 
+          {/* Description */}
           <div>
             <Subtitle>{t("promptDetail.description")}</Subtitle>
             <p className="text-left text-gray-500">{prompt.description}</p>
           </div>
 
+          {/* WhoIsFor */}
           <div>
             <Subtitle>{t("promptDetail.whoIsFor")}</Subtitle>
             <p className="text-left text-gray-500">{prompt.whoIsFor}</p>
           </div>
 
+          {/* HowToUse */}
           <div>
             <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
             <p className="text-left text-gray-500">{prompt.howToUse}</p>
           </div>
 
+          {/* Prompt */}
           <div>
             <Subtitle>{t("promptDetail.prompt")}</Subtitle>
             <CopyButton className="float-right" text={prompt.prompt} />
@@ -165,6 +172,7 @@ export const PromptDetail = () => {
             </p>
           </div>
 
+          {/* Tags */}
           <div>
             <Subtitle>{t("promptDetail.tags")}</Subtitle>
             <div className="flex gap-2">
@@ -178,7 +186,19 @@ export const PromptDetail = () => {
               ))}
             </div>
           </div>
+
+          {/* Price */}
+          <div>
+            <Subtitle>{t("promptDetail.price")}</Subtitle>
+            <p>{t("promptDetail.price")}</p>
+            <p>{prompt.price + prompt.servicePrice} Euro</p>
+            <Button onClick={() => navigate(`/checkout/${prompt._id}`)}>
+              {t("promptDetail.pay")}
+            </Button>
+          </div>
         </div>
+
+        {/* User card */}
         <div className="w-1/3 ml-8 sm:mt-12">
           <CreatedByCard author={prompt.createdBy} />
         </div>

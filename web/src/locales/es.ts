@@ -69,6 +69,8 @@ export const es = {
     likeSnack: "Like hecho!",
     unlikeSnack: "Like eliminado!",
     alreadyVoted: "Ya ha votado",
+    price: "Precio",
+    pay: "Pagar",
   },
   validateEmail: {
     title: "Verificación de correo",

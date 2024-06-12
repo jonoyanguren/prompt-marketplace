@@ -40,6 +40,8 @@ export interface Prompt {
   createdBy: User;
   updatedAt: string;
   platforms: Platform[];
+  price: number;
+  servicePrice: number;
   upvotes: number;
   downvotes: number;
   tags: string[];
