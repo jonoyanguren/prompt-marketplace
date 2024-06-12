@@ -55,6 +55,7 @@ export const Login = () => {
         password: form.password,
       });
 
+      console.log("USER", res.user);
       updateToken(res.token);
       updateUser(res.user);
       navigate("/");

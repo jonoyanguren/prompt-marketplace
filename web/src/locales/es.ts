@@ -125,6 +125,11 @@ export const es = {
     noPromptsTitle: "Todavía no hay prompts",
     text: "Cuando crees tu primer prompt, aparecerá aquí.",
     button: "Crea un prompt",
+    name: "Nombre",
+    date: "Fecha",
+    sales: "Ventas",
+    actions: "Acciones",
+    search: "Buscar",
   },
   createPrompt: {
     sidebarItems: {

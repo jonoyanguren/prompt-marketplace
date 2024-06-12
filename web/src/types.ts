@@ -38,11 +38,11 @@ export interface Prompt {
   categories: Category[];
   prompt: string;
   createdBy: User;
-  createdAt: Date;
-  updatedAt: Date;
+  updatedAt: string;
   platforms: Platform[];
   upvotes: number;
   downvotes: number;
   tags: string[];
   userHasUpvoted?: boolean;
+  createdAt: Date;
 }
