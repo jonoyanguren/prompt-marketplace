@@ -70,7 +70,11 @@ export const es = {
     unlikeSnack: "Like eliminado!",
     alreadyVoted: "Ya ha votado",
     price: "Precio",
-    pay: "Pagar",
+    pay: "Comprar prompt",
+    priceTitle:
+      "{{name}}, este es un prompt de pago. Puedes acceder al prompt completo de {{createdBy}} comprando este prompt.",
+    priceText:
+      "El creador hizo este prompt de pago porque ofrece un valor añadido por el tiempo y la experiencia requeridos para crearlo.",
   },
   validateEmail: {
     title: "Verificación de correo",

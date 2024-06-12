@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { Button, Subtitle, Title } from "../../components";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Prompt } from "../../types";
 import {
   downvotePrompt,
@@ -19,10 +19,12 @@ import { CreatedByCard } from "../../components/Prompt/UserCard";
 import { PromptItem } from "../../components/Prompt/PromptItem";
 import { enqueueSnackbar } from "notistack";
 import { API_URL } from "../../conf";
+import { AuthContext } from "../../contexts/AuthContext";
 
 export const PromptDetail = () => {
   const { id } = useParams();
   const { t } = useTranslation();
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [loading, setLoading] = useState(false);
@@ -31,6 +33,7 @@ export const PromptDetail = () => {
 
   console.log("PROMPT", prompt);
 
+  // Fetch prompt by id
   useEffect(() => {
     if (!id) return;
     const fetchPromptById = async () => {
@@ -47,6 +50,7 @@ export const PromptDetail = () => {
     fetchPromptById();
   }, [id]);
 
+  // Fetch similar prompts
   useEffect(() => {
     if (!prompt) return;
 
@@ -93,122 +97,135 @@ export const PromptDetail = () => {
   if (!prompt) return <p>No prompt found</p>;
 
   return (
-    <div className="bg-white rounded-xl shadow p-16">
-      <div className="text-left xl:flex pt-20">
-        <div className="pr-8 flex flex-col gap-8">
-          <div className="flex gap-4 justify-between w-full items-center">
-            <PromptCategories categories={prompt.categories} />
-            <div className="flex">
-              {prompt.platforms.map((platform) => (
-                <img
-                  key={platform._id}
-                  className="w-12 ml-2 rounded-md"
-                  src={`${API_URL}/${platform.logo}`}
-                  alt={platform.name}
-                />
-              ))}
-            </div>
-          </div>
-          <div className="flex items-end justify-between">
-            <Title className="text-left">{prompt.title}</Title>
-            <div onClick={() => likePrompt()}>
-              <AiFillHeart
-                className={`w-8 h-8 cursor-pointer ${
-                  prompt.userHasUpvoted && "text-rose-600"
-                }`}
+    <div className="bg-white rounded-xl shadow px-16">
+      <div className="pr-8 flex flex-col gap-8 pt-12 text-left">
+        {/* Categories */}
+        <div className="flex gap-4 justify-between w-full items-center">
+          <PromptCategories categories={prompt.categories} />
+          <div className="flex">
+            {prompt.platforms.map((platform) => (
+              <img
+                key={platform._id}
+                className="w-12 ml-2 rounded-md"
+                src={`${API_URL}/${platform.logo}`}
+                alt={platform.name}
               />
-            </div>
+            ))}
           </div>
-          <div className="flex gap-6 border-y border-gray-600">
-            {/* Likes */}
-            <div className="flex w-fit py-4 gap-2">
-              <AiFillHeart className="w-5 h-5 text-rose-600" />
-              <div className="text-gray-500">
-                {getLikeNumbers(prompt.upvotes)}
-              </div>
-              <div className="text-gray-500">{t("general.likes")}</div>
+        </div>
+        <div className="flex items-end justify-between">
+          <Title className="text-left">{prompt.title}</Title>
+          <div onClick={() => likePrompt()}>
+            <AiFillHeart
+              className={`w-8 h-8 cursor-pointer ${
+                prompt.userHasUpvoted && "text-rose-600"
+              }`}
+            />
+          </div>
+        </div>
+        <div className="flex gap-6 border-y border-gray-600">
+          {/* Likes */}
+          <div className="flex w-fit py-4 gap-2">
+            <AiFillHeart className="w-5 h-5 text-rose-600" />
+            <div className="text-gray-500">
+              {getLikeNumbers(prompt.upvotes)}
             </div>
-
-            {/* TODO: Sales, just placeholder */}
-            <div className="flex w-fit py-4 gap-2">
-              <MdShoppingCart className="text-gray-600 w-6 h-6" />
-              <div className="text-gray-500">
-                {getLikeNumbers(prompt.upvotes)}
-              </div>
-              <div className="text-gray-500">{t("general.sales")}</div>
-            </div>
-
-            {/* TODO: Tested, just placeholder */}
-            <div className="flex w-fit py-4 gap-2">
-              <MdVerified className="text-green-600 w-6 h-6" />
-              <div className="text-gray-500">{t("general.tested")}</div>
-            </div>
+            <div className="text-gray-500">{t("general.likes")}</div>
           </div>
 
-          {/* Description */}
-          <div>
-            <Subtitle>{t("promptDetail.description")}</Subtitle>
-            <p className="text-left text-gray-500">{prompt.description}</p>
+          {/* TODO: Sales, just placeholder */}
+          <div className="flex w-fit py-4 gap-2">
+            <MdShoppingCart className="text-gray-600 w-6 h-6" />
+            <div className="text-gray-500">
+              {getLikeNumbers(prompt.upvotes)}
+            </div>
+            <div className="text-gray-500">{t("general.sales")}</div>
           </div>
 
-          {/* WhoIsFor */}
-          <div>
-            <Subtitle>{t("promptDetail.whoIsFor")}</Subtitle>
-            <p className="text-left text-gray-500">{prompt.whoIsFor}</p>
+          {/* TODO: Tested, just placeholder */}
+          <div className="flex w-fit py-4 gap-2">
+            <MdVerified className="text-green-600 w-6 h-6" />
+            <div className="text-gray-500">{t("general.tested")}</div>
           </div>
+        </div>
 
-          {/* HowToUse */}
-          <div>
+        {/* Description */}
+        <div>
+          <Subtitle>{t("promptDetail.description")}</Subtitle>
+          <p className="text-left text-gray-500">{prompt.description}</p>
+        </div>
+
+        {/* WhoIsFor */}
+        <div>
+          <Subtitle>{t("promptDetail.whoIsFor")}</Subtitle>
+          <p className="text-left text-gray-500">{prompt.whoIsFor}</p>
+        </div>
+
+        {/* HowToUse */}
+        {prompt.userHasPaid && (
+          <>
+            <div>
+              <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
+              <p className="text-left text-gray-500">{prompt.howToUse}</p>
+            </div>
+
+            {/* Prompt */}
+            <div>
+              <Subtitle>{t("promptDetail.prompt")}</Subtitle>
+              <CopyButton className="float-right" text={prompt.prompt} />
+              <p className="text-left text-gray-500 bg-yellow-100 p-8 pt-12 font-mono text-sm">
+                {prompt.prompt}
+              </p>
+            </div>
+          </>
+        )}
+
+        {/* Tags */}
+        <div>
+          <div className="flex gap-2">
+            {prompt.tags.map((tag) => (
+              <p
+                key={tag}
+                className="text-left text-gray-800 bg-gray-100 py-1 px-2 text-xs rounded"
+              >
+                #{tag}
+              </p>
+            ))}
+          </div>
+        </div>
+
+        {/* Price */}
+        <div className="relative">
+          <div className="mb-7">
             <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
             <p className="text-left text-gray-500">{prompt.howToUse}</p>
           </div>
+          <div className="absolute top-0 left-0 w-full h-16 bg-white opacity-75 blur-sm z-10 pointer-events-none"></div>
 
-          {/* Prompt */}
-          <div>
-            <Subtitle>{t("promptDetail.prompt")}</Subtitle>
-            <CopyButton className="float-right" text={prompt.prompt} />
-            <p className="text-left text-gray-500 bg-yellow-100 p-8 pt-12 font-mono text-sm">
-              {prompt.prompt}
+          <div className="w-2/3 m-auto text-center relative z-20 p-6">
+            <p className="text-2xl">
+              {t("promptDetail.priceTitle", {
+                name: user?.name,
+                createdBy: prompt.createdBy.name,
+              })}
             </p>
-          </div>
-
-          {/* Tags */}
-          <div>
-            <Subtitle>{t("promptDetail.tags")}</Subtitle>
-            <div className="flex gap-2">
-              {prompt.tags.map((tag) => (
-                <p
-                  key={tag}
-                  className="text-left text-gray-800 bg-gray-100 py-1 px-2 text-xs rounded"
-                >
-                  #{tag}
-                </p>
-              ))}
-            </div>
-          </div>
-
-          {/* Price */}
-          <div>
-            <Subtitle>{t("promptDetail.price")}</Subtitle>
-            <p>{t("promptDetail.price")}</p>
-            <p>{prompt.price + prompt.servicePrice} Euro</p>
-            <p>
-              {prompt.userHasPaid ? (
-                <p className="text-green-500 font-bold">PAID</p>
-              ) : (
-                <p className="text-yellow-500 font-bold">PENDING</p>
-              )}
+            <p className="mt-8">{t("promptDetail.priceText")}</p>
+            <p className="mt-8 text-3xl font-medium">
+              {prompt.price + prompt.servicePrice} {t("general.currency")}
             </p>
-            <Button onClick={() => navigate(`/checkout/${prompt._id}`)}>
+            <Button
+              className="px-12 mt-4"
+              onClick={() => navigate(`/checkout/${prompt._id}`)}
+            >
               {t("promptDetail.pay")}
             </Button>
           </div>
         </div>
+      </div>
 
-        {/* User card */}
-        <div className="w-1/3 ml-8 sm:mt-12">
-          <CreatedByCard author={prompt.createdBy} />
-        </div>
+      {/* User card */}
+      <div className="w-1/3 ml-8 sm:mt-12">
+        <CreatedByCard author={prompt.createdBy} />
       </div>
       {/* Similar Prompts */}
       <div className="mt-12">

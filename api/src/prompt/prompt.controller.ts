@@ -126,16 +126,25 @@ export const getOneById = async (req: ExtendedRequest, res: Response) => {
       return res.status(400).json({ message: "Invalid user ID." });
     }
 
-    const [prompt, upvoteCount, userHasUpvoted, userHasPaid] =
-      await Promise.all([
-        Prompt.findById(id)
-          .populate("createdBy")
-          .populate("platforms")
-          .populate("categories"),
-        PromptUpvote.countDocuments({ prompt: id }),
-        userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
-        userId ? Payment.exists({ promptId: id, userId: userId }) : null,
-      ]);
+    const prompt = await Prompt.findById(id)
+      .populate("createdBy")
+      .populate("platforms")
+      .populate("categories");
+
+    const [upvoteCount, userHasUpvoted, userHasPaid] = await Promise.all([
+      PromptUpvote.countDocuments({ prompt: id }),
+      userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
+      userId
+        ? prompt.price !== 0
+          ? Payment.exists({ promptId: id, userId: userId })
+          : true
+        : null,
+    ]);
+
+    if (!userHasPaid) {
+      prompt.prompt = "";
+      prompt.howToUse = prompt.howToUse.slice(0, 60);
+    }
 
     if (!prompt) {
       return res.status(404).json({ message: "Prompt not found." });
