@@ -46,5 +46,6 @@ export interface Prompt {
   downvotes: number;
   tags: string[];
   userHasUpvoted?: boolean;
+  userHasPaid?: boolean;
   createdAt: Date;
 }

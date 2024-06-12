@@ -192,6 +192,13 @@ export const PromptDetail = () => {
             <Subtitle>{t("promptDetail.price")}</Subtitle>
             <p>{t("promptDetail.price")}</p>
             <p>{prompt.price + prompt.servicePrice} Euro</p>
+            <p>
+              {prompt.userHasPaid ? (
+                <p className="text-green-500 font-bold">PAID</p>
+              ) : (
+                <p className="text-yellow-500 font-bold">PENDING</p>
+              )}
+            </p>
             <Button onClick={() => navigate(`/checkout/${prompt._id}`)}>
               {t("promptDetail.pay")}
             </Button>

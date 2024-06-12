@@ -3,6 +3,7 @@ import Prompt from "./prompt.model";
 import { ExtendedRequest } from "../types/extendedRequest";
 import PromptUpvote from "./promptUpvote.model";
 import mongoose from "mongoose";
+import Payment from "../payments/payment.model";
 
 const COUNT_PER_PAGE = 10;
 
@@ -125,14 +126,16 @@ export const getOneById = async (req: ExtendedRequest, res: Response) => {
       return res.status(400).json({ message: "Invalid user ID." });
     }
 
-    const [prompt, upvoteCount, userHasUpvoted] = await Promise.all([
-      Prompt.findById(id)
-        .populate("createdBy")
-        .populate("platforms")
-        .populate("categories"),
-      PromptUpvote.countDocuments({ prompt: id }),
-      userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
-    ]);
+    const [prompt, upvoteCount, userHasUpvoted, userHasPaid] =
+      await Promise.all([
+        Prompt.findById(id)
+          .populate("createdBy")
+          .populate("platforms")
+          .populate("categories"),
+        PromptUpvote.countDocuments({ prompt: id }),
+        userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
+        userId ? Payment.exists({ promptId: id, userId: userId }) : null,
+      ]);
 
     if (!prompt) {
       return res.status(404).json({ message: "Prompt not found." });
@@ -142,6 +145,7 @@ export const getOneById = async (req: ExtendedRequest, res: Response) => {
       ...prompt.toObject(),
       upvoteCount,
       userHasUpvoted: !!userHasUpvoted,
+      userHasPaid: !!userHasPaid,
     });
   } catch (error) {
     res.status(500).json({
