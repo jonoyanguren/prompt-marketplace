@@ -1,74 +1,131 @@
 import React, { useState } from "react";
-import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
-import axios from "axios";
-import { API_URL } from "../../../conf";
+import {
+  useStripe,
+  useElements,
+  CardNumberElement,
+  CardExpiryElement,
+  CardCvcElement,
+} from "@stripe/react-stripe-js";
+import { createPaymentIntent } from "../../../api/payments";
+import { useTranslation } from "react-i18next";
 
-export const PaymentForm = ({
-  amount,
-  promptId,
-}: {
+interface PaymentFormProps {
   amount: number;
   promptId: string;
+}
+
+export const PaymentForm: React.FC<PaymentFormProps> = ({
+  amount,
+  promptId,
 }) => {
   const stripe = useStripe();
   const elements = useElements();
+  const { t } = useTranslation();
   const [error, setError] = useState<string | null>(null);
-  const [success, setSuccess] = useState<boolean>(false);
+  const [success, setSuccess] = useState<string | null>(null);
+  const [processing, setProcessing] = useState<boolean>(false);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    setProcessing(true);
 
-    if (!stripe || !elements) {
-      return;
-    }
+    const cardNumberElement = elements?.getElement(CardNumberElement);
+    const cardExpiryElement = elements?.getElement(CardExpiryElement);
+    const cardCvcElement = elements?.getElement(CardCvcElement);
 
-    const cardElement = elements.getElement(CardElement);
-
-    if (!cardElement) {
+    if (
+      !stripe ||
+      !elements ||
+      !cardNumberElement ||
+      !cardExpiryElement ||
+      !cardCvcElement
+    ) {
+      setError("Stripe has not loaded correctly.");
+      setProcessing(false);
       return;
     }
 
     try {
-      const {
-        data: { clientSecret },
-      } = await axios.post(`${API_URL}/payment/onePayment`, {
+      const response = await createPaymentIntent({
         amount: amount * 100,
         currency: "eur",
-        promptId: promptId,
+        promptId,
       });
+      const { clientSecret } = response;
 
-      const { error, paymentIntent } = await stripe.confirmCardPayment(
-        clientSecret,
-        {
+      const { error: stripeError, paymentIntent } =
+        await stripe.confirmCardPayment(clientSecret, {
           payment_method: {
-            card: cardElement,
+            card: cardNumberElement,
+            billing_details: {
+              // Add any additional billing details here
+            },
           },
-        }
-      );
+        });
 
-      if (error) {
-        setError(error.message);
-      } else if (paymentIntent?.status === "succeeded") {
-        setSuccess(true);
+      if (stripeError) {
+        setError(`${t("checkoutForm.error")} ${stripeError.message}`);
+        setSuccess(null);
+        setProcessing(false);
+      } else if (paymentIntent && paymentIntent.status === "succeeded") {
+        setError(null);
+        setSuccess(t("checkoutForm.success"));
+        setProcessing(false);
       }
-    } catch (err: any) {
-      setError(err.message);
+    } catch (error: any) {
+      setError(`Payment failed: ${error.message}`);
+      setSuccess(null);
+      setProcessing(false);
     }
   };
 
+  // Custom styles for Card Elements
+  const cardElementOptions = {
+    showIcon: true,
+  };
+
   return (
-    <div>
-      {success ? (
-        <h2>Payment successful!</h2>
-      ) : (
-        <form onSubmit={handleSubmit}>
-          <CardElement />
-          <button type="submit" disabled={!stripe}>
-            Pay
-          </button>
-          {error && <div>{error}</div>}
-        </form>
-      )}
-    </div>
+    <form
+      onSubmit={handleSubmit}
+      className="w-full mx-auto p-4 bg-white shadow-lg rounded-lg text-left"
+    >
+      <div className="mb-4">
+        <label className="block mb-2 text-sm font-bold text-gray-700">
+          {t("checkoutForm.cardNumber")}
+        </label>
+        <div className="relative">
+          <CardNumberElement
+            options={cardElementOptions}
+            className="p-2 border border-gray-300 rounded-md"
+          />
+          <div className="absolute left-2 top-2 text-gray-400">
+            {/* You can add a placeholder for the card icon */}
+          </div>
+        </div>
+      </div>
+      <div className="grid grid-cols-2 gap-4">
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
+            {t("checkoutForm.expiryDate")}
+          </label>
+          <CardExpiryElement className="p-2 border border-gray-300 rounded-md" />
+        </div>
+        <div className="mb-4">
+          <label className="block mb-2 text-sm font-bold text-gray-700">
+            {t("checkoutForm.cvc")}
+          </label>
+          <CardCvcElement className="p-2 border border-gray-300 rounded-md" />
+        </div>
+      </div>
+      <button
+        type="submit"
+        disabled={!stripe || processing}
+        className="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 disabled:bg-gray-400 disabled:cursor-not-allowed"
+      >
+        {processing ? "Processing…" : t("checkoutForm.pay", { amount })}
+      </button>
+      {error && <div className="mt-4 text-red-500">{error}</div>}
+      {success && <div className="mt-4 text-green-500">{success}</div>}
+    </form>
   );
 };

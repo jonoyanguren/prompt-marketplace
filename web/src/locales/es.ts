@@ -102,8 +102,17 @@ export const es = {
     submit: "Enviar",
   },
   checkoutForm: {
+    title: "Comprar prompt",
     success: "Pago realizado con exito",
     error: "Error al realizar el pago",
+    cardHolderName: "Titular de la tarjeta",
+    cardNumber: "Número de tarjeta",
+    expiryDate: "Caducidad",
+    cvc: "CVC",
+    creator: "Creador",
+    orderSummary: "Resumen",
+    total: "Total",
+    pay: "Pagar {{amount}} €",
   },
   profile: {
     profileMenu: "Perfil",

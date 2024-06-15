@@ -29,7 +29,6 @@ export const stripeWebhook = async (req: Request, res: Response) => {
   let event;
 
   try {
-    // Use the raw body to construct the event
     event = stripe.webhooks.constructEvent(
       req.body,
       sig,
@@ -41,20 +40,17 @@ export const stripeWebhook = async (req: Request, res: Response) => {
   }
 
   // Handle the event
-  const successCases =
-    "payment_intent.succeeded" ||
-    "payment_intent.charge.updated" ||
-    "payment_intent.created";
-
+  console.log("WEBHOOK EVENT TYPE", event.type);
   switch (event.type) {
-    case successCases:
+    case "payment_intent.succeeded":
+    case "payment_intent.charge.updated":
       const paymentIntent = event.data.object;
 
-      // Save payment details to the database
+      //TODO
       const payment = new Payment({
         stripePaymentId: paymentIntent.id,
-        userId: paymentIntent.metadata.userId || "6654c347fa5daf6824175a2a",
-        promptId: paymentIntent.metadata.promptId || "663d583a972ec1008d846f12",
+        userId: paymentIntent.metadata.userId || "", //TODO remove this on production
+        promptId: paymentIntent.metadata.promptId || "", //TODO remove this on production
         amount: paymentIntent.amount,
         currency: paymentIntent.currency,
         status: paymentIntent.status,
@@ -66,11 +62,10 @@ export const stripeWebhook = async (req: Request, res: Response) => {
       } catch (error) {
         console.error("Error saving payment:", error);
       }
-
       break;
 
     default:
-      console.error(`Unhandled event type ${event.type}`);
+      console.warn(`Unhandled event type ${event.type}`);
   }
 
   res.json({ received: true });
