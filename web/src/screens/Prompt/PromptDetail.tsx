@@ -161,9 +161,9 @@ export const PromptDetail = () => {
           <p className="text-left text-gray-500">{prompt.whoIsFor}</p>
         </div>
 
-        {/* HowToUse */}
         {prompt.userHasPaid && (
           <>
+            {/* HowToUse */}
             <div>
               <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
               <p className="text-left text-gray-500">{prompt.howToUse}</p>
@@ -195,32 +195,34 @@ export const PromptDetail = () => {
         </div>
 
         {/* Price */}
-        <div className="relative">
-          <div className="mb-7">
-            <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
-            <p className="text-left text-gray-500">{prompt.howToUse}</p>
-          </div>
-          <div className="absolute top-0 left-0 w-full h-16 bg-white opacity-75 blur-sm z-10 pointer-events-none"></div>
+        {!prompt.userHasPaid && (
+          <div className="relative">
+            <div className="mb-7">
+              <Subtitle>{t("promptDetail.howToUse")}</Subtitle>
+              <p className="text-left text-gray-500">{prompt.howToUse}</p>
+            </div>
+            <div className="absolute top-0 left-0 w-full h-16 bg-white opacity-75 blur-sm z-10 pointer-events-none"></div>
 
-          <div className="w-2/3 m-auto text-center relative z-20 p-6">
-            <p className="text-2xl">
-              {t("promptDetail.priceTitle", {
-                name: user?.name,
-                createdBy: prompt.createdBy.name,
-              })}
-            </p>
-            <p className="mt-8">{t("promptDetail.priceText")}</p>
-            <p className="mt-8 text-3xl font-medium">
-              {prompt.price + prompt.servicePrice} {t("general.currency")}
-            </p>
-            <Button
-              className="px-12 mt-4"
-              onClick={() => navigate(`/checkout/${prompt._id}`)}
-            >
-              {t("promptDetail.pay")}
-            </Button>
+            <div className="w-2/3 m-auto text-center relative z-20 p-6">
+              <p className="text-2xl">
+                {t("promptDetail.priceTitle", {
+                  name: user?.name,
+                  createdBy: prompt.createdBy.name,
+                })}
+              </p>
+              <p className="mt-8">{t("promptDetail.priceText")}</p>
+              <p className="mt-8 text-3xl font-medium">
+                {prompt.price + prompt.servicePrice} {t("general.currency")}
+              </p>
+              <Button
+                className="px-12 mt-4"
+                onClick={() => navigate(`/checkout/${prompt._id}`)}
+              >
+                {t("promptDetail.pay")}
+              </Button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       {/* User card */}

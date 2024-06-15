@@ -16,6 +16,7 @@ import { CheckoutScreen } from "./screens/Payments/CheckoutScreen";
 import { Profile } from "./screens/Profile/Profile";
 import { CreatePrompt } from "./screens/Prompt/Create/CreatePrompt";
 import { Checkout } from "./screens/Prompt/Payment/Checkout";
+import { PaymentSuccess } from "./screens/Payments/PaymentSuccess";
 
 const routes = [
   { path: "/", element: <Home /> },
@@ -36,6 +37,7 @@ const routes = [
   { path: "/create-prompt", element: <CreatePrompt /> },
   { path: "/create-prompt-success", element: <div>Create Prompt Success</div> },
   { path: "/checkout/:promptId", element: <Checkout /> },
+  { path: "/payment-success", element: <PaymentSuccess /> },
   { path: "*", element: <div>Route Not Found</div> },
 ];
 

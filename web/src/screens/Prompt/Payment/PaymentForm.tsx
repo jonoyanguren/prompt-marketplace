@@ -8,6 +8,7 @@ import {
 } from "@stripe/react-stripe-js";
 import { createPaymentIntent } from "../../../api/payments";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 interface PaymentFormProps {
   amount: number;
@@ -21,6 +22,7 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
   const stripe = useStripe();
   const elements = useElements();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [processing, setProcessing] = useState<boolean>(false);
@@ -69,7 +71,8 @@ export const PaymentForm: React.FC<PaymentFormProps> = ({
         setProcessing(false);
       } else if (paymentIntent && paymentIntent.status === "succeeded") {
         setError(null);
-        setSuccess(t("checkoutForm.success"));
+        // setSuccess(t("checkoutForm.success"));
+        navigate("/payment-success");
         setProcessing(false);
       }
     } catch (error: any) {

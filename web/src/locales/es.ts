@@ -228,4 +228,10 @@ export const es = {
     benefit: "Beneficio por prompt",
     button: "Entendido",
   },
+  paymentSuccess: {
+    title: "Pago realizado con exito",
+    text: "Ahora puedes ver tu prompt en 'Mis prompts' en el perfil",
+
+    button: "Ver el perfil",
+  },
 };
