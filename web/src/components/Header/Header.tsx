@@ -5,6 +5,7 @@ import { useContext, useState } from "react";
 import { NavbarLink } from "./NavbarLink";
 import { ToggleMenuButton } from "./ToggleMenuButton";
 import { Button } from "../Button";
+import { DropdownMenu } from "./DropdownMenu";
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -32,14 +33,7 @@ export const Header = () => {
           <div className="flex items-center lg:order-2 gap-2">
             {user ? (
               <>
-                <Link to="/profile">
-                  <img
-                    src={`${user.avatar}?${Date.now()}`}
-                    alt="Avatar"
-                    className="w-10 h-10 rounded-full mr-4"
-                  />
-                </Link>
-                <Button onClick={logout}>{t("header.logout")}</Button>
+                <DropdownMenu />
                 <ToggleMenuButton isOpen={isOpen} toggleMenu={toggleMenu} />
               </>
             ) : (

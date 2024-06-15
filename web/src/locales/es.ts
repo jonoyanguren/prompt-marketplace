@@ -1,3 +1,5 @@
+import { logout } from "../services/user.service";
+
 export const es = {
   title: "Título",
   general: {
@@ -18,6 +20,11 @@ export const es = {
     becomeCreator: "Conviértete en creador",
     login: "Login",
     register: "Registro",
+    logout: "Logout",
+  },
+  dropdownMenu: {
+    profile: "Perfil",
+    myOrders: "Mis pedidos",
     logout: "Logout",
   },
   errors: {
