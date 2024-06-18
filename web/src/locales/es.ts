@@ -1,5 +1,3 @@
-import { MyOrders } from "../screens/MyOrders";
-
 export const es = {
   title: "Título",
   general: {
@@ -192,7 +190,8 @@ export const es = {
         "Copia y pega tu prompt aquí. Asegúrate de agregar más funciones de validación para otros pasos si es necesario y manejar los errores de forma clara para el usuario.",
       promptPlaceholder: "Inserta el prompt",
       tags: "Elige las tags",
-      tagsText: "Agrega etiquetas para identificar tu prompt",
+      tagsText:
+        "Agrega etiquetas para identificar tu prompt. Escribe la etiqueta y pulsa Intro",
       tagsPlaceholder: "Inserta las etiquetas",
     },
     price: {
@@ -213,6 +212,11 @@ export const es = {
       text: "Mira a ver que es lo que vas a publicar. Luego, haz clic en publicar para publicar tu prompt.",
       button: "Publicar",
     },
+  },
+  createPromptSuccess: {
+    title: "Prompt creado con exito",
+    text: "Ahora solo tienes que venderlo",
+    button: "Entendido",
   },
   priceGuide: {
     title: "Guía de precios",

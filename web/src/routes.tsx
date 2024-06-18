@@ -15,6 +15,7 @@ import { Platforms } from "./screens/Platforms/Platforms";
 import { CheckoutScreen } from "./screens/Payments/CheckoutScreen";
 import { Profile } from "./screens/Profile/Profile";
 import { CreatePrompt } from "./screens/Prompt/Create/CreatePrompt";
+import { CreatePromptSucces } from "./screens/Prompt/Create/CreatePromptSucces";
 import { Checkout } from "./screens/Prompt/Payment/Checkout";
 import { PaymentSuccess } from "./screens/Payments/PaymentSuccess";
 import { MyOrders } from "./screens/MyOrders";
@@ -36,7 +37,7 @@ const routes = [
   { path: "/checkout-form", element: <CheckoutScreen /> },
   { path: "/profile", element: <Profile /> },
   { path: "/create-prompt", element: <CreatePrompt /> },
-  { path: "/create-prompt-success", element: <div>Create Prompt Success</div> },
+  { path: "/create-prompt-success", element: <CreatePromptSucces /> },
   { path: "/checkout/:promptId", element: <Checkout /> },
   { path: "/payment-success", element: <PaymentSuccess /> },
   { path: "/my-orders", element: <MyOrders /> },

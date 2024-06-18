@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import TabMenu from "./TabMenu";
 import { ProfileContent } from "./ProfileContent";
-import { FavoritesContent } from "./FavoritesContent";
+// import { FavoritesContent } from "./FavoritesContent";
 import { Button } from "../../components";
 import { useTranslation } from "react-i18next";
 import { EditModal } from "./EditModal";
@@ -19,8 +19,8 @@ export const Profile = () => {
     switch (activeTab) {
       case "profile":
         return <ProfileContent user={user} />;
-      case "favorites":
-        return <FavoritesContent />;
+      // case "favorites":
+      //   return <FavoritesContent />;
       case "my-prompts":
         return <MyPromptsContent />;
       case "my-earnings":

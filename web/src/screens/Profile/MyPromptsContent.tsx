@@ -81,7 +81,8 @@ export const MyPromptsContent = () => {
               <td className="p-6">{showDate(prompt.createdAt)}</td>
               <td className="p-6">{prompt.salesCount}</td>
               <td className="p-6">
-                <div className="flex gap-2">
+                <p>Comings soon...</p>
+                {/* <div className="flex gap-2">
                   <MdEdit
                     className="w-6 h-6 text-gray-600 cursor-pointer"
                     onClick={() => console.log("EDIT PROMPT", prompt._id)}
@@ -90,7 +91,7 @@ export const MyPromptsContent = () => {
                     className="w-6 h-6 text-rose-600 cursor-pointer"
                     onClick={() => console.log("DELETE PROMPT", prompt._id)}
                   />
-                </div>
+                </div> */}
               </td>
             </tr>
           ))}

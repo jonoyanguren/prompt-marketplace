@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
-import { AiOutlineUser, AiFillHeart } from "react-icons/ai";
+import { AiOutlineUser } from "react-icons/ai";
 import { BsFillChatLeftTextFill } from "react-icons/bs";
 import { GiReceiveMoney } from "react-icons/gi";
 
@@ -10,11 +10,11 @@ const tabs = [
     text: i18n.t("profile.profileMenu"),
     icon: <AiOutlineUser className="w-5 h-5 mr-1" />,
   },
-  {
-    code: "favorites",
-    text: i18n.t("profile.favoritesMenu"),
-    icon: <AiFillHeart className="w-5 h-5 mr-1" />,
-  },
+  // {
+  //   code: "favorites",
+  //   text: i18n.t("profile.favoritesMenu"),
+  //   icon: <AiFillHeart className="w-5 h-5 mr-1" />,
+  // },
   {
     code: "my-prompts",
     text: i18n.t("profile.myPromptsMenu"),
