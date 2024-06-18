@@ -171,8 +171,8 @@ const SearchSVG = () => (
   </div>
 );
 
-const EndOfResults = ({ text }: { text: string }) => (
-  <div className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer">
-    <p className="text-center text-gray-500 dark:text-gray-400">{text}</p>
-  </div>
-);
+// const EndOfResults = ({ text }: { text: string }) => (
+//   <div className="p-6 rounded-xl shadow-lg bg-white text-left cursor-pointer">
+//     <p className="text-center text-gray-500 dark:text-gray-400">{text}</p>
+//   </div>
+// );

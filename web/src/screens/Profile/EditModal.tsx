@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { Button, Input, Modal } from "../../components";
-import { useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { enqueueSnackbar } from "notistack";
 import { User } from "../../types";
 import { useForm } from "../../hooks/useForm";
@@ -16,7 +16,7 @@ interface UserProps {
 
 export const EditModal = ({ open, setOpen, user }: UserProps) => {
   const { t } = useTranslation();
-  const [activeTab, setActiveTab] = useState<"info" | "links">("info");
+  const [activeTab, setActiveTab] = useState<string>("info");
 
   return (
     <Modal open={open} onClose={() => setOpen(false)}>
@@ -43,7 +43,7 @@ const Tabs = ({
   t,
 }: {
   activeTab: string;
-  setActiveTab: (value: string) => void;
+  setActiveTab: Dispatch<SetStateAction<string>>;
   t: any;
 }) => (
   <div className="border-b border-gray-200 dark:border-gray-700 mt-4">

@@ -4,12 +4,11 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { useContext, useState } from "react";
 import { NavbarLink } from "./NavbarLink";
 import { ToggleMenuButton } from "./ToggleMenuButton";
-import { Button } from "../Button";
 import { DropdownMenu } from "./DropdownMenu";
 
 export const Header = () => {
   const { t } = useTranslation();
-  const { user, logout } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {

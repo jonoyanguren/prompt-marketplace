@@ -7,7 +7,7 @@ import { API_URL } from "../../../conf";
 import { MdOutlineClose } from "react-icons/md";
 
 export const PromptInfo = ({
-  form,
+  // form,
   formFields,
   selectedCategory,
   setSelectedCategory,

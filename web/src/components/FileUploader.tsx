@@ -1,8 +1,6 @@
-import { useState, ChangeEvent, useRef, useEffect, useContext } from "react";
+import { useState, ChangeEvent, useRef, useEffect } from "react";
 import axios from "axios";
 import { API_URL } from "../conf";
-import { AuthContext } from "../contexts/AuthContext";
-import { use } from "i18next";
 import { useTranslation } from "react-i18next";
 
 const FileUploader = ({

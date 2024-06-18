@@ -3,6 +3,7 @@ import { AuthContext } from "../contexts/AuthContext";
 import { updateUser as updateUserApi } from "../api/user";
 import { enqueueSnackbar } from "notistack";
 import { useTranslation } from "react-i18next";
+import { User } from "../types";
 
 const useUpdateUser = () => {
   const { t } = useTranslation();

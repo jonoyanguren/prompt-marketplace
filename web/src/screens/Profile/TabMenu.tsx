@@ -1,4 +1,3 @@
-import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsFillChatLeftTextFill } from "react-icons/bs";
@@ -34,7 +33,7 @@ const TabMenu = ({
   activeTab: string;
   onChangeTab: (value: string) => void;
 }) => {
-  const { t } = useTranslation();
+  // const { t } = useTranslation();
   return (
     <div className="border-b border-gray-200 dark:border-gray-700">
       <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">

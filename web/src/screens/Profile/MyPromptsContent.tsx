@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MdEdit, MdDelete } from "react-icons/md";
+// import { MdEdit, MdDelete } from "react-icons/md";
 import { getMyPrompts } from "../../api/prompt";
 import { Prompt } from "../../types";
 import { Button, Input } from "../../components";

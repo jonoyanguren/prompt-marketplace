@@ -3,7 +3,9 @@ interface InputProps {
   name: string;
   value: any;
   errorMessage?: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   onFocus?: () => void;
   placeholder?: string;
   className?: string;

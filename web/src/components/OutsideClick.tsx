@@ -11,6 +11,8 @@ export const OutsideClick = ({
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         onOutsideClick();
       }

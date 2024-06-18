@@ -90,6 +90,7 @@ export const PromptDetail = () => {
     }
   };
 
+  if (loading) return <p>Loading...</p>;
   if (!prompt) return <p>No prompt found</p>;
 
   return (
