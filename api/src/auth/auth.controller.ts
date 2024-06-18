@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../user/user.model";
-import { sendEmail } from "../middleware/sendEmail";
+// import { sendEmail } from "../middleware/sendEmail";
 
 export const login = async (req: Request, res: Response) => {
   try {

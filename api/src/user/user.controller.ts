@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import User from "./user.model";
-import { sendEmail } from "../middleware/sendEmail";
+// import { sendEmail } from "../middleware/sendEmail";
 import { ExtendedRequest } from "../types/extendedRequest";
 
 export const getAll = async (req: Request, res: Response) => {
