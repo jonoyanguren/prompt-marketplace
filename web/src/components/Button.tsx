@@ -57,7 +57,7 @@ export const Button = ({
   const outlineStyles =
     "border border-indigo-500 text-indigo-500 hover:bg-indigo-100 active:bg-indigo-200";
 
-  const linkStyles = "text-indigo-500 hover:underline";
+  const linkStyles = "text-indigo-500 hover:no-underline";
 
   const getButtonStyles = () => {
     if (disabled) {

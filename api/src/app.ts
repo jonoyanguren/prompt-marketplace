@@ -7,6 +7,8 @@ dotenv.config();
 import { logger } from "./logger";
 import connectDB from "./database";
 
+import { getPresignedUploadURL } from "./s3";
+
 import authRoutes from "./auth/auth.routes";
 import userRoutes from "./user/user.routes";
 import promptRoutes from "./prompt/prompt.routes";
@@ -14,7 +16,7 @@ import categoryRoutes from "./category/category.routes";
 import platformRoutes from "./platform/platform.routes";
 import configRoutes from "./config/config.routes";
 import paymentRoutes from "./payments/payments.routes";
-import { getPresignedUploadURL } from "./s3";
+import orderRoutes from "./order/order.routes";
 
 const app = express();
 app.use(cors());
@@ -35,6 +37,7 @@ app.use("/user", userRoutes);
 app.use("/prompt", promptRoutes);
 app.use("/category", categoryRoutes);
 app.use("/platform", platformRoutes);
+app.use("/order", orderRoutes);
 app.use("/config", configRoutes);
 
 // Return platforms logos

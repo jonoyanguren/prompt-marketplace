@@ -40,7 +40,6 @@ export const stripeWebhook = async (req: Request, res: Response) => {
   }
 
   // Handle the event
-  console.log("WEBHOOK EVENT TYPE", event.type);
   switch (event.type) {
     case "payment_intent.succeeded":
     case "payment_intent.charge.updated":

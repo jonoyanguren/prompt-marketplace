@@ -242,7 +242,23 @@ export const getMine = async (req: ExtendedRequest, res: Response) => {
     const prompts = await Prompt.find({ createdBy: userId }).populate(
       "createdBy"
     );
-    res.status(200).json(prompts);
+
+    const salesCounts = await Payment.aggregate([
+      { $match: { userId: new mongoose.Types.ObjectId(userId) } },
+      { $group: { _id: "$promptId", count: { $sum: 1 } } },
+    ]);
+
+    const salesCountsMap = salesCounts.reduce((acc, curr) => {
+      acc[curr._id.toString()] = curr.count;
+      return acc;
+    }, {});
+
+    const promptsWithSales = prompts.map((prompt) => ({
+      ...prompt.toObject(),
+      salesCount: salesCountsMap[prompt._id.toString()] || 0,
+    }));
+
+    res.status(200).json(promptsWithSales);
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

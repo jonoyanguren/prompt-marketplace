@@ -5,8 +5,7 @@ export const Title = ({
   className?: string;
   children: React.ReactNode;
 }) => {
-  const baseStyles =
-    "font-display text-3xl font-black xs:text-4xl sm:text-5xl lg:text-[3.5rem] xl:text-6xl";
+  const baseStyles = "font-display text-4xl font-semibold font-black";
 
-  return <h1 className={`${baseStyles} ${className}`}>{children}</h1>;
+  return <p className={`${baseStyles} ${className}`}>{children}</p>;
 };

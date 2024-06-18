@@ -1,4 +1,4 @@
-import { logout } from "../services/user.service";
+import { MyOrders } from "../screens/MyOrders";
 
 export const es = {
   title: "Título",
@@ -238,7 +238,13 @@ export const es = {
   paymentSuccess: {
     title: "Pago realizado con exito",
     text: "Ahora puedes ver tu prompt en 'Mis prompts' en el perfil",
-
     button: "Ver el perfil",
+  },
+  myOrders: {
+    title: "Mis pedidos",
+    name: "Nombre del promppt",
+    date: "Fecha",
+    price: "Precio",
+    actions: "Acciones",
   },
 };

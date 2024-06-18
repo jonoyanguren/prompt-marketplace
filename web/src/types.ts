@@ -48,4 +48,14 @@ export interface Prompt {
   userHasUpvoted?: boolean;
   userHasPaid?: boolean;
   createdAt: Date;
+  salesCount?: number;
+}
+
+export interface Order {
+  _id: string;
+  userId: User;
+  promptId: Prompt;
+  price: number;
+  amount: number;
+  createdAt: Date;
 }

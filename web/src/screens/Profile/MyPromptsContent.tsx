@@ -5,8 +5,8 @@ import { Prompt } from "../../types";
 import { Button, Input } from "../../components";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import i18n from "../../i18n";
 import { useForm } from "../../hooks/useForm";
+import { showDate } from "../../services/date.service";
 
 export const MyPromptsContent = () => {
   const { t } = useTranslation();
@@ -40,16 +40,6 @@ export const MyPromptsContent = () => {
       );
     }
   }, [form.searchText, prompts]);
-
-  const showDate = (date: Date) => {
-    const options: Intl.DateTimeFormatOptions = {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    };
-    const locale = i18n.language === "es" ? "es-ES" : "en-US";
-    return new Intl.DateTimeFormat(locale, options).format(new Date(date));
-  };
 
   if (prompts.length === 0) return <NoPrompts />;
 
@@ -89,7 +79,7 @@ export const MyPromptsContent = () => {
             <tr className="bg-white border-b ">
               <td className="p-6">{prompt.title}</td>
               <td className="p-6">{showDate(prompt.createdAt)}</td>
-              <td className="p-6">{showDate(prompt.createdAt)}</td>
+              <td className="p-6">{prompt.salesCount}</td>
               <td className="p-6">
                 <div className="flex gap-2">
                   <MdEdit
@@ -103,17 +93,6 @@ export const MyPromptsContent = () => {
                 </div>
               </td>
             </tr>
-
-            // <div className="flex gap-2">
-            //   <MdEdit
-            //     className="w-6 h-6 text-gray-600 cursor-pointer"
-            //     onClick={() => console.log("EDIT PROMPT", prompt._id)}
-            //   />
-            //   <MdDelete
-            //     className="w-6 h-6 text-rose-600 cursor-pointer"
-            //     onClick={() => console.log("DELETE PROMPT", prompt._id)}
-            //   />
-            // </div>
           ))}
         </tbody>
       </table>

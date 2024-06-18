@@ -31,9 +31,6 @@ export const PromptDetail = () => {
   const [prompt, setPrompt] = useState<Prompt | null>(null);
   const [similarPrompts, setSimilarPrompts] = useState<Prompt[]>([]);
 
-  console.log("PROMPT", prompt);
-
-  // Fetch prompt by id
   useEffect(() => {
     if (!id) return;
     const fetchPromptById = async () => {
@@ -50,7 +47,6 @@ export const PromptDetail = () => {
     fetchPromptById();
   }, [id]);
 
-  // Fetch similar prompts
   useEffect(() => {
     if (!prompt) return;
 
@@ -236,7 +232,7 @@ export const PromptDetail = () => {
         </Subtitle>
         <div className="flex gap-4 mt-8">
           {similarPrompts.length > 0 &&
-            similarPrompts.slice(0, 4).map((similarPrompt) => {
+            similarPrompts.slice(0, 3).map((similarPrompt) => {
               if (similarPrompt._id === prompt._id) return null;
               return (
                 <PromptItem key={similarPrompt._id} prompt={similarPrompt} />

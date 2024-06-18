@@ -27,7 +27,7 @@ const runSeeding = async () => {
     await seedUsers();
     await seedPrompts();
     // await seedPlatforms();
-    console.log("Seeding completed successfully.");
+    console.info("Seeding completed successfully.");
     mongoose.connection.close();
   } catch (error) {
     console.error("Error during seeding:", error);
