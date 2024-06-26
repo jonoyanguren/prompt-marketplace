@@ -6,6 +6,7 @@ import continousImprovement from "../../assets/becomeACreator/continousImproveme
 import { Faq } from "./Faq";
 import cta from "../../assets/becomeACreator/cta.png";
 import { useNavigate } from "react-router-dom";
+import { Benefits } from "./Benefits";
 
 export const BecomeACreator = () => {
   const { t } = useTranslation();
@@ -97,6 +98,11 @@ export const BecomeACreator = () => {
         <div>
           <img src={cta} className="rounded-xl" alt="" />
         </div>
+      </div>
+
+      {/* Benefit list */}
+      <div className="mt-12 text-left p-8">
+        <Benefits />
       </div>
     </>
   );

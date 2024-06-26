@@ -273,4 +273,23 @@ export const es = {
     ctaText1: "Conviértete en creador",
     ctaButton: "Empieza ahora",
   },
+  benefits: {
+    title: "Beneficios de ser un creador",
+    user: "Usuario",
+    userText: "Acceso básico al marketplace y perfil de usuario",
+    userButton: "Registro",
+    creator: "Creador",
+    creatorText: "Contribuye con tus prompts y gana dinero",
+    creatorButton: "Empieza ahora",
+    userBenefits: [
+      "Perfil básico",
+      "Acceso al marketplace",
+      "Escribir reviews",
+    ],
+    creatorBenefits: [
+      "Perfil profesional",
+      "Crear tus propios prompts",
+      "Ganar dinero con tus prompts",
+    ],
+  },
 };
