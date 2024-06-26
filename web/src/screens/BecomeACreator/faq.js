@@ -1,31 +1,46 @@
-export const faq = [
-  {
-    id: 1,
-    title: "What is Flowbite?",
-    content: `
-        <p>Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-        <p>Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
-      `,
-  },
-  {
-    id: 2,
-    title: "Is there a Figma file available?",
-    content: `
-        <p>Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
-        <p>Check out the <a href="https://flowbite.com/figma/" class="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
-      `,
-  },
-  {
-    id: 3,
-    title: "What are the differences between Flowbite and Tailwind UI?",
-    content: `
-        <p>The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
-        <p>However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
-        <p>Learn more about these technologies:</p>
-        <ul class="ps-5 list-disc">
-          <li><a href="https://flowbite.com/pro/" class="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
-          <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
-        </ul>
-      `,
-  },
-];
+export const faq = {
+  en: [
+    {
+      id: 1,
+      title: "What is PromptMarketplace Creators?",
+      content: `Prompt Marketplace Creators is a program for creative people to share their work with hundreds of millions of people and earn passive income.`,
+    },
+    {
+      id: 2,
+      title: "What can I sell as a Creator?",
+      content: `All PromptMarketplace Creators can upload prompts in their profile. You will need to complete the prompt form and set a selling price.`,
+    },
+    {
+      id: 3,
+      title: "How do I become a Creator?",
+      content: `Anyone can become a Creator from their personal profile.`,
+    },
+    {
+      id: 4,
+      title: "Is there a review process for Creators' content?",
+      content: `Yes. All submissions undergo a review process. To pass review, all the prompts must meet our standard requirements.`,
+    },
+  ],
+  es: [
+    {
+      id: 1,
+      title: "¿Qué es PromptMarketplace Creators?",
+      content: `Prompt Marketplace Creators es un programa para que personas creativas compartan su trabajo con cientos de millones de personas y ganen ingresos pasivos.`,
+    },
+    {
+      id: 2,
+      title: "¿Qué puedo vender como Creador?",
+      content: `Todos los Creadores de PromptMarketplace pueden subir prompts en su perfil. Necesitarás completar el formulario de prompt y establecer un precio de venta.`,
+    },
+    {
+      id: 3,
+      title: "¿Cómo me convierto en Creador?",
+      content: `Cualquiera puede convertirse en Creador desde su perfil personal.`,
+    },
+    {
+      id: 4,
+      title: "¿Hay un proceso de revisión para el contenido de los Creadores?",
+      content: `Sí. Todas las presentaciones pasan por un proceso de revisión. Para ser aprobados, todos los prompts deben cumplir con nuestros requisitos estándar.`,
+    },
+  ],
+};
