@@ -280,6 +280,7 @@ export const es = {
     userButton: "Registro",
     creator: "Creador",
     creatorText: "Contribuye con tus prompts y gana dinero",
+    creatorTermsText: "Al registrar, aceptas la Guía de la comunidad",
     creatorButton: "Empieza ahora",
     userBenefits: [
       "Perfil básico",
@@ -291,5 +292,19 @@ export const es = {
       "Crear tus propios prompts",
       "Ganar dinero con tus prompts",
     ],
+  },
+  communityGuidelines: {
+    title: "Guía de la comunidad",
+    text: "Para continuar, por favor, lee detenidamente las reglas de la comunidad. Esto permite mantener una confianza y buena experiencia para todos los miembros de la comunidad.",
+    originalAuthenticity: "Originalidad y autenticidad",
+    ofiginalAuthenticityText:
+      "Todos los mensajes deben ser originales y, al subirlos, el creador debe confirmar que es el autor y que tiene los derechos para compartirlos y venderlos en el mercado.",
+    qualityAndUsefulness: "Calidad y utilidad",
+    qualityAndUsefulnessText:
+      "Las preguntas deben ser claras, pertinentes y estar bien estructuradas, y deben revisarse y probarse para garantizar su utilidad y calidad antes de subirlas.",
+    ethical: "Conducta ética y respeto a la comunidad.",
+    ethicalText:
+      "Los creadores deben interactuar con respeto y profesionalidad, respetar las reglas del mercado y utilizar los comentarios de forma constructiva para mejorar.",
+    button: "Entendido",
   },
 };

@@ -14,10 +14,10 @@ export const Modal = ({ open, onClose, children }: ModalProps) => {
   return (
     <>
       <div
-        className="w-full h-full bg-gray-500 absolute top-0 left-0 z-10 opacity-50"
+        className="w-full h-full bg-gray-500 top-0 left-0 z-10 opacity-50 fixed"
         onClick={onClose}
       ></div>
-      <div className="bg-white rounded-xl p-6 absolute top-36 w-1/3 left-1/3 z-20 min-w-[600px]">
+      <div className="bg-white rounded-xl p-6 top-36 w-1/3 left-1/3 z-20 min-w-[600px] fixed">
         <button className="w-full text-right" onClick={onClose}>
           {t("general.close")}
         </button>
