@@ -4,14 +4,17 @@ import { FaCheckCircle } from "react-icons/fa";
 
 export const Benefits = () => {
   const { t } = useTranslation();
-  console.log(t("benefits.userBenefits"));
   const userBenefits: string[] = t("benefits.userBenefits", {
+    returnObjects: true,
+  });
+
+  const creatorBenefits: string[] = t("benefits.creatorBenefits", {
     returnObjects: true,
   });
 
   return (
     <div>
-      <p className="text-2xl mb-12 text-center">{t("benefits.title")}</p>
+      <Title className="mb-12 text-center">{t("benefits.title")}</Title>
       <div className="flex justify-center gap-12">
         <div className="bg-white p-8 shadow-xl rounded-2xl w-[350px] pb-20">
           <Title>{t("benefits.user")}</Title>
@@ -31,7 +34,7 @@ export const Benefits = () => {
           <Title>{t("benefits.creator")}</Title>
           <p className="my-6">{t("benefits.creatorText")}</p>
           <Button className="w-full mb-6">{t("benefits.creatorButton")}</Button>
-          {userBenefits.map((benefit: string) => (
+          {creatorBenefits.map((benefit: string) => (
             <div className="flex gap-6 my-3 items-center text-lg">
               <FaCheckCircle />
               <p>{benefit}</p>
