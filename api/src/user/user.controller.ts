@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import User from "./user.model";
-// import { sendEmail } from "../middleware/sendEmail";
 import { ExtendedRequest } from "../types/extendedRequest";
+import { sendEmail } from "../brevo";
 
 export const getAll = async (req: Request, res: Response) => {
   try {
@@ -28,8 +28,11 @@ export const register = async (req: ExtendedRequest, res: Response) => {
 
     const verificationCode = Math.floor(100000 + Math.random() * 900000);
 
-    //TODO send email with code
-    // await sendEmail(email, verificationCode);
+    sendEmail({
+      subject: "Verifica tu cuenta de usuario",
+      to: email,
+      htmlContent: `Tu código de verificación es: <b>${verificationCode}</b>`,
+    });
 
     newUser.verificationCode = verificationCode;
     const savedUser = await newUser.save();
