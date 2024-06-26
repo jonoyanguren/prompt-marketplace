@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "prestart": "npm rebuild",
     "test": "jest --coverage",
     "dbstart": "brew services start mongodb-community",
     "build": "npx tsc",
-    "start": "tsc && node dist/app.js",
+    "start": "node dist/app.js",
     "dev": "npx nodemon ./src/app.ts",
     "seed": "ts-node src/data/seed.ts",
     "ngrok": "ngrok http --domain=next-akita-ample.ngrok-free.app 3202"
@@ -17,7 +18,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.592.0",
     "@aws-sdk/s3-request-presigner": "^3.592.0",
-    "bcrypt": "^5.1.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
@@ -31,7 +32,6 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
-    "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
     "@types/jest": "^29.5.12",

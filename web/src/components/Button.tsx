@@ -74,7 +74,7 @@ export const Button = ({
       case "link":
         return `${baseStyles} ${linkStyles} ${className}`;
       default:
-        return `${baseStyles} ${primaryStyles} ${className}`;
+        return `${className} ${baseStyles} ${primaryStyles}`;
     }
   };
 

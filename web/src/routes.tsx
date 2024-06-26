@@ -19,12 +19,13 @@ import { CreatePromptSucces } from "./screens/Prompt/Create/CreatePromptSucces";
 import { Checkout } from "./screens/Prompt/Payment/Checkout";
 import { PaymentSuccess } from "./screens/Payments/PaymentSuccess";
 import { MyOrders } from "./screens/MyOrders";
+import { BecomeACreator } from "./screens/BecomeACreator/BecomeACreator";
 
 const routes = [
   { path: "/", element: <Home /> },
   { path: "/how-it-works", element: <HowItWorks /> },
   { path: "/platforms", element: <Platforms /> },
-  { path: "/become-creator", element: <div>Become a Creator</div> },
+  { path: "/become-creator", element: <BecomeACreator /> },
   { path: "/login", element: <Login /> },
   { path: "/register", element: <Register /> },
   { path: "/forgot-password", element: <ForgotPassword /> },

@@ -25,3 +25,4 @@ lib-cov
 coverage
 *.lcov
 api/.env
+api/dist/

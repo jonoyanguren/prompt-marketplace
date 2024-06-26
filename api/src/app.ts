@@ -62,7 +62,13 @@ app.use("*", (req, res) => {
   res.status(404).json({ message: "Not Found" });
 });
 
-app.options("*", cors());
+const corsOptions = {
+  origin: "http://prompt-front.s3-website-eu-west-1.amazonaws.com/",
+  optionsSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+// app.options("*", cors());
 
 //DB
 connectDB();

@@ -251,4 +251,26 @@ export const es = {
     price: "Precio",
     actions: "Acciones",
   },
+  becomeACreator: {
+    title: "¿Quieres ser creador?",
+    text: "Conviértete en creeador y haz que tus prompts ayuden a otros y generen ingresos pasivos",
+    button: "Conviértete en creador",
+    ourMission: "Nuestra misión",
+    ourMissionText:
+      "La misión de Prompt Creators es construir el mejor mercado de contenido del mundo. Es una oportunidad para diseñadores, desarrolladores, emprendedores y expertos en la materia para compartir su trabajo con millones de usuarios.",
+    passiveIncome: "Ingresos pasivos",
+    passiveIncomeText:
+      "Puedes seguir ganando dinero sin trabajo adicional después de publicar tus prompts, recibiendo comisiones por cada venta.",
+    reachAndVisibility: "Visibilidad y alcance",
+    reachAndVisibilityText:
+      "Accedes a una audiencia global que está buscando contenido como el tuyo, aumentando tus oportunidades de ventas y reconocimiento.",
+    continousImprovement: "Mejora continua",
+    continousImprovementText:
+      "Recibes comentarios de los usuarios que te ayudan a mejorar tus prompts, ajustándolos para satisfacer mejor las necesidades del mercado.",
+    faq: "Preguntas frecuentes",
+    faqText: "Algunas preguntas de nuestra comunidad",
+    ctaText: "Pon tu creatividad a trabajar",
+    ctaText1: "Conviértete en creador",
+    ctaButton: "Empieza ahora",
+  },
 };
