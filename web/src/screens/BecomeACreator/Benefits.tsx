@@ -3,9 +3,11 @@ import { Button, Modal, Title } from "../../components";
 import { FaCheckCircle } from "react-icons/fa";
 import { useState } from "react";
 import { CommunityGuidelines } from "./CommunityGuidelines";
+import { useNavigate } from "react-router-dom";
 
 export const Benefits = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const userBenefits: string[] = t("benefits.userBenefits", {
     returnObjects: true,
   });
@@ -43,7 +45,9 @@ export const Benefits = () => {
         <div className="bg-gray-800 text-gray-50 shadow-xl p-8 rounded-2xl w-[350px] pb-20">
           <Title>{t("benefits.creator")}</Title>
           <p className="my-6">{t("benefits.creatorText")}</p>
-          <Button className="w-full">{t("benefits.creatorButton")}</Button>
+          <Button className="w-full" onClick={() => navigate("/register")}>
+            {t("benefits.creatorButton")}
+          </Button>
           <p
             className="cursor-pointer mb-6 text-xs text-right"
             onClick={() => setOpen(true)}

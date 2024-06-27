@@ -90,6 +90,8 @@ export const es = {
   },
   validationSuccess: {
     title: "Cuenta verificada",
+    text: "¡Ya hemos creado tu cuenta! Ahora puedes iniciar sesión y empezar a descubrir prompts únicos.",
+    button: "Iniciar sesión",
   },
   forgotPassword: {
     title: "Olvidé mi contraseña",
