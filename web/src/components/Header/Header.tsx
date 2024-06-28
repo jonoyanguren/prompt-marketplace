@@ -15,6 +15,23 @@ export const Header = () => {
     setIsOpen(!isOpen);
   };
 
+  const verifyEmailWhiteListRoutes = () => {
+    const whiteListRoutes = [
+      "/login",
+      "/register",
+      "/forgot-password",
+      "/how-it-works",
+      "/become-creator",
+      "/validate-email",
+    ];
+
+    return whiteListRoutes.some(
+      (route) =>
+        window.location.pathname === route ||
+        window.location.pathname.startsWith(`${route}/`)
+    );
+  };
+
   return (
     <header>
       <nav className="bg-white border-gray-200 px-4 lg:px-6 py-6 dark:bg-gray-800">
@@ -66,6 +83,22 @@ export const Header = () => {
           </div>
         </div>
       </nav>
+      {user && !verifyEmailWhiteListRoutes() && !user.verified && (
+        <div
+          className="m-8 p-6 mb-4 text-yellow-900 rounded-lg bg-yellow-200 dark:bg-gray-800 dark:text-yellow-300"
+          role="alert"
+        >
+          <span className="font-medium">{t("header.needVerification")}</span>{" "}
+          {t("header.needVerificationText")}
+          <br />
+          <Link
+            to={`/validate-email/${user.email}`}
+            className="underline text-blue-600"
+          >
+            {t("header.needVerificationLink")}
+          </Link>
+        </div>
+      )}
     </header>
   );
 };

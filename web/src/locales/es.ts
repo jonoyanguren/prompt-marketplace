@@ -19,6 +19,10 @@ export const es = {
     login: "Login",
     register: "Registro",
     logout: "Logout",
+    needVerification: "Necesitas verificar tu correo",
+    needVerificationText:
+      "Verifica tu correo para poder utilizar todas las funciones de Prompt Marketplace",
+    needVerificationLink: "Verificar aqui",
   },
   dropdownMenu: {
     profile: "Perfil",
