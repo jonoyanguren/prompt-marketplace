@@ -9,6 +9,8 @@ import { AuthContext } from "../../contexts/AuthContext";
 import { MyPromptsContent } from "./MyPromptsContent";
 import { MyEarningsContent } from "./MyEarningsContent";
 
+import noavatar from "../../assets/noavatar.jpg";
+
 export const Profile = () => {
   const { t } = useTranslation();
   const { user } = useContext(AuthContext);
@@ -37,11 +39,19 @@ export const Profile = () => {
       <div className="p-6">
         <div className="flex items-center">
           <div className="flex items-center">
-            <img
-              className="w-20 h-20 rounded-full mr-4"
-              src={`${user.avatar}?${Date.now()}`}
-              alt=""
-            />
+            {user.avatar ? (
+              <img
+                className="w-20 h-20 rounded-full mr-4"
+                src={`${user.avatar}?${Date.now()}`}
+                alt=""
+              />
+            ) : (
+              <img
+                className="w-20 h-20 rounded-full mr-4"
+                src={noavatar}
+                alt=""
+              />
+            )}
             <p className="font-medium text-3xl">{user.name}</p>
           </div>
           <Button className="ml-auto" onClick={() => setOpenModal(true)}>

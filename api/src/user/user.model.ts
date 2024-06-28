@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema(
     twitter: { type: String, default: "" },
     web: { type: String, default: "" },
     role: { type: String, default: "user", enum: ["admin", "user"] },
+    creator: { type: Boolean, default: false },
     verified: { type: Boolean, default: false },
     verificationCode: { type: Number },
     resetPasswordToken: { type: String },

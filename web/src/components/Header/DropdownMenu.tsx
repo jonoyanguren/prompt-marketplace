@@ -9,6 +9,7 @@ import { MdOutlineShoppingCart } from "react-icons/md";
 import { Button } from "../Button";
 import { OutsideClick } from "../OutsideClick";
 
+import noavatar from "../../assets/noavatar.jpg";
 const menuItems = [
   { name: t("dropdownMenu.profile"), href: "/profile", icon: <FaRegUser /> },
   {
@@ -35,12 +36,20 @@ export const DropdownMenu = () => {
 
   return (
     <div className="relative inline-block text-left">
-      <img
-        src={`${user.avatar}?${Date.now()}`}
-        onClick={toggleDropdown}
-        alt="Avatar"
-        className="w-10 h-10 rounded-full mr-4"
-      />
+      {user.avatar ? (
+        <img
+          src={`${user.avatar}?${Date.now()}`}
+          onClick={toggleDropdown}
+          alt="Avatar"
+          className="w-10 h-10 rounded-full mr-4"
+        />
+      ) : (
+        <img
+          src={noavatar}
+          onClick={toggleDropdown}
+          className="w-10 h-10 rounded-full mr-4"
+        />
+      )}
       {isOpen && (
         <OutsideClick onOutsideClick={() => setIsOpen(false)}>
           <div className="z-10 right-0 mt-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 absolute">

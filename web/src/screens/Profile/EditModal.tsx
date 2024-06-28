@@ -8,6 +8,8 @@ import FileUploader from "../../components/FileUploader";
 import { AuthContext } from "../../contexts/AuthContext";
 import { updateUser as updateUserApi } from "../../api/user";
 
+import noavatar from "../../assets/noavatar.jpg";
+
 interface UserProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -101,11 +103,19 @@ const InfoForm = ({ user, close }: { user: User; close: () => void }) => {
         {t("editModal.uploadYourPicture")}
       </p>
       <div className="flex items-start">
-        <img
-          className="w-20 h-20 rounded-full mr-4"
-          src={`${avatar}?${Date.now()}`}
-          alt="Avatar"
-        />
+        {avatar ? (
+          <img
+            className="w-20 h-20 rounded-full mr-4"
+            src={`${avatar}?${Date.now()}`}
+            alt="Avatar"
+          />
+        ) : (
+          <img
+            className="w-20 h-20 rounded-full mr-4"
+            src={noavatar}
+            alt="Avatar"
+          />
+        )}
         <div className="text-left ml-4">
           <FileUploader
             fileName={`${user._id}-avatar`}
