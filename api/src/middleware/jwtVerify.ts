@@ -22,7 +22,6 @@ export const jwtPayloadOnly = (
   next: NextFunction
 ) => {
   const token = req.headers.authorization?.split(" ")[1];
-  console.log("TOKEN", token);
   if (!token) {
     next();
     return;

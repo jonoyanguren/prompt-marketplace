@@ -94,6 +94,9 @@ export const es = {
       "Te hemos enviado un código de validación a tu email. Introduce el código debajo para confirmar tu dirección de email. ",
     code: "Codigo",
     button: "Validar",
+    resendText: "Si no has recibido el código, puedes reenviarlo",
+    resendButton: "Reenviar",
+    resendSuccess: "Email enviado",
   },
   validationSuccess: {
     title: "Cuenta verificada",

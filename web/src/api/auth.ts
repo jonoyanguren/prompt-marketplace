@@ -74,6 +74,26 @@ export const validateEmail = async ({
   }
 };
 
+export const resendValidationCode = async ({
+  email,
+}: {
+  email: string | undefined;
+}) => {
+  try {
+    const response = await axios.post(`${API_URL}/auth/resend-code`, {
+      email,
+    });
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      handleAxiosError(error);
+    } else {
+      console.error("Unexpected error:", error);
+      throw error;
+    }
+  }
+};
+
 export const forgotPassword = async ({ email }: { email: string }) => {
   try {
     const response = await axios.post(`${API_URL}/auth/forgot-password`, {

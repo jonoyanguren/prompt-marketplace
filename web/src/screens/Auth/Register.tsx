@@ -24,6 +24,7 @@ export const Register = () => {
       null
     ) {
       errors.email = t("errors.invalidEmail");
+      result = false;
     }
 
     if (!form.email) {

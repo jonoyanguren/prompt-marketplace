@@ -1,7 +1,7 @@
 import express from "express";
 
 import { getAll, register, getMe, update } from "./user.controller";
-import { jwtVerify } from "../middleware/jwtVerify";
+import { jwtPayloadOnly, jwtVerify } from "../middleware/jwtVerify";
 
 const router = express.Router();
 

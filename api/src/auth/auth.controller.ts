@@ -2,7 +2,8 @@ import { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import User from "../user/user.model";
-// import { sendEmail } from "../middleware/sendEmail";
+import { ExtendedRequest } from "../types/extendedRequest";
+import { sendEmail } from "../brevo";
 
 export const login = async (req: Request, res: Response) => {
   try {
@@ -50,6 +51,37 @@ export const verifyEmail = async (req: Request, res: Response) => {
     user.verificationCode = undefined;
     await user.save();
     res.status(200).json({ message: "Email verified" });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+export const resendVerification = async (
+  req: ExtendedRequest,
+  res: Response
+) => {
+  try {
+    const email = req.user?.email || req.body.email;
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    if (user.verified) {
+      return res.status(400).json({ message: "User already verified" });
+    }
+
+    const verificationCode = Math.floor(100000 + Math.random() * 900000);
+    user.verificationCode = verificationCode;
+    await user.save();
+
+    sendEmail({
+      subject: "Verifica tu cuenta de usuario",
+      to: email,
+      htmlContent: `Tu código de verificación es: <b>${verificationCode}</b>`,
+    });
+
+    res.status(200).json({ message: "Email sent" });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }
