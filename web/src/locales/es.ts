@@ -44,6 +44,9 @@ export const es = {
   platforms: {
     title: "Top plataformas",
     upvoteSnack: "Voto enviado!",
+    search: "Busca una plataforma",
+    noResultsTitle: "No hay resultados",
+    noResultsText: "Prueba con otras palabras",
   },
   login: {
     title: "Login",
