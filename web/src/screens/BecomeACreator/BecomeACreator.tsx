@@ -7,10 +7,13 @@ import { Faq } from "./Faq";
 import cta from "../../assets/becomeACreator/cta.png";
 import { useNavigate } from "react-router-dom";
 import { Benefits } from "./Benefits";
+import { useRef } from "react";
 
 export const BecomeACreator = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const benefitList = useRef<HTMLDivElement>(null);
+
   return (
     <>
       {/* Hero */}
@@ -22,7 +25,13 @@ export const BecomeACreator = () => {
         <div className="text-center mx-8">
           <Title>{t("becomeACreator.title")}</Title>
           <p className="my-4">{t("becomeACreator.text")}</p>
-          <Button>{t("becomeACreator.button")}</Button>
+          <Button
+            onClick={() =>
+              benefitList.current?.scrollIntoView({ behavior: "smooth" })
+            }
+          >
+            {t("becomeACreator.button")}
+          </Button>
         </div>
       </div>
 
@@ -87,13 +96,6 @@ export const BecomeACreator = () => {
         <div>
           <p className="my-2 text-3xl">{t("becomeACreator.ctaText")}</p>
           <p className="my-2 text-3xl">{t("becomeACreator.ctaText1")}</p>
-          <Button
-            secondary
-            className="bg-gray-50 mt-4"
-            onClick={() => navigate("/register")}
-          >
-            {t("becomeACreator.ctaButton")}
-          </Button>
         </div>
         <div>
           <img src={cta} className="rounded-xl" alt="" />
@@ -101,7 +103,7 @@ export const BecomeACreator = () => {
       </div>
 
       {/* Benefit list */}
-      <div className="mt-12 text-left p-8">
+      <div ref={benefitList} className="mt-12 text-left p-8">
         <Benefits />
       </div>
     </>

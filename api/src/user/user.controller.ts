@@ -15,7 +15,7 @@ export const getAll = async (req: Request, res: Response) => {
 
 export const register = async (req: ExtendedRequest, res: Response) => {
   try {
-    const { username, password, name, email } = req.body;
+    const { username, password, name, email, creator } = req.body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
@@ -24,6 +24,7 @@ export const register = async (req: ExtendedRequest, res: Response) => {
       password: hashedPassword,
       name,
       email,
+      creator: creator || false,
     });
 
     const verificationCode = Math.floor(100000 + Math.random() * 900000);
@@ -63,6 +64,16 @@ export const update = async (req: ExtendedRequest, res: Response) => {
       new: true,
     });
     res.status(200).json(updatedUser);
+  } catch (error: any) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+export const setCreator = async (req: ExtendedRequest, res: Response) => {
+  try {
+    const { id } = req.user;
+    await User.findByIdAndUpdate(id, { $set: { creator: true } });
+    res.status(200).json({ message: "User set as creator" });
   } catch (error: any) {
     res.status(500).json({ message: error.message });
   }

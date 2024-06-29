@@ -52,11 +52,12 @@ export const AuthContextProvider = ({
   };
 
   const logout = () => {
+    console.log("LOGOUT");
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+    navigate("/");
     setUser(null);
     setToken(null);
-    navigate("/");
   };
 
   const context = {

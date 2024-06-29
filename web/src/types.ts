@@ -8,6 +8,7 @@ export interface User {
   linkedin: string;
   twitter: string;
   web: string;
+  creator: boolean;
   verified: boolean;
 }
 

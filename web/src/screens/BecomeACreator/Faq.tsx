@@ -27,10 +27,10 @@ export const Faq = () => {
           content: string;
         }) => (
           <React.Fragment key={id}>
-            <h2 id={`accordion-flush-heading-${id}`}>
+            <h2 id={`accordion-flush-heading-${id}`} className="text-left">
               <button
                 type="button"
-                className="flex items-center justify-between w-full py-5 font-medium text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
+                className="flex text-left items-center justify-between w-full py-5 font-medium text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400 gap-3"
                 onClick={() => togglePanel(id)}
                 aria-expanded={openPanel === id}
                 aria-controls={`accordion-flush-body-${id}`}

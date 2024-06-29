@@ -2,12 +2,13 @@ import { useTranslation } from "react-i18next";
 import { Button, Input, Title } from "../../components";
 import { FormContainer } from "../../components/FormContainer";
 import { useForm } from "../../hooks/useForm";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { register } from "../../api/auth";
 
 export const Register = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { state } = useLocation();
 
   const { form, formFields, setErrors } = useForm({
     name: "Jon",
@@ -15,12 +16,13 @@ export const Register = () => {
     password: "password",
     confirmPassword: "password",
   });
+
   const validate = () => {
     let result = true;
     const errors: Record<string, string | undefined> = {};
 
     if (
-      form.email.match(/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/) ===
+      form.email.match(/^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/) ===
       null
     ) {
       errors.email = t("errors.invalidEmail");
@@ -59,6 +61,7 @@ export const Register = () => {
         name: form.name,
         email: form.email,
         password: form.password,
+        creator: state?.creator || false,
       });
       navigate(`/validate-email/${form.email}`);
     } catch (error: any) {

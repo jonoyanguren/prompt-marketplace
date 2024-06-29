@@ -1,30 +1,10 @@
+import { useTranslation } from "react-i18next";
 import i18n from "../../i18n";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsFillChatLeftTextFill } from "react-icons/bs";
 import { GiReceiveMoney } from "react-icons/gi";
-
-const tabs = [
-  {
-    code: "profile",
-    text: i18n.t("profile.profileMenu"),
-    icon: <AiOutlineUser className="w-5 h-5 mr-1" />,
-  },
-  // {
-  //   code: "favorites",
-  //   text: i18n.t("profile.favoritesMenu"),
-  //   icon: <AiFillHeart className="w-5 h-5 mr-1" />,
-  // },
-  {
-    code: "my-prompts",
-    text: i18n.t("profile.myPromptsMenu"),
-    icon: <BsFillChatLeftTextFill className="w-4 h-4 mr-1" />,
-  },
-  {
-    code: "my-earnings",
-    text: i18n.t("profile.myEarningsMenu"),
-    icon: <GiReceiveMoney className="w-4 h-4 mr-1" />,
-  },
-];
+import { AuthContext } from "../../contexts/AuthContext";
+import { useContext } from "react";
 
 const TabMenu = ({
   activeTab,
@@ -33,7 +13,28 @@ const TabMenu = ({
   activeTab: string;
   onChangeTab: (value: string) => void;
 }) => {
-  // const { t } = useTranslation();
+  const { t } = useTranslation();
+  const { user } = useContext(AuthContext);
+  const tabs = [
+    {
+      code: "profile",
+      text: t("profile.profileMenu"),
+      icon: <AiOutlineUser className="w-5 h-5 mr-1" />,
+    },
+  ];
+
+  if (user && user.creator) {
+    tabs.push({
+      code: "my-prompts",
+      text: t("profile.myPromptsMenu"),
+      icon: <BsFillChatLeftTextFill className="w-4 h-4 mr-1" />,
+    });
+    tabs.push({
+      code: "my-earnings",
+      text: t("profile.myEarningsMenu"),
+      icon: <GiReceiveMoney className="w-4 h-4 mr-1" />,
+    });
+  }
   return (
     <div className="border-b border-gray-200 dark:border-gray-700">
       <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">

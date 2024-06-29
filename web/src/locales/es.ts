@@ -7,7 +7,7 @@ export const es = {
     email: "Email",
     save: "Guardar",
     cancel: "Cancelar",
-    close: "Cerrar",
+    close: "X",
     currency: "€",
     publish: "Publicar",
   },
@@ -290,10 +290,13 @@ export const es = {
     user: "Usuario",
     userText: "Acceso básico al marketplace y perfil de usuario",
     userButton: "Registro",
+    userRegistered: "Ya eres usuario",
     creator: "Creador",
     creatorText: "Contribuye con tus prompts y gana dinero",
-    creatorTermsText: "Al registrar, aceptas la Guía de la comunidad",
+    creatorTermsText: "Al registrar, aceptas las normas de la comunidad",
     creatorButton: "Empieza ahora",
+    creatorRegistered: "Conviértete en creador",
+    alreadyCreator: "Ya eres creador",
     userBenefits: [
       "Perfil básico",
       "Acceso al marketplace",
@@ -306,7 +309,7 @@ export const es = {
     ],
   },
   communityGuidelines: {
-    title: "Guía de la comunidad",
+    title: "Normas de la comunidad",
     text: "Para continuar, por favor, lee detenidamente las reglas de la comunidad. Esto permite mantener una confianza y buena experiencia para todos los miembros de la comunidad.",
     originalAuthenticity: "Originalidad y autenticidad",
     ofiginalAuthenticityText:

@@ -2,10 +2,16 @@ import { Button } from "../../components";
 import guidelines from "../../assets/becomeACreator/guidelines.png";
 import { useTranslation } from "react-i18next";
 
-export const CommunityGuidelines = ({ close }: { close: () => void }) => {
+export const CommunityGuidelines = ({
+  close,
+  loading,
+}: {
+  close: () => void;
+  loading: boolean;
+}) => {
   const { t } = useTranslation();
   return (
-    <div className="p-8 text-center">
+    <div className="p-8 text-center overflow-scroll">
       <img
         className="m-auto mb-12"
         src={guidelines}
@@ -44,7 +50,7 @@ export const CommunityGuidelines = ({ close }: { close: () => void }) => {
         <p className="text-gray-500">{t("communityGuidelines.ethicalText")}</p>
       </div>
 
-      <Button className="w-full" onClick={() => close()}>
+      <Button className="w-full" loading={loading} onClick={() => close()}>
         {t("communityGuidelines.button")}
       </Button>
     </div>
