@@ -11,11 +11,8 @@ import {
   getMine,
 } from "./prompt.controller";
 
-import {
-  jwtPayloadOnly,
-  jwtVerify,
-  checkCreator,
-} from "../middleware/jwtVerify";
+import { jwtPayloadOnly, jwtVerify } from "../middleware/jwtVerify";
+import { checkCreator } from "../middleware/checkCreator";
 
 const router = express.Router();
 
