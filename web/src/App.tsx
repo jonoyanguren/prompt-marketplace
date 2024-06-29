@@ -1,14 +1,15 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 
 import { Routes } from "./routes.tsx";
 import { getConfig } from "./api/config";
-import { AuthContext, AuthContextProvider } from "./contexts/AuthContext.tsx";
+import { AuthContextProvider } from "./contexts/AuthContext.tsx";
 
 import { save } from "./services/localStorage.service.ts";
 import "./App.css";
 import { Header } from "./components/Header/Header.tsx";
 import { Footer } from "./components/Footer.tsx";
 import { SnackbarProvider } from "notistack";
+import { LoadingContextProvider } from "./contexts/LoadingContext.tsx";
 
 function App() {
   useEffect(() => {
@@ -25,17 +26,19 @@ function App() {
   }, []);
 
   return (
-    <AuthContextProvider>
-      <div className="h-screen flex flex-col font-sans">
-        <Header />
-        <SnackbarProvider />
+    <LoadingContextProvider>
+      <AuthContextProvider>
+        <div className="h-screen flex flex-col font-sans">
+          <Header />
+          <SnackbarProvider />
 
-        <div className="p-8 flex-1">
-          <Routes />
+          <div className="p-8 flex-1">
+            <Routes />
+          </div>
+          <Footer />
         </div>
-        <Footer />
-      </div>
-    </AuthContextProvider>
+      </AuthContextProvider>
+    </LoadingContextProvider>
   );
 }
 

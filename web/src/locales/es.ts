@@ -1,4 +1,8 @@
+const apiErrors = {
+  USER_ALREADY_EXISTS: "El usuario ya existe",
+};
 export const es = {
+  ...apiErrors,
   title: "Título",
   general: {
     likes: "Likes",
@@ -62,6 +66,7 @@ export const es = {
     title: "Registro",
     name: "Nombre",
     email: "Email",
+    button: "Registrarse",
     password: "Contraseña",
     confirmPassword: "Confirmar contraseña",
     submit: "Enviar",

@@ -39,7 +39,7 @@ export const Button = ({
   const variant = getVariant();
 
   const baseStyles =
-    "my-1 font-medium py-2 px-4 rounded-lg transition-colors duration-200";
+    "my-1 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center";
   const primaryStyles =
     "bg-indigo-500 hover:bg-indigo-700 active:bg-indigo-800 text-white";
 
@@ -90,7 +90,7 @@ export const Button = ({
         <svg
           aria-hidden="true"
           role="status"
-          className="inline w-4 h-4 me-3 text-white animate-spin"
+          className="inline w-4 h-4 mr-2 text-white animate-spin"
           viewBox="0 0 100 101"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -105,7 +105,6 @@ export const Button = ({
           />
         </svg>
       )}
-
       {children}
     </button>
   );

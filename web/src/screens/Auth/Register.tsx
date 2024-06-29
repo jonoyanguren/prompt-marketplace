@@ -4,11 +4,18 @@ import { FormContainer } from "../../components/FormContainer";
 import { useForm } from "../../hooks/useForm";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { register } from "../../api/auth";
+import { useContext, useState } from "react";
+import { LoadingContext } from "../../contexts/LoadingContext";
 
 export const Register = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { state } = useLocation();
+
+  const { loading, setLoading } = useContext(LoadingContext);
+  console.log("LOADING", loading);
+
+  const [apiErrors, setApiErrors] = useState<string>();
 
   const { form, formFields, setErrors } = useForm({
     name: "Jon",
@@ -56,6 +63,8 @@ export const Register = () => {
   const doRegister = async () => {
     if (!validate()) return;
 
+    setLoading(true);
+
     try {
       await register({
         name: form.name,
@@ -65,7 +74,10 @@ export const Register = () => {
       });
       navigate(`/validate-email/${form.email}`);
     } catch (error: any) {
+      setApiErrors(error.data.code);
       console.error("doRegister error", error);
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -99,8 +111,13 @@ export const Register = () => {
             {t("register.loginLink")}
           </Link>
         </div>
-        <Button className="mt-4" onClick={() => doRegister()}>
-          Submit
+        {apiErrors && (
+          <div className="mt-4">
+            <p className="text-red-500">{t(apiErrors)}</p>
+          </div>
+        )}
+        <Button loading={loading} className="mt-4" onClick={() => doRegister()}>
+          {t("register.button")}
         </Button>
       </FormContainer>
     </div>
