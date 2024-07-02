@@ -9,7 +9,7 @@ export const ForgotPassword = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { form, formFields, setErrors } = useForm({
-    email: "jon@localhost.com",
+    email: "",
   });
 
   const validate = () => {

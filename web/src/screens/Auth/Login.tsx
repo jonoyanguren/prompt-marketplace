@@ -14,8 +14,8 @@ export const Login = () => {
   const { updateToken, updateUser } = useContext(AuthContext);
   const navigate = useNavigate();
   const { form, formFields, setErrors } = useForm({
-    email: "jon@localhost.com",
-    password: "password",
+    email: "",
+    password: "",
   });
   const [apiErrors, setApiErrors] = useState<
     Record<string, string | undefined> | undefined

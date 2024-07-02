@@ -13,15 +13,14 @@ export const Register = () => {
   const { state } = useLocation();
 
   const { loading, setLoading } = useContext(LoadingContext);
-  console.log("LOADING", loading);
 
   const [apiErrors, setApiErrors] = useState<string>();
 
   const { form, formFields, setErrors } = useForm({
-    name: "Jon",
-    email: "jon@localhost.com",
-    password: "password",
-    confirmPassword: "password",
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
   const validate = () => {
