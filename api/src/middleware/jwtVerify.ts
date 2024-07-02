@@ -2,6 +2,7 @@ import { NextFunction, Response, Request } from "express";
 import jwt from "jsonwebtoken";
 
 export const jwtVerify = (req: Request, res: Response, next: NextFunction) => {
+  console.log("VERIFY");
   try {
     const token = req.headers.authorization?.split(" ")[1];
     if (typeof token !== "string")

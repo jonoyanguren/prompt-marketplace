@@ -24,6 +24,7 @@ export const BecomeACreator = () => {
           <Title>{t("becomeACreator.title")}</Title>
           <p className="my-4">{t("becomeACreator.text")}</p>
           <Button
+            className="m-auto"
             onClick={() =>
               benefitList.current?.scrollIntoView({ behavior: "smooth" })
             }

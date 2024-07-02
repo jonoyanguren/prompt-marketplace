@@ -13,7 +13,7 @@ export const CreatePromptSucces = () => {
       <p className="text-xl text-gray-500 mt-4">
         {t("createPromptSuccess.text")}
       </p>
-      <Button className="mt-4" onClick={() => navigate("/profile")}>
+      <Button className="mt-4 m-auto" onClick={() => navigate("/profile")}>
         {t("createPromptSuccess.button")}
       </Button>
     </div>

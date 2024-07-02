@@ -9,6 +9,7 @@
     "dbstart": "brew services start mongodb-community",
     "build": "npx tsc",
     "start": "node dist/app.js",
+    "deploy": "npm run build && eb deploy",
     "dev": "npx nodemon ./src/app.ts",
     "seed": "ts-node src/data/seed.ts",
     "ngrok": "ngrok http --domain=next-akita-ample.ngrok-free.app 3202"

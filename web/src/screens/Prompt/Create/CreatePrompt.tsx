@@ -30,7 +30,7 @@ export const CreatePrompt = () => {
     whoIsFor: "",
     howToUse: "",
     prompt: "",
-    price: 0,
+    price: undefined,
     createdBy: user?._id,
   });
 
