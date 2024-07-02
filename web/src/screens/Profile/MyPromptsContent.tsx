@@ -21,11 +21,14 @@ export const MyPromptsContent = () => {
   useEffect(() => {
     const fetchMyPrompts = async () => {
       try {
+        setLoading(true);
         const res = await getMyPrompts();
         setPrompts(res);
         setFilteredPrompts(res);
       } catch (error) {
         console.error("Error fetching my prompts", error);
+      } finally {
+        setLoading(false);
       }
     };
 
