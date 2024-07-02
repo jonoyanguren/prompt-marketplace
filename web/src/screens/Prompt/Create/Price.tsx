@@ -11,6 +11,8 @@ export const Price = ({ form, formFields }: { form: any; formFields: any }) => {
   const [priceDetailsOpen, setPriceDetailsOpen] = useState(false);
 
   const calculateServicePrice = () => {
+    console.log("PRICE", form.price);
+    if (form.price == 0) return 0;
     return Math.max(Math.floor(Number(form.price) * 0.1), 1);
   };
 
@@ -42,7 +44,7 @@ export const Price = ({ form, formFields }: { form: any; formFields: any }) => {
           placeholder={t("createPrompt.price.pricePlaceholder")}
           {...formFields("price")}
         />
-        {form.price && form.price !== 0 && (
+        {form.price && form.price != 0 && (
           <div className="text-gray-500 flex justify-between text-sm px-2">
             <p>
               {t("createPrompt.price.totalPrice")}:{" "}

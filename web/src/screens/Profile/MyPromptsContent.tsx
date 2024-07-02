@@ -12,6 +12,7 @@ export const MyPromptsContent = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [prompts, setPrompts] = useState<Prompt[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [filteredPrompts, setFilteredPrompts] = useState<Prompt[]>([]);
   const { form, formFields } = useForm({
     searchText: "",
@@ -41,7 +42,7 @@ export const MyPromptsContent = () => {
     }
   }, [form.searchText, prompts]);
 
-  if (prompts.length === 0) return <NoPrompts />;
+  if (prompts.length === 0 && !loading) return <NoPrompts />;
 
   return (
     <div className="text-left py-12 bg-white px-8 shadow rounded-xl mt-8">

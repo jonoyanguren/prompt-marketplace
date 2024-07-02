@@ -39,7 +39,7 @@ export const Button = ({
   const variant = getVariant();
 
   const baseStyles =
-    "my-1 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center";
+    "my-1 font-medium py-2 px-4 rounded-lg transition-colors duration-200 flex items-center justify-center m-auto";
   const primaryStyles =
     "bg-indigo-500 hover:bg-indigo-700 active:bg-indigo-800 text-white";
 

@@ -11,7 +11,7 @@ export const CommunityGuidelines = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className="p-8 text-center overflow-scroll">
+    <div className="text-center">
       <img
         className="m-auto mb-12"
         src={guidelines}

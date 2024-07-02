@@ -131,15 +131,18 @@ export const getOneById = async (req: ExtendedRequest, res: Response) => {
       .populate("platforms")
       .populate("categories");
 
-    const [upvoteCount, userHasUpvoted, userHasPaid] = await Promise.all([
-      PromptUpvote.countDocuments({ prompt: id }),
-      userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
-      userId
-        ? prompt.price !== 0
-          ? Payment.exists({ promptId: id, userId: userId })
-          : true
-        : null,
-    ]);
+    const [upvoteCount, userHasUpvoted, userHasPaid, sales] = await Promise.all(
+      [
+        PromptUpvote.countDocuments({ prompt: id }),
+        userId ? PromptUpvote.exists({ prompt: id, user: userId }) : null,
+        userId
+          ? prompt.price !== 0
+            ? Payment.exists({ promptId: id, userId: userId })
+            : true
+          : null,
+        Payment.countDocuments({ promptId: id }),
+      ]
+    );
 
     if (!userHasPaid) {
       prompt.prompt = "";
@@ -155,6 +158,7 @@ export const getOneById = async (req: ExtendedRequest, res: Response) => {
       upvoteCount,
       userHasUpvoted: !!userHasUpvoted,
       userHasPaid: !!userHasPaid,
+      sales,
     });
   } catch (error) {
     res.status(500).json({

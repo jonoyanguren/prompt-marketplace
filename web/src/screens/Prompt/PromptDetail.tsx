@@ -130,20 +130,21 @@ export const PromptDetail = () => {
             <div className="text-gray-500">{t("general.likes")}</div>
           </div>
 
-          {/* TODO: Sales, just placeholder */}
-          <div className="flex w-fit py-4 gap-2">
-            <MdShoppingCart className="text-gray-600 w-6 h-6" />
-            <div className="text-gray-500">
-              {getLikeNumbers(prompt.upvotes)}
+          {prompt.price > 0 && (
+            <div className="flex w-fit py-4 gap-2">
+              <MdShoppingCart className="text-gray-600 w-6 h-6" />
+              <div className="text-gray-500">
+                {getLikeNumbers(prompt.sales)}
+              </div>
+              <div className="text-gray-500">{t("general.sales")}</div>
             </div>
-            <div className="text-gray-500">{t("general.sales")}</div>
-          </div>
+          )}
 
           {/* TODO: Tested, just placeholder */}
-          <div className="flex w-fit py-4 gap-2">
+          {/* <div className="flex w-fit py-4 gap-2">
             <MdVerified className="text-green-600 w-6 h-6" />
             <div className="text-gray-500">{t("general.tested")}</div>
-          </div>
+          </div> */}
         </div>
 
         {/* Description */}

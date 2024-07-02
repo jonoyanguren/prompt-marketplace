@@ -215,7 +215,7 @@ export const es = {
       title: "Precio de venta",
       price: "¿Cual es el precio de venta?",
       priceText: "Establecer un precio razonable ayuda a que tengas más ventas",
-      pricePlaceholder: "Precio de venta",
+      pricePlaceholder: "Gratuito",
       priceGuideTitle: "Guía de precios",
       priceGuideText:
         "Establecer cuánto cobrar por un prompt puede depender de varios factores. Aquí tienes una guía en caso de que no sepas cómo fijar un precio.",

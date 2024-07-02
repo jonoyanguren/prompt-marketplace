@@ -46,6 +46,7 @@ export interface Prompt {
   servicePrice: number;
   upvotes: number;
   downvotes: number;
+  sales: number;
   tags: string[];
   userHasUpvoted?: boolean;
   userHasPaid?: boolean;

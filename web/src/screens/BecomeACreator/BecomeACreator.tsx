@@ -102,7 +102,7 @@ export const BecomeACreator = () => {
       </div>
 
       {/* Benefit list */}
-      <div ref={benefitList} className="mt-12 text-left p-8">
+      <div ref={benefitList} className="mt-12 text-left">
         <Benefits />
       </div>
     </>
