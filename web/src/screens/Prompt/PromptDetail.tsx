@@ -12,7 +12,7 @@ import { PromptCategories } from "../../components/Prompt/PromptCategories";
 import { AiFillHeart } from "react-icons/ai";
 import { getLikeNumbers } from "../../utils";
 import { useTranslation } from "react-i18next";
-import { MdVerified, MdShoppingCart } from "react-icons/md";
+import { MdShoppingCart } from "react-icons/md";
 
 import { CopyButton } from "../../components/CopyButton";
 import { CreatedByCard } from "../../components/Prompt/UserCard";
