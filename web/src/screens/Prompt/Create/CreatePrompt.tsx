@@ -25,12 +25,12 @@ export const CreatePrompt = () => {
   const { user } = useContext(AuthContext);
 
   const { form, formFields, setErrors } = useForm({
-    title: "Hola",
-    description: "Este es un prompt de prueba",
-    whoIsFor: "hola",
-    howToUse: "hola",
-    prompt: "El prompt en si",
-    price: 3,
+    title: "",
+    description: "",
+    whoIsFor: "",
+    howToUse: "",
+    prompt: "",
+    price: 0,
     createdBy: user?._id,
   });
 

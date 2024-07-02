@@ -1,5 +1,4 @@
 import { useTranslation } from "react-i18next";
-import i18n from "../../i18n";
 import { AiOutlineUser } from "react-icons/ai";
 import { BsFillChatLeftTextFill } from "react-icons/bs";
 import { GiReceiveMoney } from "react-icons/gi";

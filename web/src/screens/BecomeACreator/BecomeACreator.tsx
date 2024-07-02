@@ -5,13 +5,11 @@ import passiveIncome from "../../assets/becomeACreator/passiveIncome.jpg";
 import continousImprovement from "../../assets/becomeACreator/continousImprovement.jpg";
 import { Faq } from "./Faq";
 import cta from "../../assets/becomeACreator/cta.png";
-import { useNavigate } from "react-router-dom";
 import { Benefits } from "./Benefits";
 import { useRef } from "react";
 
 export const BecomeACreator = () => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const benefitList = useRef<HTMLDivElement>(null);
 
   return (
