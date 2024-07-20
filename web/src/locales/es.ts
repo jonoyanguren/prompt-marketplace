@@ -73,7 +73,7 @@ export const es = {
     loginLink: "¿Ya tienes una cuenta? Login",
   },
   footer: {
-    copyright: "© 2023 Prompt marketplace.",
+    copyright: "© 2024 The Prompt Market.",
     contact: "Contacto",
   },
   promptDetail: {
